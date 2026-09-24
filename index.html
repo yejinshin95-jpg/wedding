@@ -1,0 +1,1282 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#E9EEF4">
+<meta property="og:type" content="website">
+<meta property="og:title" content="이석종 · 신예진 결혼합니다">
+<meta property="og:description" content="2026.11.14 (토) 12PM · 소피텔 앰배서더 서울">
+<!-- 배포 후 아래 두 줄의 도메인을 실제 주소로 바꿔주세요 -->
+<meta property="og:url" content="https://yejinshin95-jpg.github.io/wedding/">
+<meta property="og:image" content="https://yejinshin95-jpg.github.io/wedding/photos/01.jpg">
+<meta property="og:image:width" content="1000">
+<meta property="og:image:height" content="1500">
+<title>석종 예진 청첩장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500;700&family=Pinyon+Script&display=swap">
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous" defer></script>
+<style>
+/* ══ tokens ═══════════════════════════════════════════════ */
+:root{
+  /* 색 — 아이보리 바탕과 웜 그레이지 섹션을 번갈아, 더스티 로즈는 포인트로만 */
+  --porcelain:#EFEDE8;
+  --paper:#E7E3DC;
+  --paper-2:#DCD6CD;
+  --card:#F8F7F4;
+  --rose:#B48A86;
+  --brown:#4A3122;      /* 포인트 — 짙은 브라운 (제목·라벨·버튼) */
+  --brown-soft:rgba(74,49,34,.28);
+  --blush:#DAC6C4;   /* 커버(Wedding Day) 바탕 */
+  --ink:#2A2828;
+  --ink-2:#565151;
+  --ink-3:#8A8484;
+  --indigo:#4A3122;
+  --indigo-wash:rgba(74,49,34,.08);
+  --celadon:#8A6A58;
+  --celadon-wash:rgba(74,49,34,.06);
+  --jinsa:#B48A86;
+  --hair:rgba(42,40,40,.12);
+  --line-strong:#B9B2B0;
+  /* 글꼴 — 필기체 제목 · 몽세라 대문자 라벨 · 본고딕 본문 */
+  --script:"Pinyon Script",cursive;
+  --serif:"Noto Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif;
+  --latin:"Montserrat",-apple-system,sans-serif;
+  --sans:"Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+  --col:440px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--porcelain); color:var(--ink);
+  font-family:var(--sans); font-weight:400; font-size:15px; line-height:1.9;
+  -webkit-font-smoothing:antialiased; -webkit-text-size-adjust:100%;
+}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; cursor:pointer; border:0; background:none; padding:0}
+a{color:inherit}
+svg{display:block}
+
+.strip{max-width:var(--col); margin:0 auto; background:var(--porcelain); position:relative; overflow:hidden}
+section{padding:72px 28px}
+.sec-title{font-family:var(--serif); font-weight:500; font-size:19px; text-align:center; color:var(--brown);
+  margin:0 0 7px; letter-spacing:.01em; line-height:1.5; text-wrap:balance}
+.sec-sub{font-family:var(--latin); font-weight:400; font-size:10.5px; letter-spacing:.32em;
+  text-indent:.3em; text-transform:uppercase;
+  color:var(--celadon); text-align:center; margin:0 0 36px}
+
+/* ══ notice ═══════════════════════════════════════════════ */
+.notice{display:flex; gap:10px; align-items:flex-start; max-width:var(--col); margin:0 auto;
+  padding:10px 16px; background:var(--indigo); color:#F3F1EC; font-size:11.5px; line-height:1.65}
+.notice b{font-weight:500; white-space:nowrap}
+.notice button{margin-left:auto; color:#C3C6BA; font-size:17px; line-height:1}
+
+/* ══ 사진 (프레임 없음 · 가장자리 페이드) ═════════════════ */
+.ph{width:100%; height:100%; display:grid; place-items:center;
+  background:linear-gradient(163deg,#E9E7E0 0%,#E2E0D8 46%,#E8E6DF 100%)}
+.ph::after{content:attr(data-label); font-family:var(--latin); font-size:12px;
+  letter-spacing:.26em; color:var(--ink-3)}
+.ph.a{filter:hue-rotate(-10deg)} .ph.b{filter:hue-rotate(12deg) saturate(.85)}
+.ph.c{filter:saturate(.6)}       .ph.d{filter:brightness(1.02)}
+.fit{width:100%; height:100%; object-fit:cover}
+.lb-stage .fit,.lb-stage .ph{object-fit:contain}
+
+/* ══ ① 커버 ══════════════════════════════════════════════ */
+.cover{position:relative; padding:72px 30px 64px; background:var(--blush)}
+.cv-eyebrow{margin:0; font-family:var(--latin); font-weight:400; font-size:11px;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--brown)}
+.cv-names{display:block; width:82%; max-width:340px; height:auto; margin:10px 0 18px}
+.cv-when{margin:0 0 2px; font-size:13px; color:var(--ink-2); font-variant-numeric:tabular-nums}
+.cv-where{margin:0; font-size:13px; line-height:1.75; color:var(--ink-2); word-break:keep-all}
+.cue{display:block; margin:34px auto 0; width:34px; height:26px; color:var(--brown)}
+.op-cue{margin-top:6vh; width:44px; height:44px; color:#3A3634; animation:opUp 1.2s ease both .8s}
+.cue::before{content:""; display:block; width:10px; height:10px; margin:0 auto;
+  border-right:1.4px solid currentColor; border-bottom:1.4px solid currentColor;
+  transform:rotate(45deg); animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0)}50%{transform:rotate(45deg) translate(3px,3px)}}
+.bgm{position:absolute; left:26px; bottom:46px; font-size:19px; color:var(--ink-3); line-height:1}
+.bgm[aria-pressed="true"]{color:var(--indigo)}
+
+/* ══ ③ 예식 안내 (달력) ═══════════════════════════════════ */
+.when{background:var(--paper)}
+.when-head{text-align:center; margin-bottom:30px}
+.when-when{margin:0 0 4px; font-family:var(--serif); font-size:15px; letter-spacing:.01em}
+.when-where{margin:0; font-size:13px; color:var(--ink-2); word-break:keep-all; line-height:1.7}
+.sec-img{display:block; width:56%; max-width:240px; height:auto; margin:0 auto 32px}
+.cal-date{display:block; width:52%; max-width:220px; height:auto; margin:0 auto 12px}
+.cal{width:100%; table-layout:fixed; border-collapse:collapse; font-variant-numeric:tabular-nums}
+.cal th{padding:0 0 14px; font-size:11.5px; font-weight:500; letter-spacing:.1em; color:var(--ink-2)}
+.cal th:first-child{color:var(--jinsa)}
+.cal td{padding:8px 0; text-align:center; font-size:14px; color:var(--ink-2)}
+.cal td.sun{color:#A07F7C}
+.cal td.mark span{display:inline-grid; place-items:center; width:32px; height:32px; border-radius:50%;
+  background:var(--jinsa); color:#FBF6F2; font-weight:500}
+.dday{margin:28px 0 0; text-align:center; font-size:13.5px; color:var(--ink-2)}
+.dday b{font-weight:600; color:var(--brown); font-variant-numeric:tabular-nums}
+
+/* ══ ② 각자 소개 ══════════════════════════════════════════ */
+#gift{background:var(--paper)}
+.intro{text-align:center}
+.join{display:block; width:64%; max-width:270px; height:auto; margin:0 auto 44px}
+.parents p{margin:0 0 6px; font-size:14px; color:var(--ink-2); word-break:keep-all}
+.parents small{margin:0 4px; font-size:11.5px; color:var(--ink-3)}
+.parents b{font-weight:500; color:var(--ink)}
+.lab{margin:64px 0 22px; font-size:11px; color:var(--brown); text-align:center}
+.intro-img{display:block; width:100%; height:auto; margin-top:40px}
+.pair{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.pcard{display:flex; flex-direction:column; text-align:center}
+.pshot .fit{object-position:var(--pos,center)}
+.pshot{width:100%; aspect-ratio:3/4; overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,#000 74%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 74%,transparent 100%)}
+.pname{font-family:var(--serif); font-size:24px; margin:4px 0 0; letter-spacing:.04em}
+.greet{margin-top:0; text-align:center; font-size:14px; line-height:2.15;
+  color:var(--ink-2); word-break:keep-all}
+.greet b{display:block; font-family:var(--serif); font-weight:400; font-size:16.5px;
+  color:var(--ink); margin-bottom:16px; line-height:2}
+
+/* ══ ③ 사진첩 ═════════════════════════════════════════════ */
+.film{padding:12px 12px 32px; background:var(--card); border-radius:3px;
+  box-shadow:0 1px 0 var(--hair), 0 10px 26px -18px rgba(44,48,40,.5)}
+.cutwrap{display:grid; touch-action:pan-y}
+.fourcut{grid-area:1/1; display:grid; grid-template-columns:1fr 1fr; gap:6px;
+  transition:opacity .6s ease; opacity:1}
+.fourcut[data-off]{opacity:0; pointer-events:none}
+.fourcut button{display:block; aspect-ratio:3/4; overflow:hidden; background:var(--paper-2)}
+.fdots{display:flex; justify-content:center; gap:8px; margin-top:20px}
+.fdots:empty{display:none}
+.fdots button{width:7px; height:7px; border-radius:50%; background:#C9CBC0; transition:background .3s}
+.fdots button[aria-current="true"]{background:var(--jinsa)}
+.gmeta{display:flex; justify-content:center; margin-top:22px}
+.gmeta button{padding:11px 28px; border-radius:999px; background:var(--brown); font-size:12.5px; font-weight:500; color:#F4EEE8; letter-spacing:.04em}
+
+/* ══ ④ 약도 ═══════════════════════════════════════════════ */
+.place{background:var(--paper); padding-left:0; padding-right:0}
+.place>.sec-title,.place>.sec-sub{padding:0 28px}
+.map{width:100%; aspect-ratio:5/4; overflow:hidden; background:var(--paper-2)}
+.map-ph{width:100%; height:100%; display:grid; place-items:center; align-content:center; gap:6px;
+  background:linear-gradient(150deg,#EAE8E1,#E2E0D8)}
+.map-ph strong{font-family:var(--serif); font-weight:500; font-size:16px; color:var(--ink)}
+.map-ph em{font-style:normal; font-family:var(--latin); font-size:12px; font-weight:500; letter-spacing:.24em; color:var(--ink-2)}
+.vbar{display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center;
+  padding:20px 28px; background:var(--celadon-wash)}
+.vbar .vn{font-family:var(--serif); font-size:17.5px; letter-spacing:.01em}
+.vbar .vh{font-size:13px; color:var(--ink-2); margin-top:2px}
+.vbar .va{font-size:13px; color:var(--ink-2); margin-top:6px; word-break:keep-all}
+.vbar .cp{padding:8px 15px; font-size:12px; color:var(--brown); background:transparent; border:1px solid var(--brown-soft); border-radius:999px; white-space:nowrap}
+.ways{display:grid; grid-template-columns:1fr 1fr; gap:30px 20px; padding:34px 28px 30px}
+.wpill{display:inline-flex; align-items:center; gap:7px; padding:6px 15px 6px 12px;
+  border-radius:999px; background:var(--indigo-wash); font-size:13px; font-weight:500; color:var(--indigo); margin-bottom:11px}
+.wpill svg{width:17px; height:17px; fill:none; stroke:var(--indigo);
+  stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; flex:0 0 17px}
+.wtxt{font-size:13px; color:var(--ink-2); line-height:1.85; word-break:keep-all;
+  font-variant-numeric:tabular-nums}
+.recb{font-style:normal; font-size:10.5px; font-weight:500; color:var(--jinsa); margin-left:1px; letter-spacing:0}
+.wtxt .em{font-weight:500; color:var(--ink); margin-right:2px}
+.wtxt .sm{font-size:11px; letter-spacing:0; color:var(--ink-2); line-height:1.7}
+.navs{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:22px 32px 8px}
+.navs a{display:flex; align-items:center; justify-content:center; gap:4px; padding:9px 0; border-radius:999px;
+  background:transparent; border:1px solid var(--brown-soft); text-decoration:none;
+  font-size:12.5px; color:var(--brown); white-space:nowrap; transition:background .2s}
+.navs a:active{background:rgba(74,49,34,.08)}
+.navs i{font-style:normal; font-size:11px; color:var(--celadon)}
+
+/* ══ ⑤ 식순 ═══════════════════════════════════════════════ */
+.tl{display:flex; flex-direction:column}
+.trow{display:grid; grid-template-columns:64px 1fr; gap:20px; align-items:baseline; padding:20px 0}
+.trow+.trow{box-shadow:inset 0 1px 0 var(--hair)}
+.ttime{font-family:var(--latin); font-size:21px; font-weight:500; color:var(--jinsa); letter-spacing:.04em}
+.thead{font-family:var(--serif); font-weight:500; font-size:16px; margin-bottom:4px; color:var(--brown)}
+.tdesc{font-size:13px; color:var(--ink-2); line-height:1.85; word-break:keep-all}
+
+/* ══ 라인 드로잉 일러스트 ═════════════════════════════════ */
+.art{width:100%; height:100%; display:block}
+.artbox{width:100%; height:100%; display:grid; place-items:center; padding:14px 0;
+  background:linear-gradient(168deg,#E9DCD8 0%,#DDCDC8 100%)}
+.artbox .art{max-width:74%; max-height:100%}
+
+/* ══ ⑥ 안내사항 캐러셀 ════════════════════════════════════ */
+.guide{background:var(--paper); padding-left:0; padding-right:0}
+.guide>.sec-title,.guide>.sec-sub{padding:0 28px}
+.grail2{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none}
+.grail2::-webkit-scrollbar{display:none}
+.gcard{flex:0 0 100%; scroll-snap-align:center; display:flex; flex-direction:column}
+.gshot{width:100%; aspect-ratio:16/11; overflow:hidden; background:var(--paper-2)}
+.gcap{padding:13px 0; text-align:center; background:var(--brown); color:#F4EEE8;
+  font-family:var(--serif); font-weight:500; font-size:15px; letter-spacing:.02em}
+.gdesc{padding:26px 32px 0; text-align:center; font-size:13.2px; color:var(--ink-2);
+  line-height:1.95; word-break:keep-all; min-height:120px}
+.gdesc .em{font-weight:500; color:var(--ink)}
+.chip{display:inline-block; margin-left:6px; padding:1px 7px; font-size:11px; font-weight:500;
+  color:var(--jinsa); background:rgba(142,58,48,.11)}
+.gwrap{position:relative}
+.arrow{position:absolute; top:32%; transform:translateY(-50%); z-index:3;
+  width:42px; height:42px; display:grid; place-items:center; color:var(--ink)}
+.arrow::before{content:""; width:12px; height:12px;
+  border-top:1.5px solid currentColor; border-right:1.5px solid currentColor}
+.arrow.p{left:2px} .arrow.p::before{transform:rotate(-135deg) translate(-2px,-2px)}
+.arrow.n{right:2px} .arrow.n::before{transform:rotate(45deg) translate(-2px,-2px)}
+.arrow[disabled]{opacity:.3}
+.cutnav{top:50%; width:40px; height:40px; border-radius:50%; color:var(--indigo);
+  background:rgba(255,255,255,.88); box-shadow:0 2px 10px rgba(44,48,40,.22)}
+.cutnav[hidden]{display:none}
+.cutnav.p{left:-4px} .cutnav.n{right:-4px}
+.gnum{margin-top:22px; text-align:center; font-family:var(--latin);
+  font-size:14px; font-weight:500; letter-spacing:.22em; color:var(--ink-2)}
+.gnum b{font-weight:500; color:var(--jinsa)}
+
+/* ══ ⑦ 마음 전하실 곳 ═════════════════════════════════════ */
+.alead{text-align:center; font-size:13.5px; color:var(--ink-2); line-height:2.05;
+  margin:0 0 30px; word-break:keep-all}
+.aitem{background:rgba(74,49,34,.06); margin-bottom:8px}
+.abtn{width:100%; display:flex; align-items:center; justify-content:space-between; padding:18px 20px}
+.abtn span:first-child{font-family:var(--serif); font-size:15.5px; color:var(--indigo)}
+.chev{width:8px; height:8px; border-right:1.4px solid var(--ink-2); border-bottom:1.4px solid var(--ink-2);
+  transform:rotate(45deg) translateY(-2px); transition:transform .22s}
+.abtn[aria-expanded="true"] .chev{transform:rotate(-135deg) translateY(-2px)}
+.abody{display:none; padding:0 20px 20px; flex-direction:column; gap:16px}
+.abody[data-open]{display:flex}
+.aline{display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center}
+.aline .w{font-size:12.5px; color:var(--ink-2)}
+.aline .w b{font-weight:400; font-size:14px; color:var(--ink); margin-left:7px}
+.aline .n{font-size:13px; color:var(--ink-2); font-variant-numeric:tabular-nums; margin-top:2px}
+.aline .cp{padding:8px 13px; font-size:12px; font-weight:500; color:var(--indigo); background:var(--indigo-wash); white-space:nowrap}
+
+/* ══ ⑧ 연락하기 ═══════════════════════════════════════════ */
+/* 연락처 카드는 '마음 전하실 곳'과 같은 펼침형 — 배경/카드색을 그대로 씁니다 */
+.contact .abody{gap:0; padding-bottom:8px}
+.crow{display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; padding:15px 2px}
+.crow+.crow{box-shadow:inset 0 1px 0 var(--hair)}
+.crow .lab{margin:0; text-align:left; font-size:12.5px; color:var(--ink-2)}
+.crow .lab b{font-weight:400; font-size:15px; color:var(--ink); margin-left:9px; font-family:var(--serif)}
+.btns{display:flex; gap:8px}
+.ib{width:34px; height:34px; display:grid; place-items:center; border-radius:50%; background:var(--indigo-wash)}
+.ib svg{width:15px; height:15px; fill:none; stroke:var(--indigo); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
+.ib.off{background:var(--paper-2)} .ib.off svg{stroke:var(--ink-3); opacity:.45}
+
+/* ══ 공유 / 푸터 ══════════════════════════════════════════ */
+.share{padding-top:56px; padding-bottom:56px; text-align:center; background:var(--blush)}
+.share .lab{color:var(--ink-2)}
+.share-lead{margin:-10px 0 32px; font-size:14px; color:var(--ink-2)}
+.srow{display:flex; justify-content:center; gap:30px}
+.srow button{display:flex; flex-direction:column; align-items:center; gap:10px;
+  font-family:var(--latin); font-size:11px; letter-spacing:.14em; color:var(--ink-2)}
+.sico{width:48px; height:48px; border-radius:50%; display:grid; place-items:center;
+  background:var(--brown); color:#F4EEE8}
+.sico svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
+.foot{position:relative; padding:12px 28px 64px; background:var(--blush); text-align:center; overflow:hidden}
+.foot p{position:relative; z-index:1; margin:0; font-size:14px; font-weight:400;
+  color:var(--ink); line-height:1.95; word-break:keep-all; letter-spacing:.01em}
+.foot .en{font-family:var(--latin); font-size:13px; font-weight:500;
+  letter-spacing:.3em; color:var(--indigo); margin-top:16px}
+
+/* ══ ⓪ 봉투 인트로 ═════════════════════════════════════════ */
+/* ══ ⓪ 첫 화면 (Save the Date) — 화면 한 장을 꽉 채우고, 스크롤하면 본문으로 ═ */
+.op{position:relative; height:100vh; height:100svh; background:#EFEDE8; overflow:hidden;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:calc(24px + env(safe-area-inset-top)) 0 calc(24px + env(safe-area-inset-bottom))}
+.op-in{width:100%; max-width:var(--col); display:flex; flex-direction:column; align-items:center}
+.op-title{width:68%; max-width:300px; margin:0 0 4vh; animation:opUp 1.2s ease both .1s}
+.op-row{width:100%; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:14px;
+  padding:0 20px; animation:opUp 1.2s ease both .45s}
+.op-row span{font-family:"Montserrat",sans-serif; font-weight:400; font-size:13.5px;
+  letter-spacing:.14em; color:#3A3634; font-variant-numeric:lining-nums}
+.op-row span:first-child{text-align:right}
+.op-photo{width:min(52vw,230px)}
+.op-photo img{width:100%; height:auto}
+@keyframes opUp{from{opacity:0; transform:translateY(12px)}to{opacity:1; transform:none}}
+
+
+/* ══ 스티커 콜라주 ═════════════════════════════════════ */
+.stk{padding:24px 16px 40px}
+.stk-box{position:relative; width:100%}
+.stk-it{position:absolute; display:block; padding:0; transform:rotate(var(--r)); transform-origin:center;
+  transition:transform .25s ease; -webkit-tap-highlight-color:transparent}
+.stk-it>img:not(.stk-photo){display:block; width:100%; height:auto; filter:drop-shadow(0 6px 10px rgba(42,40,40,.18))}
+button.stk-it:active{opacity:.8}
+.stk-photo{position:absolute; object-fit:cover; filter:grayscale(1) contrast(1.05)}
+.stk-photo.arch{border-radius:50% 50% 0 0 / 34% 34% 0 0}
+.stk-photo.heart{-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90'%3E%3Cpath d='M50 88C22 66 2 50 2 27 2 12 14 2 28 2c10 0 18 6 22 14C54 8 62 2 72 2c14 0 26 10 26 25 0 23-20 39-48 61z'/%3E%3C/svg%3E") center/100% 100% no-repeat; mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90'%3E%3Cpath d='M50 88C22 66 2 50 2 27 2 12 14 2 28 2c10 0 18 6 22 14C54 8 62 2 72 2c14 0 26 10 26 25 0 23-20 39-48 61z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.stk-txt{position:absolute; left:0; right:0; display:flex; flex-direction:column; align-items:center;
+  transform:translateY(-50%); text-align:center; color:#3A3634; pointer-events:none; line-height:1.15}
+.stk-txt .s{font-family:var(--script); font-size:calc(clamp(20px,6.4vw,28px) * var(--fs,1))}
+.stk-txt .c{margin-top:3px; font-family:var(--latin); font-size:8.5px; letter-spacing:.2em; text-transform:uppercase}
+.stk-ph{display:grid; place-items:center; aspect-ratio:1; border:1.5px dashed var(--line-strong);
+  border-radius:10px; font-size:11px; color:var(--ink-3); background:rgba(255,255,255,.35)}
+/* 스티커로 이동한 섹션을 잠깐 강조 */
+[data-focus]{animation:focusFlash 1.4s ease}
+@keyframes focusFlash{0%{box-shadow:inset 0 0 0 0 rgba(42,40,40,0)}25%{box-shadow:inset 0 0 0 3px rgba(42,40,40,.28)}100%{box-shadow:inset 0 0 0 0 rgba(42,40,40,0)}}
+
+/* 공통 — 필기체 · 대문자 라벨 */
+.sd-script{font-family:var(--script); font-weight:400; line-height:1.4}
+.sd-caps{font-family:var(--latin); font-weight:400; letter-spacing:.32em; text-indent:.32em; text-transform:uppercase}
+
+/* 카운트다운 — D-day 문구 아래 한 줄 */
+.cdkr{margin:6px 0 0; text-align:center; font-size:13px; color:var(--ink-3); font-variant-numeric:tabular-nums}
+.cdkr b{font-weight:500; color:var(--ink)}
+
+/* ══ lightbox ═════════════════════════════════════════════ */
+.lb{position:fixed; inset:0; z-index:60; background:rgba(16,24,32,.96); display:none;
+  grid-template-rows:1fr auto; touch-action:pan-y}
+.lb[data-open]{display:grid}
+.lb-stage{width:100%; max-width:var(--col); margin:0 auto; aspect-ratio:3/4; align-self:center}
+.lb-bar{padding:0 0 28px; text-align:center; font-family:var(--latin); font-size:13px;
+  letter-spacing:.24em; color:#D2D3C9}
+.lb-close{position:absolute; top:16px; right:16px; z-index:2; width:38px; height:38px;
+  display:grid; place-items:center; border-radius:50%; background:rgba(14,20,27,.62);
+  color:#F2F5F8; font-size:21px; line-height:1}
+.lb-nav{position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+  width:46px; height:46px; display:grid; place-items:center; border-radius:50%;
+  background:rgba(14,20,27,.62); box-shadow:0 2px 10px rgba(0,0,0,.35); color:#F2F5F8}
+.lb-nav::before{content:""; width:12px; height:12px;
+  border-top:1.6px solid currentColor; border-right:1.6px solid currentColor}
+.lb-nav.p{left:14px} .lb-nav.p::before{transform:rotate(-135deg) translate(-2px,-2px)}
+.lb-nav.n{right:14px} .lb-nav.n::before{transform:rotate(45deg) translate(-2px,-2px)}
+.lb-hint{margin-top:10px; font-family:var(--sans); font-size:11.5px; letter-spacing:.02em; color:#A9ACA0}
+
+.toast{position:fixed; left:50%; bottom:34px; transform:translateX(-50%) translateY(12px); z-index:80;
+  padding:11px 20px; background:var(--ink); color:#F1F3EF; font-size:12.5px;
+  opacity:0; pointer-events:none; transition:opacity .22s, transform .22s}
+.toast[data-show]{opacity:1; transform:translateX(-50%) translateY(0)}
+
+/* 등장 — 섹션 안 요소가 차례로 떠오름(--i = 순서) */
+[data-reveal]>*{transition:opacity .9s ease, transform 1.1s cubic-bezier(.2,.7,.25,1);
+  transition-delay:calc(var(--i,0) * 90ms)}
+[data-reveal].armed>*{opacity:0; transform:translateY(34px)}
+/* 패럴랙스 대상은 translate 속성만 쓰므로 기존 transform 과 겹치지 않습니다 */
+[data-speed]{will-change:translate}
+/* 스티커 — 화면에 들어올 때 하나씩, 각자 다른 거리에서 떠올라 제자리에 멈춥니다(이후엔 고정) */
+.stk-it{transition:opacity .9s ease, translate 1.3s cubic-bezier(.16,.8,.24,1)}
+.stk-it.pre{opacity:0; translate:0 var(--from,90px)}
+:focus-visible{outline:2px solid var(--indigo); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+@media (max-width:370px){section{padding:60px 22px}}
+</style>
+</head>
+<body>
+
+<!-- ⓪ 첫 화면 — photos/wedinvt.png(Save the Date 글씨), photos/main.png(액자 사진) -->
+<section class="op" id="op" aria-label="청첩장 표지">
+  <div class="op-in">
+    <img class="op-title" src="photos/wedinvt.png" alt="Save the Date">
+    <div class="op-row">
+      <span id="opMD"></span>
+      <div class="op-photo"><img src="photos/main.png" alt="신랑 신부 사진"></div>
+      <span id="opY"></span>
+    </div>
+    <button class="cue op-cue" type="button" aria-label="아래로 이동" id="cue"></button>
+  </div>
+</section>
+
+<main class="strip">
+
+  <!-- ① 커버 -->
+  <header class="cover">
+    <p class="cv-eyebrow">Wedding Day.</p>
+    <img class="cv-names" data-speed=".12" src="photos/sj.png" alt="Seokjong &amp; Yejin">
+    <p class="cv-when" id="cDate"></p>
+    <p class="cv-where" id="cVenue"></p>
+    <button class="bgm" id="bgm" type="button" aria-pressed="false" aria-label="배경음악 켜기" hidden>♬</button>
+  </header>
+
+  <!-- ①-2 스티커 콜라주 (목차) -->
+  <section class="stk" aria-label="청첩장 목차"><div class="stk-box" id="stk"></div></section>
+
+  <!-- ② 초대 -->
+  <section class="intro" data-reveal>
+    <img class="join" data-speed=".14" src="photos/joinus.png" alt="Join us for our wedding">
+    <div class="parents" id="parents"></div>
+    <img class="intro-img" data-speed="-.05" src="photos/intro.png" alt="신랑 이석종, 신부 신예진">
+    <p class="sd-caps lab">Invitation</p>
+    <div class="greet">
+      <b>있는 그대로 사랑하고<br>서로의 존재를 감사하며<br>변함없이 서로를 아끼며 살겠습니다.</b>
+      서로를 향한 사랑과 믿음으로<br>하나가 되는 자리에 함께해 주세요.
+    </div>
+  </section>
+
+  <!-- ③ 예식 안내 -->
+  <section class="when" data-reveal>
+    <div class="when-head">
+      <img class="cal-date" src="photos/date.png" alt="2026.11.14">
+      <p class="when-when" id="wWhen"></p>
+      <p class="when-where" id="wWhere"></p>
+    </div>
+    <table class="cal" id="cal"></table>
+    <p class="dday" id="dday"></p>
+    <p class="cdkr" id="cdNums" aria-label="예식까지 남은 시간"></p>
+  </section>
+
+  <!-- ④ 사진첩 -->
+  <section class="gallery" data-reveal>
+    <img class="sec-img" src="photos/gallary.png" alt="우리의 순간들">
+    <div class="gwrap">
+      <div class="film">
+        <div class="cutwrap" id="cutwrap">
+          <div class="fourcut" id="cutA"></div>
+          <div class="fourcut" id="cutB" aria-hidden="true"></div>
+        </div>
+      </div>
+      <button class="arrow p cutnav" type="button" id="cutPrev" aria-label="이전 사진" hidden></button>
+      <button class="arrow n cutnav" type="button" id="cutNext" aria-label="다음 사진" hidden></button>
+    </div>
+    <div class="fdots" id="fdots"></div>
+    <div class="gmeta"><button type="button" id="gAll">사진 전체 보기</button></div>
+  </section>
+
+  <!-- ⑤ 약도 -->
+  <section class="place" id="place" data-reveal>
+    <h2 class="sec-title">오시는 길</h2>
+    <p class="sec-sub">Location</p>
+    <div class="map" id="map"><div class="map-ph"><strong id="mName"></strong><em>MAP</em></div></div>
+    <div class="navs">
+      <a id="navNaver" href="#" target="_blank" rel="noopener">네이버 지도<i>↗</i></a>
+      <a id="navKakao" href="#" target="_blank" rel="noopener">카카오맵<i>↗</i></a>
+      <a id="navTmap" href="#" rel="noopener">티맵<i>↗</i></a>
+    </div>
+    <div class="vbar">
+      <div>
+        <div class="vn" id="vName"></div>
+        <div class="vh" id="vHall"></div>
+        <div class="va" id="vAddr"></div>
+      </div>
+      <button class="cp" type="button" id="copyAddr">복사</button>
+    </div>
+    <div class="ways" id="ways"></div>
+  </section>
+
+  <!-- ⑥ 식순 -->
+  <section class="tlsec" data-reveal>
+    <h2 class="sec-title">예식 순서</h2>
+    <p class="sec-sub">Timeline</p>
+    <div class="tl" id="tl"></div>
+  </section>
+
+  <!-- ⑦ 안내사항 -->
+  <section class="guide" data-reveal>
+    <h2 class="sec-title">안내사항</h2>
+    <p class="sec-sub">Information</p>
+    <div class="gwrap">
+      <button class="arrow p" type="button" id="gPrev" aria-label="이전 안내"></button>
+      <div class="grail2" id="grail2"></div>
+      <button class="arrow n" type="button" id="gNext" aria-label="다음 안내"></button>
+    </div>
+    <div class="gnum" id="gNum"></div>
+  </section>
+
+  <!-- ⑨ 연락하기 -->
+  <section class="contact" data-reveal>
+    <h2 class="sec-title">연락하기</h2>
+    <p class="sec-sub">Contact</p>
+    <div id="contact"></div>
+  </section>
+
+  <!-- ⑧ 마음 전하실 곳 -->
+  <section id="gift" data-reveal>
+    <h2 class="sec-title">마음 전하실 곳</h2>
+    <p class="sec-sub">Account</p>
+    <p class="alead">참석이 어려워 마음만 전하고 싶으신 분들을 위해<br>계좌를 안내드립니다.<br>전해주시는 진심은 소중히 간직하겠습니다.</p>
+    <div id="acc"></div>
+  </section>
+
+  <section class="share" data-reveal>
+    <p class="sd-caps lab" style="margin-top:0">Share</p>
+    <p class="share-lead">소중한 분들에게 전해주세요</p>
+    <div class="srow">
+      <button type="button" id="shareKakao" aria-label="카카오톡으로 공유">
+        <span class="sico"><svg viewBox="0 0 24 24"><path d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9L6.4 20l3.6-2.4c.6.1 1.3.2 2 .2 5 0 9-3.1 9-7s-4-7-9-7z" fill="currentColor" stroke="none"/></svg></span>KAKAO</button>
+      <button type="button" id="shareLink" aria-label="링크 복사">
+        <span class="sico"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.2 1.2"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.2-1.2"/></svg></span>LINK</button>
+      <button type="button" id="shareMore" aria-label="다른 앱으로 공유">
+        <span class="sico"><svg viewBox="0 0 24 24"><path d="M12 15V4"/><path d="M8 8l4-4 4 4"/><path d="M6 12v7h12v-7"/></svg></span>MORE</button>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>신랑, 신부가 마음을 담아<br>직접 만든 모바일 청첩장입니다.</p>
+    <p class="en" id="footEn"></p>
+  </footer>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+  <button class="lb-close" type="button" aria-label="닫기">×</button>
+  <button class="lb-nav p" type="button" aria-label="이전"></button>
+  <div class="lb-stage" id="lbStage"></div>
+  <button class="lb-nav n" type="button" aria-label="다음"></button>
+  <div class="lb-bar"><span id="lbBar"></span><div class="lb-hint">좌우로 밀거나 화살표를 눌러 넘겨보세요</div></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   CONFIG — 이 블록만 고치면 청첩장 전체가 바뀝니다.
+   verify:true 는 화면에 붉은 「확인」 표시를 남깁니다.
+   ══════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  groom:{
+    name:"이석종", en:"LEE SEOKJONG", rel:"아들",   /* 장남·차남 등으로 수정 */
+    tel:"010-7516-1983", photo:"photos/groom.jpg", pos:"center 14%",
+    father:{ label:"아버지", name:"이범령", tel:"010-5486-1983", late:false },
+    mother:{ label:"어머니", name:"정미자", tel:"010-8946-1986", late:false }
+  },
+  bride:{
+    name:"신예진", en:"SHIN YEJIN", rel:"딸",     /* 장녀·차녀 등으로 수정 */
+    tel:"010-7202-7803", photo:"photos/bride.jpg", pos:"center 30%",
+    father:{ label:"아버지", name:"신호철", tel:"010-9768-7803", late:false },
+    mother:{ label:"어머니", name:"임선형", tel:"010-9588-7803", late:false }
+  },
+
+  wedding:"2026-11-14T12:00:00",
+
+  venue:{
+    name:"소피텔 앰배서더 서울", en:"Sofitel Ambassador Seoul",
+    hall:"4F 그랜드 볼룸 방돔",
+    address:"서울특별시 송파구 잠실로 209",
+    lat:37.5087, lng:127.0965,
+    mapImage:"photos/map.jpg",   /* 카카오맵을 불러오지 못할 때 보여줄 약도 */
+    kakaoMap:true,               /* 카카오맵 사용 (CONFIG.kakao.key 를 함께 씁니다) */
+    ways:[
+      { t:"지하철", rec:true, d:"2·8호선 잠실역 10번 출구 (200m)\n9호선 송파나루역 2번 출구 (790m)" },
+      { t:"버스",   d:"잠실광역환승센터 하차 · 도보 10분\n**지선** ~3217, 3313, 3314, 3315, 3317, 3414, 4319~\n**광역** ~1007-1, 1100, 1700, 2000, 6900, 7007, 8001~\n**간선** ~301, 341, 360, 362~" },
+      { t:"주차",   rec:true, d:"호텔 B3~B4 (3시간 무료)" },
+      { t:"셔틀버스", d:"운행 여부와 시간은 추후 안내드리겠습니다." }
+    ]
+  },
+
+  timeline:[
+    { time:"11:00", head:"식장 오픈",
+      desc:"예식 한 시간 전부터 홀이 열립니다.\n여유롭게 오셔서 인사 나누고 함께 사진 남겨주세요." },
+    { time:"12:00", head:"1부 · 예식",
+      desc:"신랑 신부의 예식이 진행됩니다.\n예식 후 가족·친지, 친구 단체 사진 촬영이 이어집니다." },
+    { time:"12:45", head:"2부 · 식사",
+      desc:"식사와 함께 2부가 동시에 진행됩니다.\n케이크 커팅과 건배 제의, 준비한 이벤트가 이어지니\n자리에서 편히 즐겨주세요." }
+  ],
+
+  /* 옆으로 밀어 한 장씩 확인하는 안내 카드 */
+  guide:[
+    { title:"홀 도착방법", art:"elevator", photo:"",
+      desc:"예식홀은 **호텔 4층 그랜드 볼룸 방돔**이에요.\n차를 가지고 오시면 지하주차장에서 엘리베이터 **3대(객실용)**, **2대(상가용)** 모두 이용하실 수 있어요.\n도보나 대중교통으로 오시면 로비로 들어오셔서 **객실용 엘리베이터 3대**를 이용하시거나, **상가입구**로 들어오셔서 에스컬레이터를 이용하셔도 됩니다." },
+    { title:"주차", art:"car", photo:"",
+      desc:"호텔 **B3~B4** 주차장을 이용해 주세요.\n**3시간 무료** 주차가 지원됩니다.\n**예식 홀 앞에 준비된 기기**에서 차량 번호를 입력하시면\n주차 등록이 완료됩니다." },
+    { title:"식사", art:"dining", photo:"",
+      desc:"**2부 시작 시간**부터 식사가 제공됩니다.\n**애피타이저** · 부라타 샐러드, 하몽 세라노\n3년 숙성 파르미지아노, 포르치니 버섯 수프\n**메인** · 구운 광어와 로메스코 소스\n쇠고기 안심 스테이크, 트러플 단호박 퓨레\n**디저트** · 헤이즐넛 캐러멜, 애플 누가틴\n커피 또는 소피텔 프리미엄 티\n와인과 주류도 함께 준비되어 있습니다." },
+    { title:"ATM 위치", art:"atm", photo:"",
+      desc:"미처 마음을 준비하지 못하셨더라도 괜찮습니다.\n**호텔 건물 지하 1층**에\nATM(현금자동입출금기)이 마련되어 있습니다." },
+    { title:"화환 안내", art:"wreath", photo:"",
+      desc:"화환은 정중히 사양합니다.\n웨딩홀 공간이 협소하여 배치가 어렵습니다.\n축하의 마음만 감사히 받겠습니다." }
+  ],
+
+  accounts:[
+    { side:"신랑측", rows:[
+      { who:"신랑",   name:"이석종", bank:"새마을금고", num:"9003218039641" },
+      { who:"아버지", name:"이범령", bank:"NH농협",     num:"31212010804" },
+      { who:"어머니", name:"정미자", bank:"국민은행",   num:"70270295113738" }
+    ]},
+    { side:"신부측", rows:[
+      { who:"신부",   name:"신예진", bank:"우리은행", num:"1002954221059" },
+      { who:"아버지", name:"신호철", bank:"NH농협",   num:"23512052723" },
+      { who:"어머니", name:"임선형", bank:"NH농협",   num:"23502066721" }
+    ]}
+  ],
+
+  /* 스티커 콜라주 — 커버 아래 목차. 위치(x·y)와 폭(w)은 섹션 폭을 100으로 본 값입니다.
+     to 가 있으면 누를 때 그 섹션으로 스크롤, 없으면 장식입니다. */
+  stickers:[
+    /* 장식은 먼저(뒤쪽), 누르는 스티커는 나중(앞쪽)에 둡니다 */
+    { file:"photos/ribbon.png",           label:"리본",        x:2,  y:3,   w:40, r:-10 },
+    { file:"photos/calla-lily-1.png",     label:"카라",        x:86, y:0,   w:11, r:10 },
+    { file:"photos/heart-lockets.png",    label:"로켓",        x:8,  y:15,  w:30, r:-8,
+      /* 하트 안 사진 — 위치(l·t)·크기(w·h)는 스티커 크기 대비 %, rot 는 하트 기울기 */
+      photo:[ { src:"photos/groom.jpg", l:40, t:70, w:28, h:26, rot:-4, heart:true, pos:"center 18%" },
+              { src:"photos/bride.jpg", l:70, t:53, w:28, h:27, rot:26, heart:true, pos:"center 30%" } ] },
+    { file:"photos/frame-oval-rose-1.png",label:"1 · 이름",    x:44, y:2,   w:50, r:3,  to:".intro",
+      text:["s:Seokjong","s:& Yejin","c:2026.11.14","c:Sofitel Ambassador","c:Seoul"] },
+    { file:"photos/flower-spray.png",     label:"꽃가지",      x:88, y:56,  w:9,  r:6 },
+    { file:"photos/heart-lace-frame.png", label:"2 · Details", x:2,  y:52,  w:56, r:-6, to:".when",
+      text:["s:The Details","c:Click here"] },
+    { file:"photos/polaroid-frame.png",   label:"4 · Moments", x:61, y:62,  w:33, r:5,  to:".gallery",
+      photo:{ src:"photos/g02.jpg", l:8, t:7, w:84, h:66 }, text:["s:Our Moments","c:Click here"], ty:86, fs:.62 },
+    { file:"photos/envelope-scalloped.png",label:"6 · With Love",x:5, y:100, w:62, r:-8, to:"#gift",
+      text:["s:With Love","c:Click here"], ty:62 },
+    { file:"photos/wax-seal.png",         label:"씰",          x:64, y:126, w:16, r:0 },
+    { file:"photos/hydrangea.png",        label:"5 · Info",    x:44, y:134, w:54, r:4,  to:".tlsec",
+      text:["s:Information","c:Click here"], ty:31, fs:.85 },
+    { file:"photos/envelope-open.png",    label:"3 · Location",x:4, y:140, w:44, r:-4, to:"#place",
+      photo:{ src:"photos/sofitel.jpg", l:9, t:3, w:82, h:40, arch:true }, text:["s:Location","c:Click here"], ty:72, fs:.85 }
+  ],
+  stickerHeight:196,   /* 콜라주 전체 높이 (폭 대비 %) */
+
+  cover:"photos/01.jpg",
+  /* 사진첩 — 파일명 번호 = 전체보기에 뜨는 번호 = 노출 순서입니다.
+     사진을 바꾸려면 photos/gNN.jpg 를 교체하거나 이 배열의 순서를 바꿔주세요. */
+  gallery:["photos/g01.jpg", "photos/g02.jpg", "photos/g03.jpg", "photos/g04.jpg",
+           "photos/g05.jpg", "photos/g06.jpg", "photos/g07.jpg", "photos/g08.jpg",
+           "photos/g09.jpg", "photos/g10.jpg", "photos/g11.jpg", "photos/g12.jpg"],
+  galleryCount:33,   /* gallery 가 비었을 때만 사용 */
+  bgm:"",            /* 예: "bgm.mp3" — 비우면 음악 버튼 숨김 */
+
+  /* 카카오톡 공유 — developers.kakao.com 앱의 JavaScript 키. 비우면 기본 공유창 사용 */
+  kakao:{
+    key:"b33fb3f5261ee9a9b063fbe600cf4b8e",
+    url:"https://yejinshin95-jpg.github.io/wedding/",          /* 카카오 앱에 등록한 사이트 도메인 */
+    image:"https://yejinshin95-jpg.github.io/wedding/photos/01.jpg",
+    imageWidth:1000, imageHeight:1500
+  }
+};
+/* ═══════════════════════ CONFIG 끝 ══════════════════════════ */
+
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const nl=s=>esc(s).replace(/\n/g,"<br>");
+const nlB=s=>esc(s)
+  .replace(/\*\*(.+?)\*\*/g,'<b class="em">$1</b>')
+  .replace(/~(.+?)~/g,'<span class="sm">$1</span>')
+  .replace(/\n/g,"<br>");
+const pad=n=>String(n).padStart(2,"0");
+const blank=t=>!t||/0000/.test(t);
+
+const D=new Date(CONFIG.wedding);
+const DOW=["일","월","화","수","목","금","토"];
+const h12=D.getHours()%12||12, isAM=D.getHours()<12;
+const mmTxt=D.getMinutes()?` ${D.getMinutes()}분`:"";
+const krWhen=`${D.getFullYear()}년 ${D.getMonth()+1}월 ${D.getDate()}일 ${DOW[D.getDay()]}요일 ${isAM?"오전":"낮"} ${h12}시${mmTxt}`;
+
+const placeLine=`${CONFIG.venue.name} 호텔\n${CONFIG.venue.hall}`;
+$("#cDate").textContent=`${D.getFullYear()}. ${pad(D.getMonth()+1)}. ${pad(D.getDate())} ${DOW[D.getDay()]} ${isAM?"오전":"오후"} ${h12}시`;
+$("#cVenue").textContent=`${CONFIG.venue.name} ${CONFIG.venue.hall}`;
+$("#wWhen").textContent=krWhen.split(" ").slice(3).join(" ");
+$("#wWhere").innerHTML=nl(placeLine);
+$("#mName").textContent=CONFIG.venue.name;
+$("#vName").textContent=CONFIG.venue.name;
+$("#vHall").textContent=CONFIG.venue.hall;
+$("#vAddr").textContent=CONFIG.venue.address;
+$("#footEn").textContent=`${CONFIG.groom.en}  ·  ${CONFIG.bride.en}`;
+document.title=`${CONFIG.groom.name.slice(1)} ${CONFIG.bride.name.slice(1)} 청첩장`;
+
+/* ⓪ 첫 화면 — 날짜 채우기 */
+(function(){
+  $("#opMD").textContent=`${pad(D.getMonth()+1)}.${pad(D.getDate())}`;
+  $("#opY").textContent=D.getFullYear();
+  if("scrollRestoration" in history) history.scrollRestoration="manual";
+  scrollTo(0,0);
+})();
+
+/* 스티커 콜라주 — 누르면 해당 섹션을 화면 맨 위로 부드럽게 스크롤 + 잠깐 강조 */
+(function(){
+  const box=$("#stk"); if(!box||!CONFIG.stickers) return;
+  box.style.paddingBottom=`${CONFIG.stickerHeight||170}%`;
+  const H=CONFIG.stickerHeight||170;
+  box.innerHTML=CONFIG.stickers.map((t,i)=>{
+    const tag=t.to?"button":"div";
+    const attr=t.to?` type="button" data-to="${esc(t.to)}" aria-label="${esc(t.label)} 보기"`:` aria-hidden="true"`;
+    const ph=[].concat(t.photo||[]).map(f=>`<img class="stk-photo${f.arch?" arch":""}${f.heart?" heart":""}" src="${esc(f.src)}" alt="" style="left:${f.l}%;top:${f.t}%;width:${f.w}%;height:${f.h}%;${f.rot?`transform:rotate(${f.rot}deg);`:""}${f.pos?`object-position:${f.pos};`:""}">`).join("");
+    const tx=t.text?`<div class="stk-txt" style="top:${t.ty||50}%;--fs:${t.fs||1}">${t.text.map(l=>`<span class="${l[0]}">${esc(l.slice(2))}</span>`).join("")}</div>`:"";
+    return `<${tag} class="stk-it"${attr} style="left:${t.x}%;top:${t.y/H*100}%;width:${t.w}%;--r:${t.r||0}deg;z-index:${i+1}">`+
+      `<img src="${esc(t.file)}" alt="" data-label="${esc(t.label)}">${ph}${tx}</${tag}>`;
+  }).join("");
+  /* 파일이 아직 없으면 자리표시로 */
+  $$(".stk-it>img",box).forEach(im=>im.addEventListener("error",()=>{
+    const d=document.createElement("div"); d.className="stk-ph"; d.textContent=im.dataset.label; im.replaceWith(d);
+  },{once:true}));
+  box.addEventListener("click",e=>{
+    const b=e.target.closest("[data-to]"); if(!b) return;
+    const t=$(b.dataset.to); if(!t) return;
+    t.classList.remove("armed");
+    t.scrollIntoView({behavior:"smooth",block:"start"});
+    t.removeAttribute("data-focus"); void t.offsetWidth;
+    setTimeout(()=>t.setAttribute("data-focus",""),450);
+    setTimeout(()=>t.removeAttribute("data-focus"),2000);
+  });
+})();
+
+/* 카운트다운 — 1달 20일 5시간 30분 20초 */
+(function(){
+  const nums=$("#cdNums");
+  const tick=()=>{
+    const now=new Date();
+    if(D<=now){ nums.textContent=""; return; }
+    let mo=(D.getFullYear()-now.getFullYear())*12+D.getMonth()-now.getMonth();
+    const t=new Date(now); t.setMonth(t.getMonth()+mo);
+    if(t>D){ mo--; t.setMonth(t.getMonth()-1); }
+    const ms=D-t;
+    const d=Math.floor(ms/864e5), hh=Math.floor(ms/36e5)%24, mm=Math.floor(ms/6e4)%60, ss=Math.floor(ms/1e3)%60;
+    nums.innerHTML=[[mo,"달"],[d,"일"],[hh,"시간"],[mm,"분"],[ss,"초"]]
+      .filter(([v],i)=>i>0||v>0).map(([v,u])=>`<b>${v}</b>${u}`).join(" ");
+  };
+  tick(); setInterval(tick,1000);
+})();
+
+let tT;
+function toast(m){const t=$("#toast");t.textContent=m;t.setAttribute("data-show","");
+  clearTimeout(tT);tT=setTimeout(()=>t.removeAttribute("data-show"),1900);}
+async function copy(text,msg){
+  try{await navigator.clipboard.writeText(text);}
+  catch{const a=document.createElement("textarea");a.value=text;
+    a.style.cssText="position:fixed;opacity:0";document.body.append(a);a.select();
+    document.execCommand("copy");a.remove();}
+  toast(msg);
+}
+
+const VAR=["a","b","c","d",""];
+const photo=(src,label,i=0)=>src
+  ? `<img class="fit" src="${esc(src)}" alt="${esc(label)}" loading="lazy">`
+  : `<div class="ph ${VAR[i%5]}" data-label="${esc(label)}"></div>`;
+
+
+/* ══ 라인 드로잉 일러스트 ══════════════════════════════════
+   손그림 느낌을 내려고 선에 미세한 흔들림과 해칭 음영을 넣었습니다.
+   guide[].photo 에 사진 경로를 넣으면 사진이 우선합니다.
+   ═══════════════════════════════════════════════════════════ */
+const INK="#2A2828", LEAF="#8A7472", ACC="#B08E8B";
+const artWrap=inner=>`<svg class="art" viewBox="0 0 200 200" aria-hidden="true">`+
+  `<g fill="none" stroke="${INK}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${inner}</g></svg>`;
+
+/* 결정론적 난수 — 새로고침해도 같은 그림 */
+const rnd=seed=>{let m=seed*7919%2147483647||1; return ()=>((m=m*16807%2147483647)-1)/2147483646;};
+/* 살짝 흔들리는 선 */
+function wob(pts,amp,seed){
+  const R=rnd(seed);
+  return "M"+pts.map(([x,y])=>`${(x+(R()-.5)*amp).toFixed(1)},${(y+(R()-.5)*amp).toFixed(1)}`).join(" L");
+}
+/* 사선 해칭 — clipPath 안에서 사용 */
+function hatch(x,y,w,h,gap,op){
+  let out=`<g stroke-width=".8" opacity="${op}">`;
+  for(let i=-h;i<w;i+=gap) out+=`<path d="M${(x+i).toFixed(1)},${y+h} L${(x+i+h).toFixed(1)},${y}"/>`;
+  return out+"</g>";
+}
+/* 5판 꽃 — 꽃술까지 */
+function bloom(cx,cy,r,st=INK){
+  let out="";
+  for(let k=0;k<5;k++){
+    const a=k*72*Math.PI/180-Math.PI/2;
+    const x=+(cx+Math.cos(a)*r*.7).toFixed(1), y=+(cy+Math.sin(a)*r*.7).toFixed(1);
+    out+=`<ellipse cx="${x}" cy="${y}" rx="${(r*.46).toFixed(1)}" ry="${(r*.6).toFixed(1)}" stroke="${st}" stroke-width="1.15" transform="rotate(${k*72} ${x} ${y})"/>`;
+  }
+  out+=`<circle cx="${cx}" cy="${cy}" r="${(r*.2).toFixed(1)}" fill="${ACC}" stroke="none"/>`;
+  for(let k=0;k<5;k++){
+    const a=(k*72+36)*Math.PI/180-Math.PI/2;
+    out+=`<path d="M${cx},${cy} L${(cx+Math.cos(a)*r*.34).toFixed(1)},${(cy+Math.sin(a)*r*.34).toFixed(1)}" stroke-width=".7" opacity=".55"/>`;
+  }
+  return out;
+}
+/* 안개꽃 */
+const spray=(cx,cy,n,r,seed)=>{const R=rnd(seed);let out="";
+  for(let i=0;i<n;i++){const a=R()*6.28,d=R()*r;
+    out+=`<circle cx="${(cx+Math.cos(a)*d).toFixed(1)}" cy="${(cy+Math.sin(a)*d).toFixed(1)}" r="1.5" stroke="${LEAF}" stroke-width=".9"/>`;}
+  return out;};
+/* 잎맥 있는 잎 */
+const leaf=(x,y,rot,len)=>
+  `<g transform="rotate(${rot} ${x} ${y})" stroke="${LEAF}" stroke-width="1.15">`+
+  `<ellipse cx="${x}" cy="${y}" rx="${len}" ry="${(len*.34).toFixed(1)}"/>`+
+  `<path d="M${x-len},${y} H${x+len}" stroke-width=".7" opacity=".7"/></g>`;
+/* 리본 — 겹선으로 두께감 */
+const bow=(x,y,w)=>`
+  <path d="M${x-4},${y} Q${x-w},${y-w*.62} ${x-w-6},${y-w*.1} Q${x-w-2},${y+w*.6} ${x-4},${y} Z"/>
+  <path d="M${x+4},${y} Q${x+w},${y-w*.62} ${x+w+6},${y-w*.1} Q${x+w+2},${y+w*.6} ${x+4},${y} Z"/>
+  <path d="M${x-9},${y-2} Q${x-w+2},${y-w*.4} ${x-w-2},${y-w*.06}" stroke-width=".8" opacity=".55"/>
+  <path d="M${x+9},${y-2} Q${x+w-2},${y-w*.4} ${x+w+2},${y-w*.06}" stroke-width=".8" opacity=".55"/>
+  <ellipse cx="${x}" cy="${y}" rx="4.4" ry="3.6"/>
+  <path d="M${x-2.5},${y+4} Q${x-10},${y+16} ${x-9},${y+29} Q${x-8},${y+33} ${x-13},${y+34}"/>
+  <path d="M${x+2.5},${y+4} Q${x+10},${y+16} ${x+9},${y+29} Q${x+8},${y+33} ${x+13},${y+34}"/>`;
+
+const ART={};
+
+/* 엘리베이터 — 홀 도착방법 */
+ART.elevator=artWrap(`
+  <defs><clipPath id="evIn"><rect x="72" y="52" width="56" height="120"/></clipPath></defs>
+  <path d="${wob([[14,180],[60,179],[110,180],[186,179]],2.2,3)}"/>
+  <path d="M46,180 V44 Q46,34 56,34 H144 Q154,34 154,44 V180"/>
+  <path d="M56,180 V50 Q56,44 62,44 H138 Q144,44 144,50 V180" stroke-width="1.1" opacity=".55"/>
+  <rect x="82" y="12" width="36" height="17" rx="4"/>
+  <path d="M92,25 V16 M88,20 l4,-4 4,4"/>
+  <path d="M104,16 V22 H113 M109,16 V26"/>
+  <g clip-path="url(#evIn)">
+    ${hatch(66,52,74,120,7,.16)}
+    <path d="M100,52 V172" stroke-width=".9" opacity=".45"/>
+    <path d="M78,120 H122" stroke-width=".9" opacity=".4"/>
+    <rect x="111" y="86" width="10" height="27" rx="2.5" stroke-width="1"/>
+    <circle cx="116" cy="93" r="1.8" stroke-width=".9"/><circle cx="116" cy="101" r="1.8" stroke-width=".9"/>
+  </g>
+  <rect x="72" y="52" width="56" height="120" stroke-width="1.1"/>
+  <path d="M56,52 H72 M128,52 H144" stroke-width="1.1"/>
+  <path d="M64,172 V52" stroke-width="1.2"/><path d="M136,172 V52" stroke-width="1.2"/>
+  <path d="M60,62 H68 M60,74 H68 M60,86 H68" stroke-width=".8" opacity=".5"/>
+  <path d="M132,62 H140 M132,74 H140 M132,86 H140" stroke-width=".8" opacity=".5"/>
+  <rect x="26" y="88" width="15" height="28" rx="6"/>
+  <circle cx="33.5" cy="97" r="2.9"/><circle cx="33.5" cy="107" r="2.9"/>
+  ${[0,1,2].map(i=>`<path d="M${34+i*44},180 l11,-9 h22 l11,9" stroke-width=".9" opacity=".33"/>`).join("")}`);
+
+/* 자동차 — 주차 */
+ART.car=artWrap(`
+  <defs><clipPath id="carW"><path d="M22,148 V130 Q22,121 32,119 L53,86 Q57,79 65,79 H129 Q137,79 141,86 L160,119 Q170,121 174,130 V148 Z"/></clipPath></defs>
+  <path d="${wob([[12,164],[60,163],[120,164],[188,163]],2.4,11)}"/>
+  <path d="M22,148 V130 Q22,121 32,119 L53,86 Q57,79 65,79 H129 Q137,79 141,86 L160,119 Q170,121 174,130 V148"/>
+  <g clip-path="url(#carW)">${hatch(20,118,158,30,9,.14)}</g>
+  <path d="M30,119 H168" stroke-width="1" opacity=".45"/>
+  <path d="M59,117 L74,88 H96 V117 Z" stroke-width="1.2"/>
+  <path d="M104,88 H126 L141,117 H104 Z" stroke-width="1.2"/>
+  <path d="M98,88 V117" stroke-width="1" opacity=".5"/>
+  <path d="M64,113 L76,92" stroke-width=".7" opacity=".45"/>
+  <path d="M112,92 L128,113" stroke-width=".7" opacity=".45"/>
+  <path d="M85,120 h9" stroke-width="1.5"/><path d="M112,120 h9" stroke-width="1.5"/>
+  <path d="M24,128 h11 q2,0 2,3 t-2,3 h-11" stroke-width="1"/>
+  <path d="M172,128 h-11 q-2,0 -2,3 t2,3 h11" stroke-width="1"/>
+  <path d="M62,86 q-6,-1 -8,3" stroke-width="1"/>
+  <circle cx="60" cy="148" r="15"/><circle cx="60" cy="148" r="6.5"/>
+  <circle cx="138" cy="148" r="15"/><circle cx="138" cy="148" r="6.5"/>
+  ${[0,1,2,3].map(i=>{const a=i*45*Math.PI/180;const c=Math.cos(a),n=Math.sin(a);return`
+    <path d="M${(60+c*7).toFixed(1)},${(148+n*7).toFixed(1)} L${(60+c*14).toFixed(1)},${(148+n*14).toFixed(1)}" stroke-width=".7" opacity=".55"/>
+    <path d="M${(138+c*7).toFixed(1)},${(148+n*7).toFixed(1)} L${(138+c*14).toFixed(1)},${(148+n*14).toFixed(1)}" stroke-width=".7" opacity=".55"/>`;}).join("")}
+  <path d="M170,164 V60" stroke-width="1.2"/>
+  <rect x="150" y="24" width="40" height="36" rx="6"/>
+  <path d="M162,32 V52 M162,32 h9 q7,0 7,6.5 t-7,6.5 h-9" stroke-width="1.7"/>`);
+
+/* 테이블 세팅 — 식사 */
+const candle=(x,base,top,fh,w)=>`
+  <ellipse cx="${x}" cy="${base}" rx="${w+4}" ry="3.2"/>
+  <path d="M${x-w-4},${base} Q${x},${base+4} ${x+w+4},${base}" stroke-width=".8" opacity=".5"/>
+  <path d="M${x},${base} V${top+5}"/>
+  <ellipse cx="${x}" cy="${(base+top)/2+2}" rx="4" ry="2.3"/>
+  <path d="M${x-w},${top+5} Q${x},${top+8} ${x+w},${top+5}"/>
+  <path d="M${x-w},${top+5} V${top}"/><path d="M${x+w},${top+5} V${top}"/>
+  <path d="M${x-3.4},${top} V${top-fh}"/><path d="M${x+3.4},${top} V${top-fh}"/>
+  <ellipse cx="${x}" cy="${top-fh}" rx="3.4" ry="1.5"/>
+  <path d="M${x},${top-fh} V${top-fh-4}"/>
+  <path d="M${x},${top-fh-4} Q${x-4.6},${top-fh-10} ${x},${top-fh-18}
+           Q${x+4.6},${top-fh-10} ${x},${top-fh-4} Z" stroke="${ACC}" stroke-width="1.2"/>`;
+
+ART.dining=artWrap(`
+  <defs><clipPath id="plateC"><ellipse cx="100" cy="160" rx="41" ry="13"/></clipPath></defs>
+  ${candle(48,118,96,30,6)}
+  ${candle(152,118,106,20,5.5)}
+  <path d="M72,120 Q68,104 74,95 H88 Q94,104 90,120 Z"/>
+  <path d="M74,95 H88"/><path d="M70,106 Q81,110 92,106" stroke-width=".8" opacity=".45"/>
+  <path d="M71,120 H91" stroke-width=".9" opacity=".5"/>
+  <path d="M81,95 V72"/><path d="M81,86 Q73,79 69,70"/><path d="M81,88 Q88,81 92,72"/>
+  ${leaf(75,84,-44,7.5)}${leaf(88,86,42,7.5)}
+  ${bloom(81,66,9)}${bloom(68,64,6.5)}${bloom(93,67,6.5)}
+  ${spray(81,76,7,11,5)}
+  <path d="M112,120 Q109,108 114,101 H126 Q131,108 128,120 Z"/>
+  <path d="M114,101 H126"/><path d="M110,110 Q120,113 130,110" stroke-width=".8" opacity=".45"/>
+  <path d="M111,120 H129" stroke-width=".9" opacity=".5"/>
+  <path d="M120,101 V84"/><path d="M120,92 Q114,86 111,80"/>
+  ${leaf(115,92,-40,6.5)}
+  ${bloom(120,79,7.5)}${bloom(110,77,5.5)}
+  <ellipse cx="100" cy="160" rx="41" ry="13"/>
+  <path d="M59,160 Q100,152 141,160" stroke-width=".9" opacity=".45"/>
+  <ellipse cx="100" cy="159" rx="31" ry="8.5" stroke-width="1.1"/>
+  <g clip-path="url(#plateC)">${hatch(56,148,92,24,8,.13)}</g>
+  <path d="M86,152 L100,150 L114,153 L112,164 L88,163 Z" stroke-width="1.1"/>
+  <path d="M92,155 h16 M92,158 h12" stroke-width=".7" opacity=".6"/>
+  <path d="M38,133 V146 Q38,152 45,152 Q52,152 52,146 V133"/>
+  <path d="M45,133 V146"/><path d="M41.5,133 V145" stroke-width=".9"/><path d="M48.5,133 V145" stroke-width=".9"/>
+  <path d="M45,152 V182"/>
+  <ellipse cx="156" cy="142" rx="7.5" ry="11.5"/>
+  <ellipse cx="156" cy="142" rx="4.5" ry="7.5" stroke-width=".8" opacity=".5"/>
+  <path d="M156,153.5 V182"/>`);
+
+/* ATM */
+ART.atm=artWrap(`
+  <defs><clipPath id="atmSide"><path d="M140,64 L148,44 V166 L140,182 Z"/></clipPath></defs>
+  <path d="M58,182 V64 H140 V182"/>
+  <path d="M58,64 L66,36 H132 L140,64"/>
+  <path d="M140,64 L148,44 V166 L140,182" stroke-width="1.1"/>
+  <path d="M132,36 L140,20 H74 L66,36" stroke-width="1.1"/>
+  <g clip-path="url(#atmSide)">${hatch(136,44,24,124,7,.18)}</g>
+  <rect x="72" y="41" width="54" height="18" rx="2.5"/>
+  <path d="${wob([[80,47],[86,45],[92,48],[99,46],[106,48]],2.6,21)}" stroke-width="1"/>
+  <path d="${wob([[80,53],[88,51],[95,54],[102,52]],2.2,29)}" stroke-width="1" opacity=".65"/>
+  <path d="M111,50 q4,-3 6,1 q-3,4 -6,-1 Z" stroke="${ACC}" stroke-width="1"/>
+  ${[0,1,2,3].map(r=>[0,1,2].map(c=>
+    `<rect x="${76+c*17}" y="${74+r*11}" width="11.5" height="7.5" rx="1.6" stroke-width="1"/>`).join("")).join("")}
+  ${[0,1,2,3].map(r=>[0,1,2].map(c=>
+    `<circle cx="${81.7+c*17}" cy="${77.7+r*11}" r=".9" stroke-width=".6" opacity=".5"/>`).join("")).join("")}
+  <rect x="74" y="126" width="50" height="10" rx="3"/>
+  <path d="M74,131 H124" stroke-width=".7" opacity=".45"/>
+  <path d="M86,143 H112 M107,138.5 l5.5,4.5 -5.5,4.5" stroke-width="1.2"/>
+  ${bow(99,163,20)}`);
+
+/* 화환 — 화환 안내 */
+ART.wreath=artWrap((()=>{
+  const R=rnd(41); let out=`<circle cx="100" cy="96" r="52" stroke-opacity=".14"/>`;
+  for(let i=0;i<30;i++){
+    const a=i/30*Math.PI*2-Math.PI/2;
+    if(a>Math.PI*0.36 && a<Math.PI*0.64) continue;
+    const rr=52+(R()-.5)*7;
+    out+=leaf(+(100+Math.cos(a)*rr).toFixed(1),+(96+Math.sin(a)*rr).toFixed(1),
+              +(a*180/Math.PI+90+(R()-.5)*24).toFixed(0), +(7+R()*6).toFixed(1));
+  }
+  for(let i=0;i<10;i++){
+    const a=i/10*Math.PI*2-Math.PI/2+.3;
+    if(a>Math.PI*0.36 && a<Math.PI*0.64) continue;
+    out+=`<circle cx="${(100+Math.cos(a)*48).toFixed(1)}" cy="${(96+Math.sin(a)*48).toFixed(1)}" r="2" stroke="${LEAF}" stroke-width=".9"/>`;
+  }
+  out+=bloom(62,66,11)+bloom(140,70,9)+bloom(148,116,8)+bloom(56,112,7.5)+bloom(100,44,8.5);
+  out+=spray(78,52,9,12,7)+spray(126,54,8,11,13)+spray(150,94,7,10,17);
+  return out+bow(100,150,19);
+})());
+
+/* 약도 교통수단 아이콘 */
+const WICON={
+  "지하철":`<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="14" rx="4"/><path d="M5 10h14"/><circle cx="8.5" cy="13.5" r="1"/><circle cx="15.5" cy="13.5" r="1"/><path d="M8 17l-2.5 4M16 17l2.5 4"/></svg>`,
+  "버스":`<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="13" rx="3"/><path d="M4 9h16"/><path d="M6 16v2.5M18 16v2.5"/><circle cx="8" cy="13" r="1"/><circle cx="16" cy="13" r="1"/></svg>`,
+  "주차":`<svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><path d="M10 16.5V8h3.2a2.6 2.6 0 0 1 0 5.2H10"/></svg>`,
+  "셔틀버스":`<svg viewBox="0 0 24 24"><path d="M1.5 8H4M.5 11.5H4"/><rect x="6" y="4" width="14" height="12" rx="3"/><path d="M6 10h14"/><path d="M8.5 16v2.5M17.5 16v2.5"/><circle cx="10" cy="13.3" r="1"/><circle cx="17" cy="13.3" r="1"/></svg>`,
+  "자가용":`<svg viewBox="0 0 24 24"><path d="M3 15v-3l2-4h14l2 4v3"/><path d="M3 15h18"/><circle cx="7" cy="17" r="1.7"/><circle cx="17" cy="17" r="1.7"/></svg>`
+};
+
+/* ① 커버 */
+
+/* ③ 예식 안내 — 달력 */
+(function calendar(){
+  const y=D.getFullYear(), m=D.getMonth(), day=D.getDate();
+  const first=new Date(y,m,1).getDay(), last=new Date(y,m+1,0).getDate();
+  let h="<thead><tr>"+["일","월","화","수","목","금","토"].map(d=>`<th>${d}</th>`).join("")+"</tr></thead><tbody><tr>";
+  for(let i=0;i<first;i++) h+="<td></td>";
+  for(let d=1;d<=last;d++){
+    const col=(first+d-1)%7;
+    const cls=[col===0?"sun":"", d===day?"mark":""].filter(Boolean).join(" ");
+    h+=`<td class="${cls}">${d===day?`<span>${d}</span>`:d}</td>`;
+    if(col===6 && d!==last) h+="</tr><tr>";
+  }
+  $("#cal").innerHTML=h+"</tr></tbody>";
+
+  const left=Math.round((new Date(y,m,day).setHours(0,0,0,0)-new Date().setHours(0,0,0,0))/86400000);
+  const who=`${CONFIG.groom.name} · ${CONFIG.bride.name}`;
+  $("#dday").innerHTML = left>0 ? `${who}의 결혼식이 <b>${left}</b>일 남았습니다`
+    : left===0 ? `오늘은 ${who}의 결혼식입니다`
+    : `${who}가 결혼한 지 <b>${-left}</b>일 되었습니다`;
+})();
+$("#cue").onclick=()=>$(".cover").scrollIntoView({behavior:"smooth",block:"start"});
+
+/* ② 각자 소개 */
+const pName=p=>(p.late?"故 ":"")+p.name;
+function pcard(p,tag,i){
+  return `<div class="pcard">
+    <div class="pshot" style="--pos:${p.pos||"center"}">${photo(p.photo,tag,i)}</div>
+    <div class="pname">${esc(p.name)}</div>
+  </div>`;
+}
+$("#parents").innerHTML=[CONFIG.groom,CONFIG.bride].map(p=>
+  `<p>${esc(pName(p.father))} · ${esc(pName(p.mother))}<small>의 ${esc(p.rel)}</small><b>${esc(p.name)}</b></p>`).join("");
+
+/* ③ 사진첩 */
+const lb=$("#lb"); let li=0;
+const PHOTOS=CONFIG.gallery.length?CONFIG.gallery:Array.from({length:CONFIG.galleryCount},()=>"");
+function lbShow(i){
+  li=(i+PHOTOS.length)%PHOTOS.length;
+  $("#lbStage").innerHTML=photo(PHOTOS[li],pad(li+1),li);
+  $("#lbBar").textContent=`${li+1} / ${PHOTOS.length}`;
+}
+function lbOpen(i){lbShow(i);lb.setAttribute("data-open","");document.body.style.overflow="hidden";}
+function lbClose(){lb.removeAttribute("data-open");document.body.style.overflow="";}
+
+/* 인생네컷 프리뷰 — 4장씩, 3초마다 크로스페이드 */
+const CUT=4, PAGES=Math.ceil(PHOTOS.length/CUT);
+const wrap=$("#cutwrap"), fdots=$("#fdots");
+let front=$("#cutA"), back=$("#cutB"), gpage=0, busy=false;
+
+const cutHTML=page=>Array.from({length:CUT},(_,k)=>{
+  const i=(page*CUT+k)%PHOTOS.length;
+  return `<button type="button" data-i="${i}" aria-label="사진 ${i+1} 크게 보기">${photo(PHOTOS[i],pad(i+1),i)}</button>`;
+}).join("");
+
+/* 새 컷의 이미지가 다 준비된 뒤에 바꿔야 흰 화면이 끼지 않는다 */
+const ready=el=>Promise.all([...el.querySelectorAll("img")].map(img=>
+  img.complete ? Promise.resolve() : new Promise(r=>{img.onload=img.onerror=r;})));
+
+function markDots(){
+  $$("#fdots button").forEach((d,k)=>d.setAttribute("aria-current",String(k===gpage)));
+}
+async function goPage(n){
+  n=(n+PAGES)%PAGES;
+  if(busy || n===gpage) return;
+  busy=true;
+  back.innerHTML=cutHTML(n);
+  await ready(back);
+  back.removeAttribute("data-off");
+  front.setAttribute("data-off","");
+  back.removeAttribute("aria-hidden");
+  front.setAttribute("aria-hidden","true");
+  [front,back]=[back,front];
+  gpage=n; markDots();
+  setTimeout(()=>{busy=false;},620);
+}
+
+front.innerHTML=cutHTML(0);
+back.setAttribute("data-off","");
+fdots.innerHTML=PAGES>1 ? Array.from({length:PAGES},(_,k)=>
+  `<button type="button" data-p="${k}" aria-label="${k+1}번째 컷 보기" aria-current="${k===0}"></button>`).join("") : "";
+if(PAGES>1){
+  $("#cutPrev").hidden=$("#cutNext").hidden=false;
+  $("#cutPrev").onclick=()=>{goPage(gpage-1); startCut();};
+  $("#cutNext").onclick=()=>{goPage(gpage+1); startCut();};
+}
+
+let cutTimer;
+function startCut(){
+  clearInterval(cutTimer);
+  if(PAGES<2) return;
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  cutTimer=setInterval(()=>{ if(!document.hidden && !lb.hasAttribute("data-open")) goPage(gpage+1); },3000);
+}
+startCut();
+
+fdots.addEventListener("click",e=>{
+  const d=e.target.closest("[data-p]"); if(!d)return;
+  goPage(+d.dataset.p); startCut();
+});
+wrap.addEventListener("click",e=>{const b=e.target.closest("button[data-i]");if(b)lbOpen(+b.dataset.i);});
+
+/* 옆으로 밀어서 컷 넘기기 */
+let cx=0, cy=0;
+wrap.addEventListener("touchstart",e=>{cx=e.changedTouches[0].clientX;cy=e.changedTouches[0].clientY;},{passive:true});
+wrap.addEventListener("touchend",e=>{
+  const dx=e.changedTouches[0].clientX-cx, dy=e.changedTouches[0].clientY-cy;
+  if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)){ goPage(gpage+(dx<0?1:-1)); startCut(); }
+},{passive:true});
+
+$("#gAll").onclick=()=>lbOpen(0);
+$(".lb-close").onclick=lbClose;
+$(".lb-nav.p").onclick=()=>lbShow(li-1);
+$(".lb-nav.n").onclick=()=>lbShow(li+1);
+lb.addEventListener("click",e=>{if(e.target===lb)lbClose();});
+document.addEventListener("keydown",e=>{
+  if(!lb.hasAttribute("data-open"))return;
+  if(e.key==="Escape")lbClose();
+  if(e.key==="ArrowLeft")lbShow(li-1);
+  if(e.key==="ArrowRight")lbShow(li+1);
+});
+let sx=0;
+lb.addEventListener("touchstart",e=>{sx=e.changedTouches[0].clientX;},{passive:true});
+lb.addEventListener("touchend",e=>{
+  const dx=e.changedTouches[0].clientX-sx;
+  if(Math.abs(dx)>45)lbShow(li+(dx<0?1:-1));
+},{passive:true});
+
+/* ④ 약도 */
+/* 오시는 길 지도 — 카카오맵 → 불러오지 못하면 약도 이미지 */
+const V=CONFIG.venue;
+function mapFallback(){
+  if(!V.mapImage) return;
+  const m=$("#map");
+  m.style.aspectRatio="auto";
+  m.innerHTML=`<img src="${esc(V.mapImage)}" alt="${esc(V.name)} 약도" style="width:100%;height:auto">`;
+}
+if(V.kakaoMap&&CONFIG.kakao.key){
+  const sc=document.createElement("script");
+  sc.src=`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(CONFIG.kakao.key)}&autoload=false`;
+  sc.onerror=mapFallback;   /* 키·도메인·카카오맵 사용 설정 문제면 여기로 옵니다 */
+  sc.onload=()=>{
+    if(!window.kakao||!kakao.maps){ mapFallback(); return; }
+    kakao.maps.load(()=>{
+      const pos=new kakao.maps.LatLng(V.lat,V.lng);
+      const m=$("#map"); m.innerHTML="";
+      const map=new kakao.maps.Map(m,{center:pos, level:3});
+      map.setZoomable(false);                       /* 페이지 스크롤과 겹치지 않게 확대는 버튼으로 */
+      map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+      new kakao.maps.Marker({position:pos, map});
+    });
+  };
+  document.head.appendChild(sc);
+}else mapFallback();
+$("#navNaver").href=`https://map.naver.com/p/search/${encodeURIComponent(V.name)}`;
+$("#navKakao").href=`https://map.kakao.com/link/map/${encodeURIComponent(V.name)},${V.lat},${V.lng}`;
+$("#navTmap").href=`tmap://search?name=${encodeURIComponent(CONFIG.venue.name)}`;
+$("#copyAddr").onclick=()=>copy(CONFIG.venue.address,"주소를 복사했습니다");
+$("#ways").innerHTML=CONFIG.venue.ways.map(w=>
+  `<div><span class="wpill">${WICON[w.t]||""}${esc(w.t)}${w.rec?'<i class="recb">추천</i>':""}</span>`+
+  `<div class="wtxt">${nlB(w.d)}${w.verify?'<span class="chip">확인</span>':""}</div></div>`).join("");
+
+
+/* ⑤ 식순 */
+$("#tl").innerHTML=CONFIG.timeline.map(t=>`
+  <div class="trow">
+    <div class="ttime">${esc(t.time)}</div>
+    <div><div class="thead">${esc(t.head)}</div><div class="tdesc">${nl(t.desc)}</div></div>
+  </div>`).join("");
+
+/* ⑥ 안내사항 캐러셀 */
+const rail2=$("#grail2"), GN=CONFIG.guide.length;
+rail2.innerHTML=CONFIG.guide.map((g,i)=>`
+  <div class="gcard">
+    <div class="gshot">${g.photo?photo(g.photo,g.title,i):`<div class="artbox">${ART[g.art]||""}</div>`}</div>
+    <div class="gcap">${esc(g.title)}</div>
+    <div class="gdesc">${nlB(g.desc)}${g.verify?'<span class="chip">확인</span>':""}</div>
+  </div>`).join("");
+
+let gi=0;
+function gSync(){
+  gi=Math.min(GN-1,Math.max(0,Math.round(rail2.scrollLeft/rail2.clientWidth)));
+  $("#gNum").innerHTML=`<b>${gi+1}</b> / ${GN}`;
+  $("#gPrev").disabled=gi===0; $("#gNext").disabled=gi===GN-1;
+}
+const gGo=i=>rail2.scrollTo({left:rail2.clientWidth*Math.min(GN-1,Math.max(0,i)),behavior:"smooth"});
+$("#gPrev").onclick=()=>gGo(gi-1);
+$("#gNext").onclick=()=>gGo(gi+1);
+rail2.addEventListener("scroll",()=>{clearTimeout(rail2._t);rail2._t=setTimeout(gSync,90)},{passive:true});
+gSync();
+
+/* ⑦ 계좌 */
+$("#acc").innerHTML=CONFIG.accounts.map((g,i)=>`
+  <div class="aitem">
+    <button class="abtn" type="button" aria-expanded="false" aria-controls="ab${i}">
+      <span>${esc(g.side)}</span><span class="chev"></span>
+    </button>
+    <div class="abody" id="ab${i}">
+      ${g.rows.map(r=>`
+        <div class="aline">
+          <div>
+            <div class="w">${esc(r.who)}<b>${esc(r.name)}</b></div>
+            <div class="n">${esc(r.bank)} ${esc(r.num)}</div>
+          </div>
+          <button class="cp" type="button" data-copy="${esc(r.bank)} ${esc(r.num)} ${esc(r.name)}">계좌복사</button>
+        </div>`).join("")}
+    </div>
+  </div>`).join("");
+/* 아코디언 — 계좌·연락처가 같은 동작을 씁니다 */
+function accordion(root){
+  root.addEventListener("click",e=>{
+    const b=e.target.closest(".abtn"); if(!b||!root.contains(b))return;
+    const open=b.getAttribute("aria-expanded")==="true";
+    b.setAttribute("aria-expanded",String(!open));
+    const body=b.nextElementSibling;
+    open?body.removeAttribute("data-open"):body.setAttribute("data-open","");
+  });
+}
+accordion($("#acc"));
+$("#acc").addEventListener("click",e=>{
+  const c=e.target.closest("[data-copy]");
+  if(c)copy(c.dataset.copy,"계좌번호를 복사했습니다");
+});
+
+/* ⑧ 연락하기 */
+const IC_TEL='<svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>';
+const IC_SMS='<svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.5 9.5 0 0 1-3.9-.8L3 21l1.9-4.6A8.4 8.4 0 0 1 4 11.5 8.4 8.4 0 0 1 13 3a8.4 8.4 0 0 1 8 8.5Z"/></svg>';
+function crow(label,name,tel){
+  const btns=blank(tel)
+    ? `<span class="ib off" aria-hidden="true">${IC_TEL}</span><span class="ib off" aria-hidden="true">${IC_SMS}</span>`
+    : `<a class="ib" href="tel:${esc(tel)}" aria-label="${esc(name)}에게 전화">${IC_TEL}</a>
+       <a class="ib" href="sms:${esc(tel)}" aria-label="${esc(name)}에게 문자">${IC_SMS}</a>`;
+  return `<div class="crow"><div class="lab">${esc(label)}<b>${esc(name)}</b></div><div class="btns">${btns}</div></div>`;
+}
+$("#contact").innerHTML=[["신랑측",CONFIG.groom,"신랑"],["신부측",CONFIG.bride,"신부"]].map(([side,p,me],i)=>`
+  <div class="aitem">
+    <button class="abtn" type="button" aria-expanded="false" aria-controls="cb${i}">
+      <span>${side}</span><span class="chev"></span>
+    </button>
+    <div class="abody" id="cb${i}">
+      ${crow(me,p.name,p.tel)}
+      ${crow(`${me} ${p.father.label}`,pName(p.father),p.father.tel)}
+      ${crow(`${me} ${p.mother.label}`,pName(p.mother),p.mother.tel)}
+    </div>
+  </div>`).join("");
+accordion($("#contact"));
+
+/* 공유 */
+$("#shareLink").onclick=()=>copy(location.href,"링크를 복사했습니다");
+$("#shareKakao").onclick=async()=>{
+  const K=CONFIG.kakao, S=window.Kakao;
+  if(K.key && !S){ toast("카카오 SDK를 불러오지 못했습니다 · 링크 복사를 이용해 주세요"); return; }
+  if(K.key){
+    try{
+      if(!S.isInitialized()) S.init(K.key);
+      const link=u=>({mobileWebUrl:u, webUrl:u});
+      S.Share.sendDefault({
+        objectType:"feed",
+        content:{
+          title:`${CONFIG.groom.name} ♥ ${CONFIG.bride.name} 결혼합니다.`,
+          description:`${krWhen}\n${CONFIG.venue.name} ${CONFIG.venue.hall}`,
+          imageUrl:K.image, imageWidth:K.imageWidth, imageHeight:K.imageHeight,
+          link:link(K.url)
+        },
+        buttons:[
+          { title:"청첩장 보기", link:link(K.url) },
+          { title:"위치 보기",   link:link(K.url+"#place") }
+        ]
+      });
+      return;
+    }catch(e){
+      console.warn("Kakao share failed",e);
+      toast(`카카오 공유 오류: ${e&&e.message||e}`); return;
+    }
+  }
+  toast("카카오 공유를 사용할 수 없습니다 · 링크 복사를 이용해 주세요");
+};
+$("#shareMore").onclick=async()=>{
+  const d={ title:`${CONFIG.groom.name} · ${CONFIG.bride.name} 결혼합니다`,
+            text:`${krWhen} · ${CONFIG.venue.name} ${CONFIG.venue.hall}`, url:location.href };
+  if(navigator.share){ try{ await navigator.share(d); }catch{} return; }
+  copy(`${d.title}\n${d.text}\n${d.url}`,"공유 문구를 복사했습니다");
+};
+
+/* BGM */
+if(CONFIG.bgm){
+  const btn=$("#bgm"); btn.hidden=false;
+  const au=new Audio(CONFIG.bgm); au.loop=true; au.volume=.45;
+  btn.onclick=()=>{
+    const on=btn.getAttribute("aria-pressed")==="true";
+    on?au.pause():au.play().catch(()=>toast("브라우저가 자동 재생을 막았습니다"));
+    btn.setAttribute("aria-pressed",String(!on));
+    btn.setAttribute("aria-label",on?"배경음악 켜기":"배경음악 끄기");
+  };
+}
+
+/* reveal — 첫 화면 밖 섹션만, 자식 요소를 순서대로 */
+const REDUCE=matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(!REDUCE && "IntersectionObserver" in window){
+  const fold=innerHeight*0.92;
+  $$("[data-reveal]").forEach(el=>{
+    [...el.children].forEach((c,i)=>c.style.setProperty("--i",Math.min(i,6)));
+    if(el.getBoundingClientRect().top>fold) el.classList.add("armed");
+  });
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.remove("armed"); io.unobserve(e.target); } });
+  },{threshold:.08, rootMargin:"0px 0px -8% 0px"});
+  $$(".armed").forEach(el=>io.observe(el));
+
+  /* 스티커는 각자 화면에 들어올 때, 같은 순간에 들어온 것끼리는 0.15초 간격으로 */
+  const stks=$$(".stk-it");
+  /* 장식은 멀리서(뒤 레이어), 누르는 스티커는 번갈아 가깝게 — 속도 차이로 깊이감 */
+  stks.forEach((el,i)=>{ el.style.setProperty("--from",(el.tagName==="BUTTON"?(i%2?70:120):170)+"px"); el.classList.add("pre"); });
+  const so=new IntersectionObserver(es=>{
+    es.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)
+      .forEach((e,k)=>{ setTimeout(()=>e.target.classList.remove("pre"),k*150); so.unobserve(e.target); });
+  },{threshold:.25, rootMargin:"0px 0px -12% 0px"});
+  stks.forEach(el=>so.observe(el));
+}
+
+/* 패럴랙스 — 요소마다 다른 속도로 움직여 깊이감을 줍니다
+   data-speed 양수 = 스크롤보다 느리게(뒤쪽), 음수 = 더 빠르게(앞쪽) */
+if(!REDUCE){
+  const op=$("#op"), opT=$(".op-title"), opR=$(".op-row"), opC=$("#cue");
+  const items=$$("[data-speed]");
+  let q=false;
+  const draw=()=>{
+    q=false;
+    const vh=innerHeight, y=scrollY;
+    /* 첫 화면: 글씨는 천천히, 사진은 조금 덜 천천히 올라가며 흐려짐 */
+    if(y<vh*1.2){
+      const k=Math.min(1,y/(vh*.85));
+      opT.style.translate=`0 ${y*.42}px`;
+      opR.style.translate=`0 ${y*.22}px`;
+      opT.style.opacity=opR.style.opacity=String(1-k*.9);
+      opC.style.opacity=String(1-Math.min(1,y/(vh*.25)));
+    }
+    items.forEach(el=>{
+      const r=el.getBoundingClientRect(), cur=parseFloat(el.dataset.off||0);
+      const mid=r.top-cur+r.height/2;               /* 이동 전 기준 위치 */
+      if(mid<-vh||mid>vh*2) return;
+      const off=Math.round(-(mid-vh/2)*parseFloat(el.dataset.speed));
+      el.dataset.off=off; el.style.translate=`0 ${off}px`;
+    });
+  };
+  addEventListener("scroll",()=>{ if(!q){ q=true; requestAnimationFrame(draw); } },{passive:true});
+  addEventListener("resize",draw);
+  draw();
+}
+</script>
+</body>
+</html>
