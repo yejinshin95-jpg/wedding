@@ -510,6 +510,7 @@ button.stk-it:active{opacity:.8}
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script>window.__ERR=[];window.addEventListener("error",function(e){window.__ERR.push(String(e.message)+" @"+e.lineno);});</script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    CONFIG — 이 블록만 고치면 청첩장 전체가 바뀝니다.
@@ -1226,21 +1227,26 @@ if(CONFIG.bgm){
   };
 }
 
+</script>
+<script>
+/* 스크롤 애니메이션 — 위 스크립트와 분리해 두어, 앞에서 오류가 나도 동작합니다 */
 /* reveal — 첫 화면 밖 섹션만, 자식 요소를 순서대로 */
-const REDUCE=matchMedia("(prefers-reduced-motion: reduce)").matches;
-if(!REDUCE && "IntersectionObserver" in window){
+var Q=function(s,r){return (r||document).querySelector(s)}, QA=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+var REDUCE=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+var DBG=/[?&]debug/.test(location.search), LOG=[];
+if("IntersectionObserver" in window){
   const fold=innerHeight*0.92;
-  $$("[data-reveal]").forEach(el=>{
+  QA("[data-reveal]").forEach(el=>{
     [...el.children].forEach((c,i)=>c.style.setProperty("--i",Math.min(i,6)));
     if(el.getBoundingClientRect().top>fold) el.classList.add("armed");
   });
   const io=new IntersectionObserver(es=>{
     es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.remove("armed"); io.unobserve(e.target); } });
   },{threshold:.08, rootMargin:"0px 0px -8% 0px"});
-  $$(".armed").forEach(el=>io.observe(el));
+  QA(".armed").forEach(el=>io.observe(el));
 
   /* 스티커는 각자 화면에 들어올 때, 같은 순간에 들어온 것끼리는 0.15초 간격으로 */
-  const stks=$$(".stk-it");
+  const stks=QA(".stk-it");
   /* 장식은 멀리서(뒤 레이어), 누르는 스티커는 번갈아 가깝게 — 속도 차이로 깊이감 */
   stks.forEach((el,i)=>{ el.style.setProperty("--from",(el.tagName==="BUTTON"?(i%2?70:120):170)+"px"); el.classList.add("pre"); });
   const so=new IntersectionObserver(es=>{
@@ -1253,8 +1259,8 @@ if(!REDUCE && "IntersectionObserver" in window){
 /* 패럴랙스 — 요소마다 다른 속도로 움직여 깊이감을 줍니다
    data-speed 양수 = 스크롤보다 느리게(뒤쪽), 음수 = 더 빠르게(앞쪽) */
 if(!REDUCE){
-  const op=$("#op"), opT=$(".op-title"), opR=$(".op-row"), opC=$("#cue");
-  const items=$$("[data-speed]");
+  const op=Q("#op"), opT=Q(".op-title"), opR=Q(".op-row"), opC=Q("#cue");
+  const items=QA("[data-speed]");
   /* 첫 화면 등장 애니메이션이 끝나면 풀어서, 스크롤 이동·흐려짐이 적용되게 */
   [opT,opR,opC].forEach(el=>el&&el.addEventListener("animationend",()=>{el.style.animation="none";},{once:true}));
   let q=false;
@@ -1280,6 +1286,19 @@ if(!REDUCE){
   addEventListener("scroll",()=>{ if(!q){ q=true; requestAnimationFrame(draw); } },{passive:true});
   addEventListener("resize",draw);
   draw();
+}
+
+/* ?debug 를 붙여 열면 화면 아래에 진단 정보를 띄웁니다 (카카오톡 인앱 등 확인용) */
+if(DBG){
+  var box=document.createElement("pre");
+  box.style.cssText="position:fixed;left:0;right:0;bottom:0;z-index:999;margin:0;padding:8px 10px;max-height:40vh;overflow:auto;background:rgba(0,0,0,.82);color:#9f9;font:11px/1.45 monospace;white-space:pre-wrap";
+  document.body.appendChild(box);
+  var cnt=0; addEventListener("scroll",function(){cnt++;},{passive:true});
+  var show=function(){ box.textContent=["ver 2026-09-25b","UA "+navigator.userAgent,"reduceMotion "+REDUCE,
+    "IO "+("IntersectionObserver" in window)+" / translate "+(window.CSS&&CSS.supports&&CSS.supports("translate","0 1px")),
+    "scrollY "+Math.round(scrollY)+" / events "+cnt+" / innerH "+innerHeight,
+    "armed "+QA(".armed").length+" / stickers pre "+QA(".stk-it.pre").length,"errors "+(window.__ERR||[]).join(" | ")].concat(LOG).join("\n"); };
+  setInterval(show,500); show();
 }
 </script>
 </body>
