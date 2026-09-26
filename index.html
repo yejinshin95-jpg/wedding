@@ -18,7 +18,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500;700&family=Pinyon+Script&display=swap">
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous" defer></script>
-<script>if(!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)&&"IntersectionObserver" in window)document.documentElement.className+=" anim";</script>
+<link rel="preload" as="image" href="photos/wedinvt.png">
+<link rel="preload" as="image" href="photos/main.jpg">
+<script>if(!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)&&"IntersectionObserver" in window)document.documentElement.className+=" anim";setTimeout(function(){if(!window.__animOK)document.documentElement.className=document.documentElement.className.replace(" anim","");},5000);</script>
 <style>
 /* ══ tokens ═══════════════════════════════════════════════ */
 :root{
@@ -341,15 +343,15 @@ button.stk-it:active{opacity:.8}
 
 /* 등장 — 요소가 하나씩 흐릿함에서 선명해지며 살짝 떠오름 (레퍼런스와 같은 부드러운 페이드)
    카카오톡 인앱 등 구형 웹뷰도 지원하도록 transform·opacity·filter 만 씁니다 */
-.rv{opacity:0; transform:translate3d(0,16px,0); filter:blur(6px);
-  transition:opacity 1.2s cubic-bezier(.22,.61,.36,1), transform 1.4s cubic-bezier(.22,.61,.36,1), filter 1.2s ease;
+html.anim .rv{opacity:0; transform:translate3d(0,16px,0); filter:blur(6px)}
+.rv{transition:opacity 1.2s cubic-bezier(.22,.61,.36,1), transform 1.4s cubic-bezier(.22,.61,.36,1), filter 1.2s ease;
   transition-delay:var(--d,0ms)}
-.rv.in{opacity:1; transform:none; filter:none}
+html.anim .rv.in{opacity:1; transform:none; filter:none}
 /* 스크립트가 붙기 전 첫 화면이 잠깐 보였다 사라지는 깜빡임 방지 */
 html.anim .op-in>*:not(.in), html.anim .cover>*:not(.in):not(.bgm){opacity:0}
 .stk-it{transform:rotate(var(--r))}
-.stk-it.rv{transform:translate3d(0,18px,0) rotate(var(--r))}
-.stk-it.rv.in{transform:rotate(var(--r))}
+html.anim .stk-it.rv{transform:translate3d(0,18px,0) rotate(var(--r))}
+html.anim .stk-it.rv.in{transform:rotate(var(--r))}
 :focus-visible{outline:2px solid var(--indigo); outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
 @media (max-width:370px){section{padding:60px 22px}}
@@ -360,10 +362,10 @@ html.anim .op-in>*:not(.in), html.anim .cover>*:not(.in):not(.bgm){opacity:0}
 <!-- ⓪ 첫 화면 — photos/wedinvt.png(Save the Date 글씨), photos/main.png(액자 사진) -->
 <section class="op" id="op" aria-label="청첩장 표지">
   <div class="op-in">
-    <img class="op-title" src="photos/wedinvt.png" alt="Save the Date">
+    <img class="op-title" src="photos/wedinvt.png" alt="Save the Date" fetchpriority="high">
     <div class="op-row">
       <span id="opMD"></span>
-      <div class="op-photo"><img src="photos/main.png" alt="신랑 신부 사진"></div>
+      <div class="op-photo"><img src="photos/main.jpg" alt="신랑 신부 사진" fetchpriority="high"></div>
       <span id="opY"></span>
     </div>
     <button class="cue op-cue" type="button" aria-label="아래로 이동" id="cue"></button>
@@ -1268,18 +1270,30 @@ if(!REDUCE && "IntersectionObserver" in window){
     QA("[data-reveal]>*")                 /* 나머지 섹션의 제목·문구·내용 */
   );
   targets.forEach(function(el){ el.classList.add("rv"); });
+  /* 요소 안 이미지가 다 받아지고 그릴 준비가 된 뒤에 나타나게 (위에서부터 끊겨 그려지는 현상 방지) */
+  var imgReady=function(el){
+    var imgs=el.tagName==="IMG"?[el]:QA("img",el);
+    return Promise.all(imgs.map(function(im){
+      if(im.complete&&im.naturalWidth) return im.decode?im.decode().catch(function(){}):0;
+      return new Promise(function(r){ im.addEventListener("load",function(){ (im.decode?im.decode():Promise.resolve()).catch(function(){}).then(r); },{once:true}); im.addEventListener("error",r,{once:true}); });
+    }));
+  };
   var io=new IntersectionObserver(function(es){
-    es.filter(function(e){return e.isIntersecting;})
+    var list=es.filter(function(e){return e.isIntersecting;})
       .sort(function(a,b){return a.boundingClientRect.top-b.boundingClientRect.top;})
-      .forEach(function(e,k){
-        var el=e.target; io.unobserve(el);
-        el.style.setProperty("--d",(k*150)+"ms");
-        requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add("in"); }); });
-        /* 끝나면 지연값 정리 (다시 계산될 일 없게) */
-        setTimeout(function(){ el.style.removeProperty("--d"); }, k*150+1600);
-      });
-  },{threshold:.12, rootMargin:"0px 0px -6% 0px"});
+      .map(function(e){ io.unobserve(e.target); return e.target; });
+    if(!list.length) return;
+    /* 같이 들어온 묶음은 이미지가 모두 준비되면(최대 2.5초) 위에서부터 0.15초 간격으로 */
+    var go=function(){ list.forEach(function(el,k){
+      el.style.setProperty("--d",(k*150)+"ms");
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add("in"); }); });
+      setTimeout(function(){ el.style.removeProperty("--d"); }, k*150+1600);
+    }); };
+    var done=false, once=function(){ if(!done){ done=true; go(); } };
+    Promise.all(list.map(imgReady)).then(once); setTimeout(once,2500);
+  },{threshold:.15, rootMargin:"0px 0px -18% 0px"});   /* 화면 아래쪽 18%는 제외 — 충분히 올라왔을 때 시작 */
   targets.forEach(function(el){ io.observe(el); });
+  window.__animOK=true;
 }
 
 /* ?debug 를 붙여 열면 화면 아래에 진단 정보를 띄웁니다 (카카오톡 인앱 등 확인용) */
