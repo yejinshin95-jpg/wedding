@@ -596,9 +596,8 @@ const CONFIG = {
     /* 장식은 먼저(뒤쪽), 누르는 스티커는 나중(앞쪽)에 둡니다 */
     { file:"photos/calla-lily-1.png",     label:"카라",        x:86, y:0,   w:11, r:10 },
     /* 봉투(뒷면) → 호텔 사진(아치) → 앞주머니(over) 순으로 겹침 */
-    { file:"photos/envelope-open.png",    label:"3 · Location",x:1, y:2,   w:52, r:0,  to:"#place",
-      photo:{ src:"photos/sofitel.jpg", l:17, t:9, w:66, h:40, arch:true }, over:"photos/envelope-flap.png",
-      text:["s:Location","c:Click here"], ty:74, fs:.85 },
+    /* 문구까지 들어간 완성 이미지 (예식장 사진 + 예식장 오시는 길 · CLICK HERE) */
+    { file:"photos/location-envelope.png",label:"3 · Location",x:1, y:2,   w:52, r:0,  to:"#place" },
     { file:"photos/vinyl-record.png",     label:"LP",          x:0,  y:45,  w:15, r:0 },
     { file:"photos/frame-oval-rose-1.png",label:"1 · 이름",    x:44, y:2,   w:50, r:3,  to:".intro",
       text:["s:Seokjong","s:& Yejin","c:2026.11.14","c:Sofitel Ambassador","c:Seoul"] },
