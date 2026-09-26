@@ -536,7 +536,7 @@ const CONFIG = {
     name:"소피텔 앰배서더 서울", en:"Sofitel Ambassador Seoul",
     hall:"4F 그랜드 볼룸 방돔",
     address:"서울특별시 송파구 잠실로 209",
-    lat:37.5087, lng:127.0965,
+    lat:37.5114, lng:127.1055,   /* 주소 검색이 실패할 때만 쓰는 예비 좌표 */
     mapImage:"photos/map.jpg",   /* 카카오맵을 불러오지 못할 때 보여줄 약도 */
     kakaoMap:true,               /* 카카오맵 사용 (CONFIG.kakao.key 를 함께 씁니다) */
     ways:[
@@ -1070,23 +1070,31 @@ function mapFallback(){
 }
 if(V.kakaoMap&&CONFIG.kakao.key){
   const sc=document.createElement("script");
-  sc.src=`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(CONFIG.kakao.key)}&autoload=false`;
+  sc.src=`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(CONFIG.kakao.key)}&autoload=false&libraries=services`;
   sc.onerror=mapFallback;   /* 키·도메인·카카오맵 사용 설정 문제면 여기로 옵니다 */
   sc.onload=()=>{
     if(!window.kakao||!kakao.maps){ mapFallback(); return; }
     kakao.maps.load(()=>{
-      const pos=new kakao.maps.LatLng(V.lat,V.lng);
       const m=$("#map"); m.innerHTML="";
-      const map=new kakao.maps.Map(m,{center:pos, level:3});
+      const map=new kakao.maps.Map(m,{center:new kakao.maps.LatLng(V.lat,V.lng), level:3});
       map.setZoomable(false);                       /* 페이지 스크롤과 겹치지 않게 확대는 버튼으로 */
       map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
-      new kakao.maps.Marker({position:pos, map});
+      const mark=new kakao.maps.Marker({position:map.getCenter(), map});
+      const put=(lat,lng)=>{ const p=new kakao.maps.LatLng(lat,lng); mark.setPosition(p); map.setCenter(p); };
+      /* 정확한 위치: 도로명 주소 검색 → 안 되면 장소명 검색 → 그래도 안 되면 예비 좌표 */
+      if(kakao.maps.services){
+        const OK=kakao.maps.services.Status.OK;
+        new kakao.maps.services.Geocoder().addressSearch(V.address,(a,st)=>{
+          if(st===OK&&a[0]) return put(a[0].y,a[0].x);
+          new kakao.maps.services.Places().keywordSearch(V.name,(r,st2)=>{ if(st2===OK&&r[0]) put(r[0].y,r[0].x); });
+        });
+      }
     });
   };
   document.head.appendChild(sc);
 }else mapFallback();
 $("#navNaver").href=`https://map.naver.com/p/search/${encodeURIComponent(V.name)}`;
-$("#navKakao").href=`https://map.kakao.com/link/map/${encodeURIComponent(V.name)},${V.lat},${V.lng}`;
+$("#navKakao").href=`https://map.kakao.com/link/search/${encodeURIComponent(V.name)}`;
 $("#navTmap").href=`tmap://search?name=${encodeURIComponent(CONFIG.venue.name)}`;
 $("#copyAddr").onclick=()=>copy(CONFIG.venue.address,"주소를 복사했습니다");
 $("#ways").innerHTML=CONFIG.venue.ways.map(w=>
