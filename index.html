@@ -596,12 +596,13 @@ const CONFIG = {
      to 가 있으면 누를 때 그 섹션으로 스크롤, 없으면 장식입니다. */
   stickers:[
     /* 장식은 먼저(뒤쪽), 누르는 스티커는 나중(앞쪽)에 둡니다 */
-    { file:"photos/calla-lily-1.png",     label:"카라",        x:86, y:0,   w:11, r:10 },
     /* 봉투(뒷면) → 호텔 사진(아치) → 앞주머니(over) 순으로 겹침 */
     /* 문구까지 들어간 완성 이미지 (예식장 사진 + 예식장 오시는 길 · CLICK HERE) */
     { file:"photos/location-envelope.png",label:"3 · Location",x:1, y:2,   w:52, r:0,  to:"#place" },
     { file:"photos/vinyl-record.png",     label:"LP",          x:0,  y:45,  w:15, r:0 },
     { file:"photos/st-names.png",         label:"1 · 초대합니다",x:50, y:4,   w:40, r:3,  to:".intro" },
+    /* 카라는 초대합니다 카드 위에 얹히도록 (카드 다음에 두어 위로 보임) */
+    { file:"photos/calla-lily-1.png",     label:"카라",        x:80, y:2,   w:12, r:14 },
     { file:"photos/flower-spray.png",     label:"꽃가지",      x:88, y:56,  w:9,  r:6 },
     { file:"photos/st-details.png",       label:"2 · 예식 안내",x:2,  y:56,  w:56, r:-6, to:".when" },
     { file:"photos/st-gallery.png",       label:"4 · 사진첩",  x:61, y:64,  w:33, r:5,  to:".gallery" },
