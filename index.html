@@ -20,7 +20,7 @@
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous" defer></script>
 <link rel="preload" as="image" href="photos/wedinvt.png">
 <link rel="preload" as="image" href="photos/main.jpg">
-<script>if(!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)&&"IntersectionObserver" in window)document.documentElement.className+=" anim";setTimeout(function(){if(!window.__animOK)document.documentElement.className=document.documentElement.className.replace(" anim","");},5000);</script>
+<script>if("IntersectionObserver" in window)document.documentElement.className+=" anim"+(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches?" rm":"");setTimeout(function(){if(!window.__animOK)document.documentElement.className=document.documentElement.className.replace(" anim","");},5000);</script>
 <style>
 /* ══ tokens ═══════════════════════════════════════════════ */
 :root{
@@ -353,7 +353,10 @@ html.anim .op-in>*:not(.in), html.anim .cover>*:not(.in):not(.bgm){opacity:0}
 html.anim .stk-it.rv{transform:translate3d(0,18px,0) rotate(var(--r))}
 html.anim .stk-it.rv.in{transform:rotate(var(--r))}
 :focus-visible{outline:2px solid var(--indigo); outline-offset:2px}
-@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+/* 동작 줄이기 설정: 움직임(이동·반복 애니메이션)은 끄고, 부드러운 페이드만 남깁니다 */
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+html.anim.rm .rv{transform:none!important}
+html.anim.rm .stk-it.rv{transform:rotate(var(--r))!important}
 @media (max-width:370px){section{padding:60px 22px}}
 </style>
 </head>
@@ -1262,7 +1265,7 @@ if(CONFIG.bgm){
 var Q=function(s,r){return (r||document).querySelector(s)}, QA=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
 var REDUCE=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
 var DBG=/[?&]debug/.test(location.search), LOG=[];
-if(!REDUCE && "IntersectionObserver" in window){
+if("IntersectionObserver" in window){
   var targets=[].concat(
     QA(".op-in>*"),                       /* 첫 화면: 글씨 → 사진·날짜 → 화살표 */
     QA(".cover>*:not(.bgm)"),             /* 커버: WEDDING DAY. → 이름 → 일시 → 장소 */
