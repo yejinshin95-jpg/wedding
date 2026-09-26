@@ -607,9 +607,8 @@ const CONFIG = {
     { file:"photos/st-details.png",       label:"2 · 예식 안내",x:2,  y:56,  w:56, r:-6, to:".when" },
     { file:"photos/polaroid-frame.png",   label:"4 · Moments", x:61, y:64,  w:33, r:5,  to:".gallery",
       photo:{ src:"photos/g02.jpg", l:8, t:7, w:84, h:66 }, text:["s:Our Moments","c:Click here"], ty:86, fs:.62 },
-    /* 은쟁반 + 봉투 합성 이미지, 문구는 봉투 기울기(-9°)에 맞춰 코드로 */
-    { file:"photos/st-gift.png",          label:"6 · 마음 전하실 곳",x:2, y:100, w:68, r:-3, to:"#gift",
-      text:["k:⋆｡°✩ 마음 전하실 곳 ✩°｡⋆","c:Click here"], ty:37, tx:-8, trot:-9, fs:.78 },
+    /* 은쟁반 + 봉투 + 꽃 — 문구까지 들어간 완성 이미지 */
+    { file:"photos/st-gift.png",          label:"6 · 마음 전하실 곳",x:2, y:100, w:68, r:0,  to:"#gift" },
     { file:"photos/wax-seal.png",         label:"씰",          x:64, y:128, w:16, r:0 },
     { file:"photos/ribbon.png",           label:"리본",        x:4,  y:142, w:40, r:-8 },
     { file:"photos/hydrangea.png",        label:"5 · Info",    x:44, y:136, w:54, r:4,  to:".tlsec",
