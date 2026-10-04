@@ -315,6 +315,15 @@ section{padding:72px 28px}
 .rv-done b{display:block; margin-bottom:6px; font-size:16px; font-weight:500; color:var(--brown)}
 .rv-hide{display:none!important}
 
+/* 참석 여부 플로팅 버튼 — 첫 화면을 지나면 나타나고, RSVP 섹션이 보이면 숨김 */
+.rv-fab{position:fixed; left:50%; bottom:calc(20px + env(safe-area-inset-bottom)); z-index:70;
+  padding:13px 26px; border-radius:999px; background:var(--brown); color:#F4EEE8;
+  font-size:13.5px; font-weight:500; letter-spacing:.03em; white-space:nowrap;
+  box-shadow:0 8px 22px -8px rgba(74,49,34,.55);
+  transform:translate(-50%,140%); opacity:0; pointer-events:none;
+  transition:transform .45s cubic-bezier(.22,.61,.36,1), opacity .35s ease}
+.rv-fab[data-show]{transform:translate(-50%,0); opacity:1; pointer-events:auto}
+
 /* ══ 스티커 콜라주 ═════════════════════════════════════ */
 .stk{padding:24px 16px 40px}
 .stk-box{position:relative; width:100%}
@@ -553,6 +562,8 @@ html.anim.rm .stk-it.rv{transform:rotate(var(--r))!important}
   <button class="lb-nav n" type="button" aria-label="다음"></button>
   <div class="lb-bar"><span id="lbBar"></span><div class="lb-hint">좌우로 밀거나 화살표를 눌러 넘겨보세요</div></div>
 </div>
+
+<button class="rv-fab" id="rvFab" type="button" aria-label="참석 여부 전달하기로 이동">참석 여부 전달하기</button>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -1250,6 +1261,15 @@ $("#contact").addEventListener("click",e=>{
     const b=e.target.closest("[data-d]"); if(!b) return;
     st.count=Math.min(10,Math.max(1,st.count+ +b.dataset.d)); $("#rvCount").textContent=st.count;
   });
+  /* 플로팅 버튼 */
+  const fab=$("#rvFab"), sec=$("#rsvp");
+  let done=false; try{ done=!!localStorage.getItem("rsvpDone"); }catch(e){}
+  let inView=false;
+  const upd=()=>{ const past=scrollY>innerHeight*.6; fab.toggleAttribute("data-show",past&&!inView&&!done); };
+  if("IntersectionObserver" in window) new IntersectionObserver(es=>{ inView=es[0].isIntersecting; upd(); },{threshold:.15}).observe(sec);
+  addEventListener("scroll",upd,{passive:true}); upd();
+  fab.onclick=()=>sec.scrollIntoView({behavior:"smooth",block:"start"});
+
   f.addEventListener("submit",async e=>{
     e.preventDefault();
     const name=$("#rvName").value.trim();
@@ -1261,6 +1281,7 @@ $("#contact").addEventListener("click",e=>{
     const data={side:st.side, attend:st.attend, name, count:st.attend==="참석"?st.count:0};
     try{
       await fetch(CONFIG.rsvpUrl,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});
+      done=true; upd(); try{ localStorage.setItem("rsvpDone","1"); }catch(e){}
       f.outerHTML=`<div class="rv-done"><b>소중한 마음 감사합니다</b>${esc(name)}님의 ${data.attend==="참석"?`참석(${data.count}명)`:"불참"} 소식이<br>신랑 신부에게 전달되었어요.</div>`;
     }catch(err){
       btn.disabled=false; btn.textContent="전달하기"; toast("전송에 실패했어요. 잠시 후 다시 시도해 주세요");
