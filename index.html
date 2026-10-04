@@ -295,6 +295,26 @@ section{padding:72px 28px}
 .op-photo img{width:100%; height:auto}
 
 
+/* ══ RSVP ══════════════════════════════════════════════ */
+.rv-form{display:flex; flex-direction:column; gap:14px; margin-top:8px}
+.rv-row{display:grid; grid-template-columns:72px 1fr; align-items:center; gap:12px}
+.rv-lab{font-size:13px; color:var(--ink-2)}
+.rv-seg{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.rv-seg button{padding:11px 0; border:1px solid var(--brown-soft); border-radius:999px; font-size:13px; color:var(--brown); background:transparent}
+.rv-seg button[aria-pressed="true"]{background:var(--brown); border-color:var(--brown); color:#F4EEE8}
+.rv-in{width:100%; padding:11px 14px; border:1px solid var(--brown-soft); border-radius:8px; background:rgba(255,255,255,.6);
+  font:inherit; font-size:14px; color:var(--ink)}
+.rv-in:focus{outline:none; border-color:var(--brown)}
+.rv-step{display:flex; align-items:center; gap:10px; font-size:14px; color:var(--ink)}
+.rv-step button{width:34px; height:34px; border:1px solid var(--brown-soft); border-radius:50%; font-size:16px; color:var(--brown); line-height:1}
+.rv-step output{min-width:20px; text-align:center; font-weight:500; font-variant-numeric:tabular-nums}
+.rv-note{margin:-6px 0 0 84px; font-size:11.5px; color:var(--ink-3)}
+.rv-submit{margin-top:10px; padding:14px 0; border-radius:999px; background:var(--brown); color:#F4EEE8; font-size:14px; font-weight:500; letter-spacing:.04em}
+.rv-submit:disabled{opacity:.55}
+.rv-done{padding:30px 10px; text-align:center; font-size:14px; line-height:2; color:var(--ink-2)}
+.rv-done b{display:block; margin-bottom:6px; font-size:16px; font-weight:500; color:var(--brown)}
+.rv-hide{display:none!important}
+
 /* ══ 스티커 콜라주 ═════════════════════════════════════ */
 .stk{padding:24px 16px 40px}
 .stk-box{position:relative; width:100%}
@@ -478,6 +498,27 @@ html.anim.rm .stk-it.rv{transform:rotate(var(--r))!important}
     <div class="gnum" id="gNum"></div>
   </section>
 
+  <!-- ⑦-2 참석 여부 (RSVP) — 답변은 구글 시트로 전송 -->
+  <section class="rsvp" id="rsvp" data-reveal>
+    <h2 class="sec-title">참석 여부 전달</h2>
+    <p class="sec-sub">R.S.V.P.</p>
+    <p class="alead">원활한 예식 준비를 위해<br>참석 여부를 미리 알려주시면 감사하겠습니다.</p>
+    <form class="rv-form" id="rvForm" novalidate>
+      <div class="rv-row"><span class="rv-lab">구분</span>
+        <div class="rv-seg" data-name="side"><button type="button" data-v="신랑측">신랑측</button><button type="button" data-v="신부측">신부측</button></div></div>
+      <div class="rv-row"><span class="rv-lab">참석 여부</span>
+        <div class="rv-seg" data-name="attend"><button type="button" data-v="참석">참석할게요</button><button type="button" data-v="불참">참석이 어려워요</button></div></div>
+      <label class="rv-row"><span class="rv-lab">성함</span>
+        <input class="rv-in" name="guest" id="rvName" type="text" maxlength="20" placeholder="성함을 입력해 주세요" autocomplete="name"></label>
+      <div class="rv-row" id="rvCountRow"><span class="rv-lab">참석 인원</span>
+        <div class="rv-step"><button type="button" data-d="-1" aria-label="인원 줄이기">−</button>
+          <output id="rvCount">1</output><span>명</span>
+          <button type="button" data-d="1" aria-label="인원 늘리기">+</button></div></div>
+      <p class="rv-note">본인을 포함한 인원이에요.</p>
+      <button class="rv-submit" type="submit">전달하기</button>
+    </form>
+  </section>
+
   <!-- ⑧ 연락하기 · 마음 전하실 곳 (연락처 아래에 계좌) -->
   <section class="contact" id="gift" data-reveal>
     <h2 class="sec-title">연락처 · 마음 전하실 곳</h2>
@@ -624,6 +665,9 @@ const CONFIG = {
   bgm:"",            /* 예: "bgm.mp3" — 비우면 음악 버튼 숨김 */
 
   /* 카카오톡 공유 — developers.kakao.com 앱의 JavaScript 키. 비우면 기본 공유창 사용 */
+  /* 참석 여부(RSVP) — 구글 Apps Script 웹 앱 주소. 비우면 "준비 중" 안내가 뜹니다 */
+  rsvpUrl:"",
+
   kakao:{
     key:"b33fb3f5261ee9a9b063fbe600cf4b8e",
     url:"https://yejinshin95-jpg.github.io/wedding/",          /* 카카오 앱에 등록한 사이트 도메인 */
@@ -1191,6 +1235,38 @@ $("#contact").addEventListener("click",e=>{
   const c=e.target.closest("[data-copy]");
   if(c)copy(c.dataset.copy,"계좌번호를 복사했습니다");
 });
+
+/* ⑦-2 RSVP — 구글 시트로 전송 (text/plain 이라 사전 요청 없이 바로 전송) */
+(function(){
+  const f=$("#rvForm"); if(!f) return;
+  const st={side:"",attend:"",count:1};
+  $$(".rv-seg",f).forEach(g=>g.addEventListener("click",e=>{
+    const b=e.target.closest("button"); if(!b) return;
+    $$("button",g).forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+    st[g.dataset.name]=b.dataset.v;
+    if(g.dataset.name==="attend"){ const no=st.attend==="불참"; $("#rvCountRow").classList.toggle("rv-hide",no); $(".rv-note",f).classList.toggle("rv-hide",no); }
+  }));
+  $(".rv-step",f).addEventListener("click",e=>{
+    const b=e.target.closest("[data-d]"); if(!b) return;
+    st.count=Math.min(10,Math.max(1,st.count+ +b.dataset.d)); $("#rvCount").textContent=st.count;
+  });
+  f.addEventListener("submit",async e=>{
+    e.preventDefault();
+    const name=$("#rvName").value.trim();
+    if(!st.side) return toast("신랑측 / 신부측을 선택해 주세요");
+    if(!st.attend) return toast("참석 여부를 선택해 주세요");
+    if(!name) return toast("성함을 입력해 주세요");
+    if(!CONFIG.rsvpUrl) return toast("참석 여부 전달은 준비 중이에요");
+    const btn=$(".rv-submit",f); btn.disabled=true; btn.textContent="전달 중…";
+    const data={side:st.side, attend:st.attend, name, count:st.attend==="참석"?st.count:0};
+    try{
+      await fetch(CONFIG.rsvpUrl,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});
+      f.outerHTML=`<div class="rv-done"><b>소중한 마음 감사합니다</b>${esc(name)}님의 ${data.attend==="참석"?`참석(${data.count}명)`:"불참"} 소식이<br>신랑 신부에게 전달되었어요.</div>`;
+    }catch(err){
+      btn.disabled=false; btn.textContent="전달하기"; toast("전송에 실패했어요. 잠시 후 다시 시도해 주세요");
+    }
+  });
+})();
 
 /* 공유 */
 $("#shareLink").onclick=()=>copy(location.href,"링크를 복사했습니다");
