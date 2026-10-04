@@ -1154,6 +1154,7 @@ if(V.kakaoMap&&CONFIG.kakao.key){
       const m=$("#map"); m.innerHTML="";
       const map=new kakao.maps.Map(m,{center:new kakao.maps.LatLng(V.lat,V.lng), level:3});
       map.setZoomable(false);                       /* 페이지 스크롤과 겹치지 않게 확대는 버튼으로 */
+      map.setDraggable(false);                      /* 터치로 지도가 움직이지 않게 고정 (스크롤이 그대로 페이지로) */
       map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
       const mark=new kakao.maps.Marker({position:map.getCenter(), map});
       const put=(lat,lng)=>{ const p=new kakao.maps.LatLng(lat,lng); mark.setPosition(p); map.setCenter(p); };
