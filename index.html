@@ -208,7 +208,8 @@ section{padding:72px 28px}
 /* ══ ⑥ 안내사항 캐러셀 ════════════════════════════════════ */
 .guide{background:var(--paper); padding-left:0; padding-right:0}
 .guide>.sec-title,.guide>.sec-sub{padding:0 28px}
-.grail2{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none}
+.grail2{display:flex; align-items:flex-start; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none;
+  transition:height .35s ease}   /* 높이는 지금 보이는 카드에 맞춘다(JS) — 짧은 카드 아래 빈 공간 방지 */
 .grail2::-webkit-scrollbar{display:none}
 .gcard{flex:0 0 100%; scroll-snap-align:center; display:flex; flex-direction:column}
 .gshot{width:100%; aspect-ratio:16/11; overflow:hidden; position:relative; background:var(--paper-2)}
@@ -1224,7 +1225,11 @@ function gSync(){
   $("#gNum").innerHTML=`<b>${gi+1}</b> / ${GN}`;
   $("#gPrev").disabled=gi===0; $("#gNext").disabled=gi===GN-1;
   $$("#gChips button").forEach((b,k)=>b.setAttribute("aria-selected",String(k===gi)));
+  gFit();
 }
+function gFit(){ const c=rail2.children[gi]; if(c) rail2.style.height=c.offsetHeight+"px"; }
+addEventListener("resize",gFit);
+$$("img",rail2).forEach(im=>im.complete||im.addEventListener("load",gFit));
 const gGo=i=>rail2.scrollTo({left:rail2.clientWidth*Math.min(GN-1,Math.max(0,i)),behavior:"smooth"});
 $("#gChips").innerHTML=CONFIG.guide.map((g,i)=>`<button type="button" role="tab" data-i="${i}">${esc(g.chip||g.title)}</button>`).join("");
 $("#gChips").onclick=e=>{ const b=e.target.closest("[data-i]"); if(b) gGo(+b.dataset.i); };
