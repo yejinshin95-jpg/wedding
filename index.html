@@ -1268,10 +1268,12 @@ $("#contact").addEventListener("click",e=>{
   /* 플로팅 버튼 */
   const fab=$("#rvFab"), sec=$("#rsvp");
   let done=false; try{ done=!!localStorage.getItem("rsvpDone"); }catch(e){}
-  let inView=false;
-  const upd=()=>{ const past=scrollY>innerHeight*.6; fab.toggleAttribute("data-show",past&&!inView&&!done); };
-  if("IntersectionObserver" in window) new IntersectionObserver(es=>{ inView=es[0].isIntersecting; upd(); },{threshold:.15}).observe(sec);
-  addEventListener("scroll",upd,{passive:true}); upd();
+  /* 참석 여부 섹션에 닿기 전까지만 보이고, 그 아래(연락처·공유·마지막 화면)에서는 숨긴다 */
+  const upd=()=>{
+    const past=scrollY>innerHeight*.6, ahead=sec.getBoundingClientRect().top>innerHeight*.85;
+    fab.toggleAttribute("data-show",past&&ahead&&!done);
+  };
+  addEventListener("scroll",upd,{passive:true}); addEventListener("resize",upd); upd();
   fab.onclick=()=>sec.scrollIntoView({behavior:"smooth",block:"start"});
 
   f.addEventListener("submit",async e=>{
