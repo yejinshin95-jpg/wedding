@@ -323,6 +323,7 @@ section{padding:72px 28px}
   transform:translate(-50%,140%); opacity:0; pointer-events:none;
   transition:transform .45s cubic-bezier(.22,.61,.36,1), opacity .35s ease}
 .rv-fab[data-show]{transform:translate(-50%,0); opacity:1; pointer-events:auto}
+.lb[data-open] ~ .rv-fab{display:none}   /* 사진 크게 보기 중에는 숨김 */
 
 /* ══ 스티커 콜라주 ═════════════════════════════════════ */
 .stk{padding:24px 16px 40px}
