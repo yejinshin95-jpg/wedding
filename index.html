@@ -289,7 +289,7 @@ section{padding:72px 28px}
 .op-row{width:100%; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:14px;
   padding:0 20px}
 .op-row span{font-family:"Montserrat",sans-serif; font-weight:400; font-size:13.5px;
-  letter-spacing:.14em; color:#3A3634; font-variant-numeric:lining-nums}
+  letter-spacing:.14em; line-height:1.9; color:#3A3634; font-variant-numeric:lining-nums}
 .op-row span:first-child{text-align:right}
 .op-photo{width:min(52vw,230px)}
 .op-photo img{width:100%; height:auto}
@@ -722,8 +722,10 @@ document.title=`${CONFIG.groom.name.slice(1)} ${CONFIG.bride.name.slice(1)} 청�
 
 /* ⓪ 첫 화면 — 날짜 채우기 */
 (function(){
-  $("#opMD").textContent=`${pad(D.getMonth()+1)}.${pad(D.getDate())}`;
-  $("#opY").textContent=D.getFullYear();
+  /* 좌: 2026 / 11.14   우: 12:00 / PM — 사진 양옆 폭이 좁아 두 줄로 쌓는다 */
+  const h=D.getHours(), h12=h%12||12;
+  $("#opMD").innerHTML=`${D.getFullYear()}<br>${pad(D.getMonth()+1)}.${pad(D.getDate())}`;
+  $("#opY").innerHTML=`${pad(h12)}:${pad(D.getMinutes())}<br>${h<12?"AM":"PM"}`;
   if("scrollRestoration" in history) history.scrollRestoration="manual";
   scrollTo(0,0);
 })();
