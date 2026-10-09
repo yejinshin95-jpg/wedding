@@ -211,7 +211,11 @@ section{padding:72px 28px}
 .grail2{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none}
 .grail2::-webkit-scrollbar{display:none}
 .gcard{flex:0 0 100%; scroll-snap-align:center; display:flex; flex-direction:column}
-.gshot{width:100%; aspect-ratio:16/11; overflow:hidden; background:var(--paper-2)}
+.gshot{width:100%; aspect-ratio:16/11; overflow:hidden; position:relative; background:var(--paper-2)}
+/* 사진 위 번호 캡션 — 본문의 ①②③과 짝을 이룬다 */
+.gmark{position:absolute; padding:4px 9px 4px 7px; border-radius:999px; background:rgba(255,255,255,.9);
+  color:var(--brown); font-size:10.5px; font-weight:500; letter-spacing:-.01em; white-space:nowrap;
+  box-shadow:0 2px 8px rgba(0,0,0,.18)}
 .gcap{padding:13px 0; text-align:center; background:var(--brown); color:#F4EEE8;
   font-family:var(--serif); font-weight:500; font-size:15px; letter-spacing:.02em}
 .gdesc{padding:26px 32px 0; text-align:center; font-size:13.2px; color:var(--ink-2);
@@ -621,8 +625,9 @@ const CONFIG = {
 
   /* 옆으로 밀어 한 장씩 확인하는 안내 카드 */
   guide:[
-    { title:"도보로 오는 법", art:"elevator", photo:"",
-      desc:"예식홀은 **호텔 4층 그랜드 볼룸 방돔**이에요.\n\n**호텔 메인 로비** 또는 **사진 속 출입구**로 들어오셔서\n**호텔 엘리베이터**나 **리테일 에스컬레이터**를 타고\n4층까지 올라오시면 돼요." },
+    { title:"도보로 오는 법", art:"elevator", photo:"photos/entrance.jpg", ratio:"1/1",
+      marks:[{t:"① 호텔 메인 로비",x:3,y:3},{t:"② 호텔 출입구",x:2.5,y:52},{t:"③ 리테일 에스컬레이터",x:52,y:90}],
+      desc:"예식홀은 **호텔 4층 그랜드 볼룸 방돔**이에요.\n\n**① 메인 로비**나 **② 호텔 출입구**로 들어와\n**호텔 엘리베이터**를 타시거나,\n**③ 리테일 에스컬레이터**를 이용해\n4층까지 올라오시면 돼요." },
     { title:"주차", art:"car", photo:"",
       desc:"호텔 **B3 ~ B4** 주차장을 이용해주시면 되고,\n**3시간 무료주차**가 지원됩니다.\n**4층 예식홀 앞에 준비된 기기**에서\n차량번호를 입력하시면 주차등록이 완료됩니다." },
     { title:"ATM 위치", art:"atm", photo:"photos/atm-location.jpg",
@@ -1201,7 +1206,7 @@ $("#tl").innerHTML=CONFIG.timeline.map(t=>`
 const rail2=$("#grail2"), GN=CONFIG.guide.length;
 rail2.innerHTML=CONFIG.guide.map((g,i)=>`
   <div class="gcard">
-    <div class="gshot">${g.photo?photo(g.photo,g.title,i):`<div class="artbox">${ART[g.art]||""}</div>`}</div>
+    <div class="gshot"${g.ratio?` style="aspect-ratio:${g.ratio}"`:""}>${g.photo?photo(g.photo,g.title,i):`<div class="artbox">${ART[g.art]||""}</div>`}${(g.marks||[]).map(m=>`<span class="gmark" style="left:${m.x}%;top:${m.y}%">${esc(m.t)}</span>`).join("")}</div>
     <div class="gcap">${esc(g.title)}</div>
     <div class="gdesc">${nlB(g.desc)}${g.verify?'<span class="chip">확인</span>':""}</div>
   </div>`).join("");
