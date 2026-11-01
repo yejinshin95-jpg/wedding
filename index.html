@@ -368,11 +368,11 @@ button.stk-it:active{opacity:.8}
 .sd-caps{font-family:var(--latin); font-weight:400; letter-spacing:.32em; text-indent:.32em; text-transform:uppercase}
 
 /* 카운트다운 — D-day 문구 아래 한 줄 */
-.leave-sec{padding:44px 28px; background:var(--paper)}
+.leave-sec{padding:44px min(28px,6vw); background:var(--paper)}
 .leave{padding:22px 18px 20px; text-align:center; border:1px solid var(--hair); background:var(--card)}
 .leave-lab{font-family:var(--latin); font-size:10.5px; letter-spacing:.32em; text-transform:uppercase; color:var(--rose)}
 .leave-t{margin-top:4px; font-family:var(--serif); font-size:15px; font-weight:500; color:var(--brown)}
-.leave-d{margin-top:12px; font-size:14px; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums}
+.leave-d{margin-top:12px; font-size:min(14px,4vw); white-space:nowrap; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums}
 .leave-x{margin-top:8px; font-size:12.8px; line-height:1.8; color:var(--ink-2); word-break:keep-all}
 .cdkr{margin:6px 0 0; text-align:center; font-size:13px; color:var(--ink-3); font-variant-numeric:tabular-nums}
 .cdkr b{font-weight:500; color:var(--ink)}
@@ -635,7 +635,7 @@ const CONFIG = {
     },
     leave:{                   /* 휴가 안내 — 비우면(from:"") 칸이 숨겨짐 */
       from:"2026-11-15", to:"2026-12-04",
-      text:"결혼식과 신혼여행으로 위 기간 동안 자리를 비웁니다.\n양해 부탁드립니다."
+      text:"결혼식과 신혼여행으로\n위 기간 동안 자리를 비웁니다.\n업무에 불편을 드리지 않도록\n미리 준비하고,\n복귀 후 빠르게 팔로업하겠습니다.\n감사합니다."
     }
   },
 
