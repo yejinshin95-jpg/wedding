@@ -32,4 +32,5 @@ python3 video/render-video.py
 
 - 문구·배치·사진: `slides.html` 에서 고칩니다. 장면 길이는 각 `<section data-sec="초">`.
 - 전환 속도·마지막 첫 화면 길이: `render-video.py` 의 `FADE_SEC`, `END_SEC`.
-- 반짝임 양·크기·속도: `render-video.py` 의 `SPARKLE_ON_SCREEN`, `SPARKLE_SIZE`, `SPARKLE_LIFE`.
+- 반짝임 양·크기·속도·색: `render-video.py` 의 `SPARKLE_ON_SCREEN`, `SPARKLE_SIZE`, `SPARKLE_LIFE`, `SPARKLE_COLOR`, `GLOW_COLOR`.
+- 반짝임 미리보기 한 장: `python3 video/render-video.py --still 2.3 미리보기.png`

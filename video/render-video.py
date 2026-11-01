@@ -15,10 +15,11 @@ FADE_SEC = 1.5      # 크로스페이드 길이
 END_SEC = 6         # 마지막 첫 화면 길이
 
 # ── 반짝임 설정 ─────────────────────────────────────────
-SPARKLE_ON_SCREEN = 16          # 동시에 보이는 반짝임 수(평균)
+SPARKLE_ON_SCREEN = 14          # 동시에 보이는 반짝임 수(평균)
 SPARKLE_LIFE = (1.2, 2.2)       # 반짝임 하나가 켜졌다 꺼지는 시간(초)
-SPARKLE_SIZE = (14, 34)         # 빛줄기 반지름(px)
-SPARKLE_COLOR = np.array([1.0, 0.99, 0.95])   # 살짝 따뜻한 흰빛
+SPARKLE_SIZE = (22, 46)         # 빛줄기 반지름(px)
+SPARKLE_COLOR = np.array([1.0, 0.99, 0.96])   # 빛 중심·빛줄기 (흰빛)
+GLOW_COLOR = np.array([1.0, 0.90, 0.68])      # 둘레 번짐 (샴페인빛)
 # main.jpg(720px) 안에서 레이스가 있는 범위와 가운데 사진 범위
 LACE_OUTER = (45, 62, 680, 648)
 LACE_INNER = (150, 185, 570, 530)
@@ -27,7 +28,7 @@ def lace_points():
     g = np.asarray(Image.open(os.path.join(HERE, '..', 'photos', 'main.jpg')).convert('L')).astype(int)
     ys, xs = np.mgrid[0:g.shape[0], 0:g.shape[1]]
     ox0, oy0, ox1, oy1 = LACE_OUTER; ix0, iy0, ix1, iy1 = LACE_INNER
-    m = (xs >= ox0) & (xs <= ox1) & (ys >= oy0) & (ys <= oy1) & ~((xs >= ix0) & (xs <= ix1) & (ys >= iy0) & (ys <= iy1)) & (g >= 224)
+    m = (xs >= ox0) & (xs <= ox1) & (ys >= oy0) & (ys <= oy1) & ~((xs >= ix0) & (xs <= ix1) & (ys >= iy0) & (ys <= iy1)) & (g >= 120) & (g <= 200)   # 흰 실 사이 회색 망사 위 → 흰 빛이 잘 보임
     return np.stack([xs[m], ys[m]], 1) / g.shape[1]    # 0~1 비율 좌표
 
 def make_sprite(R):
@@ -39,8 +40,7 @@ def make_sprite(R):
     s = core + ray(x, y, R, w) + ray(y, x, R, w)               # 가로·세로 빛줄기
     u, v = (x + y) / math.sqrt(2), (x - y) / math.sqrt(2)
     s += 0.45 * (ray(u, v, 0.5 * R, w) + ray(v, u, 0.5 * R, w))  # 짧은 대각선
-    s += 0.25 * np.exp(-(r / (0.45 * R)) ** 2)                  # 은은한 번짐
-    return np.clip(s, 0, 1)
+    return np.clip(s, 0, 1), np.exp(-(r / (0.38 * R)) ** 2)     # (빛, 번짐)
 
 SPRITES = {R: make_sprite(R) for R in range(SPARKLE_SIZE[0], SPARKLE_SIZE[1] + 1, 2)}
 
@@ -61,14 +61,22 @@ def add_sparkles(img, sched, lt):
         u = (lt - s['t0']) / s['life']
         if not 0 < u < 1: continue
         env = math.sin(math.pi * u) ** 2 * s['peak']
-        R = s['R']; sp = SPRITES[R] * env
+        R = s['R']; sp, glow = SPRITES[R]
         x0, y0 = int(round(s['x'])) - R, int(round(s['y'])) - R
         xa, ya, xb, yb = max(0, x0), max(0, y0), min(W, x0 + 2 * R + 1), min(H, y0 + 2 * R + 1)
         if xa >= xb or ya >= yb: continue
-        k = sp[ya - y0:yb - y0, xa - x0:xb - x0, None] * SPARKLE_COLOR
+        cy, cx = slice(ya - y0, yb - y0), slice(xa - x0, xb - x0)
+        k = env * (sp[cy, cx, None] * SPARKLE_COLOR + 0.55 * glow[cy, cx, None] * GLOW_COLOR)
+        k = np.clip(k, 0, 1)
         reg = a[ya:yb, xa:xb]
         a[ya:yb, xa:xb] = 1 - (1 - reg) * (1 - k)              # 스크린 합성 (밝게만)
     return Image.fromarray((np.clip(a, 0, 1) * 255 + .5).astype(np.uint8))
+
+# 미리보기: python3 render-video.py --still 2.3 out.png  → 첫 화면의 그 시각 한 장면만 저장
+if len(sys.argv) > 1 and sys.argv[1] == '--still':
+    s0 = json.load(open(os.path.join(SL, 'list.json')))[0]
+    im = Image.open(os.path.join(SL, s0['file'])).convert('RGB')
+    add_sparkles(im, sparkle_schedule(s0['sec'], s0['lace'], seed=0), float(sys.argv[2])).save(sys.argv[3]); sys.exit()
 
 # ── 장면 ──────────────────────────────────────────────
 lst = json.load(open(os.path.join(SL, 'list.json')))
