@@ -368,7 +368,8 @@ button.stk-it:active{opacity:.8}
 .sd-caps{font-family:var(--latin); font-weight:400; letter-spacing:.32em; text-indent:.32em; text-transform:uppercase}
 
 /* 카운트다운 — D-day 문구 아래 한 줄 */
-.leave{margin:34px 8px 0; padding:22px 18px 20px; text-align:center; border:1px solid var(--hair); background:var(--card)}
+.leave-sec{padding:44px 28px; background:var(--paper)}
+.leave{padding:22px 18px 20px; text-align:center; border:1px solid var(--hair); background:var(--card)}
 .leave-lab{font-family:var(--latin); font-size:10.5px; letter-spacing:.32em; text-transform:uppercase; color:var(--rose)}
 .leave-t{margin-top:4px; font-family:var(--serif); font-size:15px; font-weight:500; color:var(--brown)}
 .leave-d{margin-top:12px; font-size:14px; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums}
@@ -436,6 +437,16 @@ html.anim.rm .stk-it.rv{transform:rotate(var(--r))!important}
 
 <main class="strip">
 
+  <!-- ⓪-2 휴가 안내 (회사용에서만) — 첫 화면 바로 다음, 커버 앞 -->
+  <section class="leave-sec" id="leaveSec" data-reveal hidden>
+    <div class="leave">
+      <p class="leave-lab">Vacation</p>
+      <p class="leave-t">휴가 안내</p>
+      <p class="leave-d" id="leaveD"></p>
+      <p class="leave-x" id="leaveX"></p>
+    </div>
+  </section>
+
   <!-- ① 커버 -->
   <header class="cover">
     <p class="cv-eyebrow">Wedding Day.</p>
@@ -467,12 +478,6 @@ html.anim.rm .stk-it.rv{transform:rotate(var(--r))!important}
     <table class="cal" id="cal"></table>
     <p class="dday" id="dday"></p>
     <p class="cdkr" id="cdNums" aria-label="예식까지 남은 시간"></p>
-    <div class="leave" id="leave" hidden>
-      <p class="leave-lab">Vacation</p>
-      <p class="leave-t">휴가 안내</p>
-      <p class="leave-d" id="leaveD"></p>
-      <p class="leave-x" id="leaveX"></p>
-    </div>
   </section>
 
   <!-- ④ 사진첩 -->
@@ -626,12 +631,12 @@ const CONFIG = {
     hosts:["seokjong-yejin.vercel.app"],
     rsvpTag:"회사",          /* 참석 여부 응답에 함께 보낼 표시 (지인용은 "지인") */
     greeting:{
-      head:"평소 보내주신 관심과 배려에 감사드리며\n저희 두 사람이 부부의 연을 맺게 되었습니다.",
-      body:"바쁘시겠지만 자리를 빛내 주시면 감사하겠습니다."
+      head:"늘 따뜻하게 살펴주시는 동료분들께\n저희 두 사람의 결혼 소식을 전합니다.",
+      body:"함께해 주시면 더없는 기쁨으로 간직하겠습니다."
     },
     leave:{                   /* 휴가 안내 — 비우면(from:"") 칸이 숨겨짐 */
       from:"2026-11-15", to:"2026-12-04",
-      text:"결혼식과 신혼여행으로 위 기간 동안 휴가입니다."
+      text:"결혼식과 신혼여행으로 위 기간 동안 자리를 비웁니다.\n양해 부탁드립니다."
     }
   },
 
@@ -770,8 +775,8 @@ if(IS_CO && CONFIG.company.leave.from){
   const L=CONFIG.company.leave, f=x=>{const d=new Date(x+"T00:00:00");return `${d.getMonth()+1}월 ${d.getDate()}일(${DOW[d.getDay()]})`;};
   const a=new Date(L.from+"T00:00:00");
   $("#leaveD").textContent=`${a.getFullYear()}년 ${f(L.from)} ~ ${f(L.to)}`;
-  $("#leaveX").textContent=L.text;
-  $("#leave").hidden=false;
+  $("#leaveX").innerHTML=nl(L.text);
+  $("#leaveSec").hidden=false;
 }
 $("#wWhere").innerHTML=nl(placeLine);
 $("#mName").textContent=CONFIG.venue.name;
@@ -1094,7 +1099,7 @@ const WICON={
     : left===0 ? `오늘은 ${who}의 결혼식입니다`
     : `${who}가 결혼한 지 <b>${-left}</b>일 되었습니다`;
 })();
-$("#cue").onclick=()=>$(".cover").scrollIntoView({behavior:"smooth",block:"start"});
+$("#cue").onclick=()=>$(IS_CO&&!$("#leaveSec").hidden?"#leaveSec":".cover").scrollIntoView({behavior:"smooth",block:"start"});
 
 /* ② 각자 소개 */
 const pName=p=>(p.late?"故 ":"")+p.name;
