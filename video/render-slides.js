@@ -10,7 +10,10 @@ const { chromium } = require('playwright'); const path = require('path'); const 
   for (const [i, el] of (await p.$$('section.s')).entries()) {
     const file = String(i).padStart(2, '0') + '.png';
     await el.screenshot({ path: path.join(out, file) });
-    list.push({ file, sec: Number(await el.getAttribute('data-sec')) });
+    // 레이스 사진이 있는 장면은 반짝임 위치 계산용으로 화면 속 위치를 같이 기록
+    const lace = await el.evaluate(sec => { const i = sec.querySelector('img.lace'); if (!i) return null;
+      const a = sec.getBoundingClientRect(), b = i.getBoundingClientRect(); return { x: b.left - a.left, y: b.top - a.top, w: b.width, h: b.height }; });
+    list.push({ file, sec: Number(await el.getAttribute('data-sec')), lace });
   }
   fs.writeFileSync(path.join(out, 'list.json'), JSON.stringify(list, null, 1));
   console.log(list.length + ' slides'); await b.close();
