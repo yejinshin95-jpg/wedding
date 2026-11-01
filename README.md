@@ -180,6 +180,6 @@ Settings → Pages → Source `Deploy from a branch` → 브랜치 선택, 폴�
 키가 비어 있으면 기존처럼 기기 기본 공유창을 씁니다.
 
 1. [developers.kakao.com](https://developers.kakao.com) → 내 애플리케이션 → 앱 추가 (앱 이름·아이콘이 카드 하단에 표시됨)
-2. 플랫폼 → Web → 사이트 도메인에 `https://seokjong-yejin.vercel.app` 등록
+2. 플랫폼 → Web → 사이트 도메인에 `https://yejin-seokjong.vercel.app`(회사용), `https://yejinshin95-jpg.github.io`(지인용) 등록
 3. 앱 키 → **JavaScript 키**를 `CONFIG.kakao.key`에 입력
 4. 카드 사진은 `CONFIG.kakao.image` (절대 URL), 문구는 `#shareKakao` 핸들러에서 수정
