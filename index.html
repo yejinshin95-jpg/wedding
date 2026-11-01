@@ -629,7 +629,6 @@ const CONFIG = {
   /* ── 회사용 버전 ── 아래 주소로 열었을 때만 적용. 그 밖의 주소는 지인용(위 설정 그대로) */
   company:{
     hosts:["seokjong-yejin.vercel.app"],
-    rsvpTag:"회사",          /* 참석 여부 응답에 함께 보낼 표시 (지인용은 "지인") */
     greeting:{
       head:"늘 따뜻하게 살펴주시는 동료분들께\n저희 두 사람의 결혼 소식을 전합니다.",
       body:"함께해 주시면 더없는 기쁨으로 간직하겠습니다."
@@ -1360,7 +1359,7 @@ $("#contact").addEventListener("click",e=>{
     if(!name) return toast("성함을 입력해 주세요");
     if(!CONFIG.rsvpUrl) return toast("참석 여부 전달은 준비 중이에요");
     const btn=$(".rv-submit",f); btn.disabled=true; btn.textContent="전달 중…";
-    const data={side:st.side, attend:st.attend, name, count:st.attend==="참석"?st.count:0, ver:IS_CO?CONFIG.company.rsvpTag:"지인"};
+    const data={side:st.side, attend:st.attend, name, count:st.attend==="참석"?st.count:0};
     try{
       await fetch(CONFIG.rsvpUrl,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});
       done=true; upd(); try{ localStorage.setItem("rsvpDone","1"); }catch(e){}
