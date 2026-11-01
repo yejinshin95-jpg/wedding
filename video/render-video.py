@@ -1,6 +1,7 @@
 """식장 스크린용 사진 슬라이드 영상 (1920×1080, 30fps, 무음).
-slides/ 의 장면을 순서대로 크로스페이드로 잇고, 마지막에 첫 화면(00)으로 돌아갑니다 → 반복 재생해도 자연스러움.
-첫 화면의 레이스 액자 위에는 살짝 반짝이는 빛(별 모양 글린트)을 그립니다.
+- 장면 안의 사진·글은 data-step 순서대로 하나씩 나타납니다: 페이드 인(글은 살짝 떠오름), 필기체는 왼쪽부터 써지듯.
+- 장면 사이는 크로스페이드. 끝에는 첫 화면이 다시 나왔다가 요소가 사라져 배경만 남음 → 처음(배경에서 시작)과 이어져 반복 재생이 자연스러움.
+- 첫 화면의 레이스 액자 위에는 살짝 반짝이는 빛(별 모양 글린트).
 사용: node video/render-slides.js && python3 video/render-video.py   (결과: video/wedding-slideshow.mp4)
 """
 import subprocess, sys, os, json, math, random
@@ -13,6 +14,15 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, 'wedding-slidesho
 W, H, FPS = 1920, 1080, 30
 FADE_SEC = 1.5      # 크로스페이드 길이
 END_SEC = 6         # 마지막 첫 화면 길이
+OUTRO_SEC = 1.2     # 마지막에 요소가 사라지는 시간
+
+# ── 등장 효과 ─────────────────────────────────────────
+START_DELAY = 0.35  # 장면 시작 후 첫 요소가 나오기까지
+STEP_GAP = 0.5      # 다음 요소가 나오기까지 (페이드 인 요소)
+FADE_IN = 0.9       # 페이드 인 길이
+RISE = 18           # 글이 떠오르는 거리(px)
+WRITE_BASE, WRITE_PX_PER_SEC = 0.6, 900   # 필기체 써지는 시간 = 기본 + 폭/속도
+WRITE_SOFT = 70     # 써지는 경계의 부드러운 폭(px)
 
 # ── 반짝임 설정 ─────────────────────────────────────────
 SPARKLE_ON_SCREEN = 14          # 동시에 보이는 반짝임 수(평균)
@@ -55,12 +65,12 @@ def sparkle_schedule(dur, box, seed):
         t += rnd.expovariate(rate)
     return out
 
-def add_sparkles(img, sched, lt):
+def add_sparkles(img, sched, lt, gain=1.0):
     a = np.asarray(img).astype(np.float32) / 255
     for s in sched:
         u = (lt - s['t0']) / s['life']
         if not 0 < u < 1: continue
-        env = math.sin(math.pi * u) ** 2 * s['peak']
+        env = math.sin(math.pi * u) ** 2 * s['peak'] * gain
         R = s['R']; sp, glow = SPRITES[R]
         x0, y0 = int(round(s['x'])) - R, int(round(s['y'])) - R
         xa, ya, xb, yb = max(0, x0), max(0, y0), min(W, x0 + 2 * R + 1), min(H, y0 + 2 * R + 1)
@@ -72,29 +82,85 @@ def add_sparkles(img, sched, lt):
         a[ya:yb, xa:xb] = 1 - (1 - reg) * (1 - k)              # 스크린 합성 (밝게만)
     return Image.fromarray((np.clip(a, 0, 1) * 255 + .5).astype(np.uint8))
 
-# 미리보기: python3 render-video.py --still 2.3 out.png  → 첫 화면의 그 시각 한 장면만 저장
-if len(sys.argv) > 1 and sys.argv[1] == '--still':
-    s0 = json.load(open(os.path.join(SL, 'list.json')))[0]
-    im = Image.open(os.path.join(SL, s0['file'])).convert('RGB')
-    add_sparkles(im, sparkle_schedule(s0['sec'], s0['lace'], seed=0), float(sys.argv[2])).save(sys.argv[3]); sys.exit()
 
-# ── 장면 ──────────────────────────────────────────────
+ease = lambda u: u * u * (3 - 2 * u)
+
+class Layer:
+    def __init__(self, path, meta):
+        a = np.asarray(Image.open(path).convert('RGBA')).astype(np.float32) / 255
+        ys, xs = np.where(a[..., 3] > 0.002)
+        self.x0, self.y0, self.x1, self.y1 = xs.min(), ys.min(), xs.max() + 1, ys.max() + 1
+        c = a[self.y0:self.y1, self.x0:self.x1]
+        self.rgb, self.alpha = c[..., :3], c[..., 3]
+        self.w = self.x1 - self.x0
+        self.fx, self.step, self.lace = meta['fx'], meta['step'], meta['lace']
+        self.rise = RISE if meta['kind'] == 'text' else 0
+        self.dur = WRITE_BASE + self.w / WRITE_PX_PER_SEC if self.fx == 'write' else FADE_IN
+        self.cols = np.arange(self.w, dtype=np.float32)
+
+    def draw(self, a, u):
+        """u: 0~1 등장 진행도. a: 프레임(float, H×W×3)에 그림."""
+        if u <= 0: return
+        if self.fx == 'write':
+            e = u * (self.w + WRITE_SOFT)                               # 펜 위치
+            m = np.clip((e - self.cols) / WRITE_SOFT, 0, 1)[None, :]
+            al = self.alpha * m * min(1, u * 6); dy = 0
+        else:
+            k = ease(min(1, u)); al = self.alpha * k; dy = int(round((1 - k) * self.rise))
+        y0, y1 = self.y0 + dy, self.y1 + dy
+        cy0, cy1 = max(0, -y0) , (self.y1 - self.y0) - max(0, y1 - H)
+        y0, y1 = max(0, y0), min(H, y1)
+        reg = a[y0:y1, self.x0:self.x1]; al = al[cy0:cy1, :, None]
+        reg[:] = reg * (1 - al) + self.rgb[cy0:cy1] * al
+
+class Scene:
+    def __init__(self, meta, idx, settled=False, outro=False, sec=None):
+        self.sec = sec or meta['sec']
+        self.bg = np.asarray(Image.open(os.path.join(SL, meta['bg'])).convert('RGB')).astype(np.float32) / 255
+        self.layers = [Layer(os.path.join(SL, l['file']), l) for l in meta['layers']]
+        # 등장 시각: step 순서대로
+        t = START_DELAY; self.start = {}
+        for st in sorted({l.step for l in self.layers}):
+            self.start[st] = t
+            ws = [l.dur for l in self.layers if l.step == st and l.fx == 'write']
+            t += max(STEP_GAP, max(ws) * 0.85) if ws else STEP_GAP
+        self.settled, self.outro = settled, outro
+        self.sched = sparkle_schedule(self.sec, meta['lace'], seed=idx) if meta.get('lace') else None
+        self.lace_layer = next((l for l in self.layers if l.lace), None)
+        self.done_at = max(self.start[l.step] + l.dur for l in self.layers) if self.layers else 0
+        self._full = None
+
+    def progress(self, l, lt):
+        return 1.0 if self.settled else (lt - self.start[l.step]) / l.dur
+
+    def frame(self, lt):
+        k_out = 1.0
+        if self.outro and lt > self.sec - OUTRO_SEC: k_out = 1 - ease(min(1, (lt - (self.sec - OUTRO_SEC)) / OUTRO_SEC))
+        if (self.settled or lt >= self.done_at) and k_out == 1.0 and self._full is not None:
+            a = self._full.copy()
+        else:
+            a = self.bg.copy()
+            for l in self.layers: l.draw(a, min(1.0, self.progress(l, lt)))
+            if (self.settled or lt >= self.done_at) and k_out == 1.0: self._full = a.copy()
+            if k_out < 1.0: a = self.bg + (a - self.bg) * k_out
+        img = Image.fromarray((np.clip(a, 0, 1) * 255 + .5).astype(np.uint8))
+        if self.sched:
+            lace_k = min(1.0, max(0.0, self.progress(self.lace_layer, lt))) if self.lace_layer else 1.0
+            lace_k *= k_out
+            if lace_k > 0: img = add_sparkles(img, self.sched, lt, lace_k)
+        return img
+
 lst = json.load(open(os.path.join(SL, 'list.json')))
-lst.append(dict(lst[0], sec=END_SEC))
-scenes = []
-for i, s in enumerate(lst):
-    im = Image.open(os.path.join(SL, s['file'])).convert('RGB')
-    sched = sparkle_schedule(s['sec'], s['lace'], seed=i) if s.get('lace') else None
-    scenes.append((im, s['sec'], sched))
 
+# 미리보기: python3 render-video.py --still 장면번호 초 out.png
+if len(sys.argv) > 1 and sys.argv[1] == '--still':
+    i = int(sys.argv[2]); Scene(lst[i], i).frame(float(sys.argv[3])).save(sys.argv[4]); sys.exit()
+
+scenes = [Scene(m, i) for i, m in enumerate(lst)] + [Scene(lst[0], 99, settled=True, outro=True, sec=END_SEC)]
 starts, t = [], 0.0
-for i, (_, dur, _) in enumerate(scenes):
-    starts.append(t); t += dur - (FADE_SEC if i < len(scenes) - 1 else 0)
+for i, sc in enumerate(scenes):
+    starts.append(t); t += sc.sec - (FADE_SEC if i < len(scenes) - 1 else 0)
 total = t
-
-def frame(i, sec):
-    im, _, sched = scenes[i]
-    return add_sparkles(im, sched, sec - starts[i]) if sched else im
 
 ff = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
                        '-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-pix_fmt', 'yuv420p', '-tune', 'stillimage', '-movflags', '+faststart', OUT],
@@ -102,11 +168,11 @@ ff = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '
 for f in range(round(total * FPS)):
     sec = f / FPS
     cur = max(i for i in range(len(scenes)) if starts[i] <= sec)
-    img = frame(cur, sec)
+    img = scenes[cur].frame(sec - starts[cur])
     if cur > 0 and sec < starts[cur] + FADE_SEC:
-        a = (sec - starts[cur]) / FADE_SEC
-        a = a * a * (3 - 2 * a)
-        img = Image.blend(frame(cur - 1, sec), img, a)
+        a = ease((sec - starts[cur]) / FADE_SEC)
+        img = Image.blend(scenes[cur - 1].frame(sec - starts[cur - 1]), img, a)
     ff.stdin.write(img.tobytes())
+    if f % (FPS * 10) == 0: print(f'{sec:5.1f}s / {total:.1f}s', flush=True)
 ff.stdin.close(); ff.wait()
 print('done', OUT, f'{total:.1f}s')

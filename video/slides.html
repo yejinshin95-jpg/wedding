@@ -1,11 +1,14 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8">
-<!-- 식장 스크린 영상 장면들 (각 1920×1080). render-slides.js 가 .s 하나씩 캡처합니다.
+<!-- 식장 스크린 영상 장면들 (각 1920×1080). render-slides.js 가 장면마다 배경과 등장 요소를 따로 캡처합니다.
      글꼴은 모바일 청첩장과 같음: Pinyon Script(필기체) · Montserrat(영문 대문자) · Noto Sans KR(본문)
+     data-step="n"  : 장면 안에서 n번째로 나타나는 요소 (같은 번호는 함께 나타남)
+     data-fx="write": 필기체처럼 왼쪽부터 써지듯 나타남 (없으면 페이드 인)
+     data-sec       : 장면 길이(초)
      문구를 바꾸려면 이 파일의 글자만 고치고 다시 렌더링하세요. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&family=Pinyon+Script&display=swap">
 <style>
-:root{--porcelain:#EFEDE8; --paper:#E7E3DC; --card:#F8F7F4; --blush:#DAC6C4; --brown:#4A3122; --ink:#2A2828; --ink2:#565151; --ink3:#8A8484; --rose:#B48A86}
+:root{--porcelain:#EFEDE8; --paper:#E7E3DC; --card:#F8F7F4; --blush:#DAC6C4; --brown:#4A3122; --ink:#2A2828; --ink2:#565151}
 *{box-sizing:border-box} html,body{margin:0; background:#333}
 .s{position:relative; width:1920px; height:1080px; overflow:hidden; background:var(--porcelain); margin-bottom:20px}
 img.p{position:absolute; object-fit:cover; display:block}
@@ -22,10 +25,8 @@ img.p{position:absolute; object-fit:cover; display:block}
 .op .row span{font-family:"Montserrat",sans-serif; font-weight:400; font-size:40px; letter-spacing:.04em; color:#3A3634; white-space:nowrap}
 .op .row span:first-child{text-align:right}
 .op .lace{width:540px; height:540px; display:block}
-/* 01 커버 */
-.cv{background:var(--blush)}
 
-/* 소개 — 사진 | 이름 | 사진 (예시 구성) */
+/* 소개 — 사진 | 이름 | 사진 */
 .intro .mid{left:672px; width:576px; top:0; height:1080px; background:var(--card)}
 .intro .role{font-size:92px; margin-bottom:26px}
 .intro .kn{font-family:"Noto Sans KR",sans-serif; font-weight:400; font-size:50px; letter-spacing:.42em; text-indent:.42em; color:var(--ink); margin:0 0 30px}
@@ -35,115 +36,107 @@ img.p{position:absolute; object-fit:cover; display:block}
 
 <!-- 00 첫 화면 — 모바일 청첩장 첫 화면 그대로 (레이스 액자 사진). 레이스 위에 반짝임 효과(render-video.py) -->
 <section class="s op" data-sec="6">
-  <img class="title" src="../photos/wedinvt.png" alt="">
-  <div class="row"><span>2026.11.14</span><img class="lace" src="../photos/main.jpg" alt=""><span>12:00 PM</span></div>
+  <img class="title" src="../photos/wedinvt.png" alt="" data-step="0" data-fx="write">
+  <div class="row"><span data-step="2">2026.11.14</span><img class="lace" src="../photos/main.jpg" alt="" data-step="1"><span data-step="2">12:00 PM</span></div>
 </section>
 
-<!-- 01 커버 — WEDDING DAY. · 이름 · 일시·장소 -->
-<section class="s cv" data-sec="6">
-  <div class="center" style="left:0;right:0;top:0;bottom:0">
-    <p class="caps" style="font-size:32px">Wedding Day.</p>
-    <img src="../photos/sj.png" alt="" style="width:820px;margin:40px 0 60px">
-    <p class="ko" style="font-size:38px;line-height:1.8;font-weight:400">2026. 11. 14 토 오후 12시<br>소피텔 앰배서더 서울 4F 그랜드 볼룸 방돔</p>
-  </div>
-</section>
-
-<!-- 02 신랑 소개 -->
+<!-- 01 신랑 소개 -->
 <section class="s intro" data-sec="6">
-  <img class="p" src="../photos/g11-v2.jpg" style="left:0;top:0;width:672px;height:1080px;object-position:center 30%">
+  <img class="p" src="../photos/g11-v2.jpg" style="left:0;top:0;width:672px;height:1080px;object-position:center 30%" data-step="0">
   <div class="center mid">
-    <p class="script role">Groom</p>
-    <p class="kn">이석종</p>
-    <p class="caps en">Lee Seokjong</p>
+    <p class="script role" data-step="2" data-fx="write">Groom</p>
+    <p class="kn" data-step="3">이석종</p>
+    <p class="caps en" data-step="4">Lee Seokjong</p>
   </div>
-  <img class="p" src="../photos/g14-v2.jpg" style="left:1248px;top:0;width:672px;height:1080px;object-position:center 40%">
+  <img class="p" src="../photos/g14-v2.jpg" style="left:1248px;top:0;width:672px;height:1080px;object-position:center 40%" data-step="1">
 </section>
 
-<!-- 03 신부 소개 -->
+<!-- 02 신부 소개 -->
 <section class="s intro" data-sec="6">
-  <img class="p" src="../photos/g04-v2.jpg" style="left:0;top:0;width:672px;height:1080px;object-position:center 25%">
+  <img class="p" src="../photos/g04-v2.jpg" style="left:0;top:0;width:672px;height:1080px;object-position:center 25%" data-step="0">
   <div class="center mid">
-    <p class="script role">Bride</p>
-    <p class="kn">신예진</p>
-    <p class="caps en">Shin Yejin</p>
+    <p class="script role" data-step="2" data-fx="write">Bride</p>
+    <p class="kn" data-step="3">신예진</p>
+    <p class="caps en" data-step="4">Shin Yejin</p>
   </div>
-  <img class="p" src="../photos/g09-v2.jpg" style="left:1248px;top:0;width:672px;height:1080px;object-position:center 30%">
+  <img class="p" src="../photos/g09-v2.jpg" style="left:1248px;top:0;width:672px;height:1080px;object-position:center 30%" data-step="1">
 </section>
 
-<!-- 04 인사말 — 왼쪽 사진, 오른쪽 청첩장 인사말 -->
+<!-- 03 두 사람 이야기 — 왼쪽 사진, 오른쪽 글 (청첩장 인사말과 다른 문구) -->
 <section class="s" data-sec="6">
-  <img class="p" src="../photos/g01-v2.jpg" style="left:0;top:0;width:760px;height:1080px;object-position:center 30%">
+  <img class="p" src="../photos/g01-v2.jpg" style="left:0;top:0;width:760px;height:1080px;object-position:center 30%" data-step="0">
   <div class="center" style="left:760px;width:1160px;top:0;height:1080px">
-    <p class="caps" style="font-size:26px;margin-bottom:56px">Invitation</p>
-    <p class="ko" style="font-size:40px;line-height:2.1"><b>2021년 4월, 우연처럼 시작된 만남이<br>다섯 해의 계절을 지나<br>인연이 되었습니다.</b></p>
-    <p class="ko" style="font-size:32px;line-height:2.1;margin-top:40px">있는 그대로를 사랑하며<br>평생 서로의 편이 되어 살아가려 합니다.</p>
+    <p class="script" style="font-size:110px;margin-bottom:50px" data-step="1" data-fx="write">Our Story</p>
+    <p class="ko" style="font-size:40px;line-height:2.1" data-step="2"><b>2021년 4월의 어느 봄날,<br>처음 마주한 두 사람이</b></p>
+    <p class="ko" style="font-size:36px;line-height:2.1;margin-top:30px" data-step="3">함께한 계절들을 지나<br>오늘, 같은 길 위에 섭니다.</p>
   </div>
 </section>
 
-<!-- 05 가로 사진 꽉 채우기 + 제목 -->
+<!-- 04 가로 사진 꽉 채우기 + 제목 -->
 <section class="s" data-sec="6">
-  <img class="p" src="../photos/g05-v2.jpg" style="left:0;top:0;width:1920px;height:1080px;object-position:center 40%">
-  <div style="position:absolute;left:0;right:0;bottom:0;height:420px;background:linear-gradient(to top,rgba(20,18,16,.55),rgba(20,18,16,0))"></div>
+  <img class="p" src="../photos/g05-v2.jpg" style="left:0;top:0;width:1920px;height:1080px;object-position:center 40%" data-step="0">
+  <div style="position:absolute;left:0;right:0;bottom:0;height:420px;background:linear-gradient(to top,rgba(20,18,16,.55),rgba(20,18,16,0))" data-step="1"></div>
   <div style="position:absolute;left:110px;bottom:96px">
-    <p class="script" style="font-size:150px;color:#F8F7F4">Our Moments</p>
-    <p class="caps" style="font-size:30px;color:#F1EEE9;margin-top:14px">우리의 순간들</p>
+    <p class="script" style="font-size:150px;color:#F8F7F4" data-step="1" data-fx="write">Our Moments</p>
+    <p class="caps" style="font-size:30px;color:#F1EEE9;margin-top:14px" data-step="2">우리의 순간들</p>
   </div>
 </section>
 
-<!-- 06 세 장 나란히 (글 없음) -->
+<!-- 05 세 장 나란히 (글 없음) -->
 <section class="s" data-sec="6">
-  <img class="p" src="../photos/g02-v2.jpg" style="left:0;top:0;width:640px;height:1080px;object-position:center 30%">
-  <img class="p" src="../photos/g06-v2.jpg" style="left:640px;top:0;width:640px;height:1080px;object-position:center 40%">
-  <img class="p" src="../photos/g08-v2.jpg" style="left:1280px;top:0;width:640px;height:1080px;object-position:center 30%">
+  <img class="p" src="../photos/g02-v2.jpg" style="left:0;top:0;width:640px;height:1080px;object-position:center 30%" data-step="0">
+  <img class="p" src="../photos/g06-v2.jpg" style="left:640px;top:0;width:640px;height:1080px;object-position:center 40%" data-step="1">
+  <img class="p" src="../photos/g08-v2.jpg" style="left:1280px;top:0;width:640px;height:1080px;object-position:center 30%" data-step="2">
 </section>
 
-<!-- 07 엇갈린 두 장 + 필기체 -->
+<!-- 06 엇갈린 두 장 + 필기체 -->
 <section class="s" data-sec="6" style="background:var(--paper)">
-  <img class="p" src="../photos/g03-v2.jpg" style="left:150px;top:70px;width:560px;height:840px">
-  <img class="p" src="../photos/g07-v4.jpg" style="left:780px;top:170px;width:560px;height:840px;object-position:center 30%">
+  <img class="p" src="../photos/g03-v2.jpg" style="left:150px;top:70px;width:560px;height:840px" data-step="0">
+  <img class="p" src="../photos/g07-v4.jpg" style="left:780px;top:170px;width:560px;height:840px;object-position:center 30%" data-step="1">
   <div class="center" style="left:1340px;width:580px;top:0;height:1080px">
-    <p class="script" style="font-size:96px">Just as<br>we are</p>
-    <p class="ko" style="font-size:30px;margin-top:34px">있는 그대로를 사랑하며</p>
+    <p class="script" style="font-size:96px" data-step="2" data-fx="write">Just as</p>
+    <p class="script" style="font-size:96px" data-step="3" data-fx="write">we are</p>
+    <p class="ko" style="font-size:30px;margin-top:34px" data-step="4">있는 그대로를 사랑하며</p>
   </div>
 </section>
 
-<!-- 08 오른쪽 사진 한 장 + 왼쪽 글 -->
+<!-- 07 오른쪽 사진 한 장 + 왼쪽 글 -->
 <section class="s" data-sec="6">
+  <img class="p" src="../photos/g10-v2.jpg" style="left:1160px;top:0;width:760px;height:1080px;object-position:center 40%" data-step="0">
   <div class="center" style="left:0;width:1160px;top:0;height:1080px">
-    <p class="caps" style="font-size:26px;margin-bottom:40px">Always</p>
-    <p class="script" style="font-size:120px">on your side</p>
-    <p class="ko" style="font-size:30px;margin-top:44px">평생 서로의 편이 되어</p>
+    <p class="caps" style="font-size:26px;margin-bottom:40px" data-step="1">Always</p>
+    <p class="script" style="font-size:120px" data-step="2" data-fx="write">on your side</p>
+    <p class="ko" style="font-size:30px;margin-top:44px" data-step="3">평생 서로의 편이 되어</p>
   </div>
-  <img class="p" src="../photos/g10-v2.jpg" style="left:1160px;top:0;width:760px;height:1080px;object-position:center 40%">
 </section>
 
-<!-- 09 큰 사진 + 작은 사진과 문구 -->
+<!-- 08 큰 사진 + 작은 사진과 문구 -->
 <section class="s" data-sec="6">
-  <img class="p" src="../photos/g13-v2.jpg" style="left:0;top:0;width:720px;height:1080px;object-position:center 50%">
-  <img class="p" src="../photos/g12-v2.jpg" style="left:880px;top:110px;width:480px;height:720px">
+  <img class="p" src="../photos/g13-v2.jpg" style="left:0;top:0;width:720px;height:1080px;object-position:center 50%" data-step="0">
+  <img class="p" src="../photos/g12-v2.jpg" style="left:880px;top:110px;width:480px;height:720px" data-step="1">
   <div style="position:absolute;left:1430px;top:110px;width:400px;height:720px;display:flex;flex-direction:column;justify-content:flex-end">
-    <p class="caps" style="font-size:24px;line-height:2">Through<br>five seasons</p>
-    <p class="ko" style="font-size:30px;margin-top:20px">다섯 해의 계절을 지나</p>
+    <p class="caps" style="font-size:24px;line-height:2" data-step="2">Through<br>five seasons</p>
+    <p class="ko" style="font-size:30px;margin-top:20px" data-step="3">다섯 해의 계절을 지나</p>
   </div>
-  <p class="script" style="position:absolute;left:880px;top:880px;font-size:84px">with you</p>
+  <p class="script" style="position:absolute;left:880px;top:880px;font-size:84px" data-step="4" data-fx="write">with you</p>
 </section>
 
-<!-- 10 두 장 + 아래 문구 -->
+<!-- 09 두 장 + 아래 문구 -->
 <section class="s" data-sec="6" style="background:var(--card)">
-  <img class="p" src="../photos/g15-v2.jpg" style="left:390px;top:80px;width:540px;height:810px;object-position:center 30%">
-  <img class="p" src="../photos/g16-v2.jpg" style="left:990px;top:80px;width:540px;height:810px">
+  <img class="p" src="../photos/g15-v2.jpg" style="left:390px;top:80px;width:540px;height:810px;object-position:center 30%" data-step="0">
+  <img class="p" src="../photos/g16-v2.jpg" style="left:990px;top:80px;width:540px;height:810px" data-step="1">
   <div class="center" style="left:0;right:0;top:900px;height:180px">
-    <p class="ko" style="font-size:30px">저희의 새로운 시작을 함께 축복해 주세요</p>
-    <p class="caps" style="font-size:22px;margin-top:12px">A new beginning</p>
+    <p class="ko" style="font-size:30px" data-step="2">저희의 새로운 시작을 함께 축복해 주세요</p>
+    <p class="caps" style="font-size:22px;margin-top:12px" data-step="3">A new beginning</p>
   </div>
 </section>
 
-<!-- 11 감사 인사 -->
+<!-- 10 감사 인사 -->
 <section class="s" data-sec="6" style="background:var(--blush)">
   <div class="center" style="left:0;right:0;top:0;bottom:0">
-    <p class="script" style="font-size:190px">Thank you</p>
-    <p class="ko" style="font-size:36px;margin-top:40px;color:var(--ink)">함께해 주셔서 감사합니다</p>
-    <p class="caps" style="font-size:26px;margin-top:60px">Seokjong &amp; Yejin · 2026.11.14</p>
+    <p class="script" style="font-size:190px" data-step="0" data-fx="write">Thank you</p>
+    <p class="ko" style="font-size:36px;margin-top:40px;color:var(--ink)" data-step="1">함께해 주셔서 감사합니다</p>
+    <p class="caps" style="font-size:26px;margin-top:60px" data-step="2">Seokjong &amp; Yejin · 2026.11.14</p>
   </div>
 </section>
 
