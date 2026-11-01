@@ -9,9 +9,12 @@
  *      - 액세스 권한이 있는 사용자: 모든 사용자
  *    → [배포] 후 권한 승인, 나오는 '웹 앱 URL'(…/exec)을 복사합니다.
  * 4) 그 URL을 index.html 의 CONFIG.rsvpUrl 에 넣습니다.
+ *
+ * 코드를 고친 뒤에는 [배포] → [배포 관리] → 연필(수정) → 버전 '새 버전' → [배포] 해야 반영됩니다.
+ * (URL은 그대로 유지됩니다)
  */
 const SHEET_NAME = 'RSVP';
-const HEADERS = ['제출 시각', '구분', '참석 여부', '성함', '인원'];
+const HEADERS = ['제출 시각', '구분', '참석 여부', '성함', '인원', '경로'];  // 경로: 회사 / 지인
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -21,8 +24,9 @@ function doPost(e) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sh = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
     if (sh.getLastRow() === 0) sh.appendRow(HEADERS);
+    else if (!sh.getRange(1, 6).getValue()) sh.getRange(1, 6).setValue(HEADERS[5]);  // 기존 시트에 '경로' 열 제목 추가
     const clean = v => String(v == null ? '' : v).slice(0, 40).replace(/^[=+\-@]/, "'$&"); // 수식 주입 방지
-    sh.appendRow([new Date(), clean(d.side), clean(d.attend), clean(d.name), Number(d.count) || 0]);
+    sh.appendRow([new Date(), clean(d.side), clean(d.attend), clean(d.name), Number(d.count) || 0, clean(d.ver)]);
     return ContentService.createTextOutput('ok');
   } finally {
     lock.releaseLock();

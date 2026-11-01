@@ -8,8 +8,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="이석종 · 신예진 결혼합니다">
 <meta property="og:description" content="2026.11.14 (토) 12PM · 소피텔 앰배서더 서울">
-<!-- 배포 후 아래 두 줄의 도메인을 실제 주소로 바꿔주세요 -->
-<meta property="og:url" content="https://yejinshin95-jpg.github.io/wedding/">
+<!-- 링크 미리보기 이미지는 절대 주소여야 해서 지인용(github.io) 사본을 가리킨다. og:url은 두 버전이 같이 쓰도록 넣지 않음 -->
 <meta property="og:image" content="https://yejinshin95-jpg.github.io/wedding/photos/kakao-thumb-v2.jpg">
 <meta property="og:image:width" content="900">
 <meta property="og:image:height" content="1200">
@@ -369,6 +368,11 @@ button.stk-it:active{opacity:.8}
 .sd-caps{font-family:var(--latin); font-weight:400; letter-spacing:.32em; text-indent:.32em; text-transform:uppercase}
 
 /* 카운트다운 — D-day 문구 아래 한 줄 */
+.leave{margin:34px 8px 0; padding:22px 18px 20px; text-align:center; border:1px solid var(--hair); background:var(--card)}
+.leave-lab{font-family:var(--latin); font-size:10.5px; letter-spacing:.32em; text-transform:uppercase; color:var(--rose)}
+.leave-t{margin-top:4px; font-family:var(--serif); font-size:15px; font-weight:500; color:var(--brown)}
+.leave-d{margin-top:12px; font-size:14px; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums}
+.leave-x{margin-top:8px; font-size:12.8px; line-height:1.8; color:var(--ink-2); word-break:keep-all}
 .cdkr{margin:6px 0 0; text-align:center; font-size:13px; color:var(--ink-3); font-variant-numeric:tabular-nums}
 .cdkr b{font-weight:500; color:var(--ink)}
 
@@ -450,10 +454,7 @@ html.anim.rm .stk-it.rv{transform:rotate(var(--r))!important}
     <div class="parents" id="parents"></div>
     <img class="intro-img" src="photos/intro-locket.png" alt="어린 시절의 신랑과 신부 사진이 담긴 하트 로켓">
     <p class="sd-caps lab">Invitation</p>
-    <div class="greet">
-      <b>2021년 4월, 우연처럼 시작된 만남이<br>다섯 해의 계절을 지나<br>인연이 되었습니다.</b>
-      있는 그대로를 사랑하며<br>평생 서로의 편이 되어 살아가려 합니다.<br>저희의 새로운 시작을 함께 축복해 주세요.
-    </div>
+    <div class="greet" id="greet"></div>
   </section>
 
   <!-- ③ 예식 안내 -->
@@ -466,6 +467,12 @@ html.anim.rm .stk-it.rv{transform:rotate(var(--r))!important}
     <table class="cal" id="cal"></table>
     <p class="dday" id="dday"></p>
     <p class="cdkr" id="cdNums" aria-label="예식까지 남은 시간"></p>
+    <div class="leave" id="leave" hidden>
+      <p class="leave-lab">Vacation</p>
+      <p class="leave-t">휴가 안내</p>
+      <p class="leave-d" id="leaveD"></p>
+      <p class="leave-x" id="leaveX"></p>
+    </div>
   </section>
 
   <!-- ④ 사진첩 -->
@@ -608,6 +615,26 @@ const CONFIG = {
 
   wedding:"2026-11-14T12:00:00",
 
+  /* 인사말(지인용) — **굵게** 줄이 위 큰 글씨, 나머지는 아래 작은 글씨 */
+  greeting:{
+    head:"2021년 4월, 우연처럼 시작된 만남이\n다섯 해의 계절을 지나\n인연이 되었습니다.",
+    body:"있는 그대로를 사랑하며\n평생 서로의 편이 되어 살아가려 합니다.\n저희의 새로운 시작을 함께 축복해 주세요."
+  },
+
+  /* ── 회사용 버전 ── 아래 주소로 열었을 때만 적용. 그 밖의 주소는 지인용(위 설정 그대로) */
+  company:{
+    hosts:["seokjong-yejin.vercel.app"],
+    rsvpTag:"회사",          /* 참석 여부 응답에 함께 보낼 표시 (지인용은 "지인") */
+    greeting:{
+      head:"평소 보내주신 관심과 배려에 감사드리며\n저희 두 사람이 부부의 연을 맺게 되었습니다.",
+      body:"바쁘시겠지만 자리를 빛내 주시면 감사하겠습니다."
+    },
+    leave:{                   /* 휴가 안내 — 비우면(from:"") 칸이 숨겨짐 */
+      from:"2026-11-15", to:"2026-12-04",
+      text:"결혼식과 신혼여행으로 위 기간 동안 휴가입니다."
+    }
+  },
+
   venue:{
     name:"소피텔 앰배서더 서울", en:"Sofitel Ambassador Seoul",
     hall:"4F 그랜드 볼룸 방돔",
@@ -702,8 +729,8 @@ const CONFIG = {
 
   kakao:{
     key:"b33fb3f5261ee9a9b063fbe600cf4b8e",
-    url:"https://yejinshin95-jpg.github.io/wedding/",          /* 카카오 앱에 등록한 사이트 도메인 */
-    image:"https://yejinshin95-jpg.github.io/wedding/photos/kakao-thumb-v2.jpg",   /* 공유 카드 썸네일 3:4 (카카오 세로 최대 비율) */
+    /* 공유 주소·썸네일은 지금 열린 주소 기준으로 자동 설정 (회사용은 회사 주소, 지인용은 지인 주소로 나감) */
+    image:"photos/kakao-thumb-v2.jpg",   /* 공유 카드 썸네일 3:4 (카카오 세로 최대 비율) */
     imageWidth:900, imageHeight:1200
   }
 };
@@ -724,12 +751,28 @@ const D=new Date(CONFIG.wedding);
 const DOW=["일","월","화","수","목","금","토"];
 const h12=D.getHours()%12||12, isAM=D.getHours()<12;
 const mmTxt=D.getMinutes()?` ${D.getMinutes()}분`:"";
+/* 버전 판별 — 회사 주소로 열면 회사용 */
+const IS_CO=CONFIG.company.hosts.includes(location.hostname);
+const SITE=location.origin+location.pathname.replace(/index\.html$/,"");   /* 쿼리·해시 뺀 지금 주소 */
+document.documentElement.dataset.ver=IS_CO?"company":"friends";
+{
+  const G=IS_CO?CONFIG.company.greeting:CONFIG.greeting;
+  $("#greet").innerHTML=`<b>${nl(G.head)}</b>${nl(G.body)}`;
+}
 const krWhen=`${D.getFullYear()}년 ${D.getMonth()+1}월 ${D.getDate()}일 ${DOW[D.getDay()]}요일 ${isAM?"오전":"낮"} ${h12}시${mmTxt}`;
 
 const placeLine=`${CONFIG.venue.name} 호텔\n${CONFIG.venue.hall}`;
 $("#cDate").textContent=`${D.getFullYear()}. ${pad(D.getMonth()+1)}. ${pad(D.getDate())} ${DOW[D.getDay()]} ${isAM?"오전":"오후"} ${h12}시`;
 $("#cVenue").textContent=`${CONFIG.venue.name} ${CONFIG.venue.hall}`;
 $("#wWhen").textContent=krWhen.split(" ").slice(3).join(" ");
+/* 휴가 안내 (회사용) */
+if(IS_CO && CONFIG.company.leave.from){
+  const L=CONFIG.company.leave, f=x=>{const d=new Date(x+"T00:00:00");return `${d.getMonth()+1}월 ${d.getDate()}일(${DOW[d.getDay()]})`;};
+  const a=new Date(L.from+"T00:00:00");
+  $("#leaveD").textContent=`${a.getFullYear()}년 ${f(L.from)} ~ ${f(L.to)}`;
+  $("#leaveX").textContent=L.text;
+  $("#leave").hidden=false;
+}
 $("#wWhere").innerHTML=nl(placeLine);
 $("#mName").textContent=CONFIG.venue.name;
 $("#vName").textContent=CONFIG.venue.name;
@@ -1312,7 +1355,7 @@ $("#contact").addEventListener("click",e=>{
     if(!name) return toast("성함을 입력해 주세요");
     if(!CONFIG.rsvpUrl) return toast("참석 여부 전달은 준비 중이에요");
     const btn=$(".rv-submit",f); btn.disabled=true; btn.textContent="전달 중…";
-    const data={side:st.side, attend:st.attend, name, count:st.attend==="참석"?st.count:0};
+    const data={side:st.side, attend:st.attend, name, count:st.attend==="참석"?st.count:0, ver:IS_CO?CONFIG.company.rsvpTag:"지인"};
     try{
       await fetch(CONFIG.rsvpUrl,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});
       done=true; upd(); try{ localStorage.setItem("rsvpDone","1"); }catch(e){}
@@ -1324,9 +1367,9 @@ $("#contact").addEventListener("click",e=>{
 })();
 
 /* 공유 */
-$("#shareLink").onclick=()=>copy(location.href,"링크를 복사했습니다");
+$("#shareLink").onclick=()=>copy(SITE,"링크를 복사했습니다");
 $("#shareKakao").onclick=async()=>{
-  const K=CONFIG.kakao, S=window.Kakao;
+  const K={...CONFIG.kakao, url:SITE, image:new URL(CONFIG.kakao.image,SITE).href}, S=window.Kakao;
   if(K.key && !S){ toast("카카오 SDK를 불러오지 못했습니다 · 링크 복사를 이용해 주세요"); return; }
   if(K.key){
     try{
@@ -1355,7 +1398,7 @@ $("#shareKakao").onclick=async()=>{
 };
 $("#shareMore").onclick=async()=>{
   const d={ title:`${CONFIG.groom.name} · ${CONFIG.bride.name} 결혼합니다`,
-            text:`${krWhen} · ${CONFIG.venue.name} ${CONFIG.venue.hall}`, url:location.href };
+            text:`${krWhen} · ${CONFIG.venue.name} ${CONFIG.venue.hall}`, url:SITE };
   if(navigator.share){ try{ await navigator.share(d); }catch{} return; }
   copy(`${d.title}\n${d.text}\n${d.url}`,"공유 문구를 복사했습니다");
 };
