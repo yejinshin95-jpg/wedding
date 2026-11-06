@@ -20,7 +20,7 @@ const { chromium } = require('playwright'); const path = require('path'); const 
     for (let k = 0; k < n; k++) {
       const info = await el.evaluate((s, k) => {
         document.documentElement.style.background = document.body.style.background = 'transparent';
-        s.dataset.bg = s.style.background; s.style.background = 'transparent';
+        if (!('bg' in s.dataset)) s.dataset.bg = s.style.background; s.style.background = 'transparent';
         s.querySelectorAll('*').forEach(e => e.style.visibility = 'hidden');
         const t = s.querySelectorAll('[data-step]')[k];
         t.style.visibility = 'visible'; t.querySelectorAll('*').forEach(e => e.style.visibility = 'visible');

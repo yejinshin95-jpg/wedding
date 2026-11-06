@@ -14,10 +14,10 @@
 | 00 | 첫 화면 (레이스 + 반짝임) | main.jpg | Wedding Invitation · 2026.11.14 · 12:00 PM |
 | 01 | 신랑 소개 (사진 · 이름 · 사진) | g11, g14 | Groom · 이석종 · LEE SEOKJONG |
 | 02 | 신부 소개 | g04, g09 | Bride · 신예진 · SHIN YEJIN |
-| 03 | 두 사람 이야기 | g01 | Our Story · 2021년 4월의 어느 봄날, 처음 마주한 두 사람이 · 함께한 계절들을 지나 오늘, 같은 길 위에 섭니다. |
-| 04 | 가로 사진 꽉 채우기 | g05 | Our Moments · 우리의 순간들 |
+| 03 | 가운데 사진 + 양옆 필기체 | g03 | Our · Story |
+| 04 | 흑백 가로 사진 꽉 채우기 | g05 | (없음 — 흑백 사진 위에는 글을 넣지 않음) |
 | 05 | 두 장 세트 | set05-a, set05-b (local-photos) | (없음) |
-| 06 | 엇갈린 두 장 | g03, g07 | Just as we are · 있는 그대로를 사랑하며 |
+| 06 | 위 제목 + 아래 사진 두 장 | g01, g07 | Just as we are · 있는 그대로를 사랑하며 |
 | 07 | 오른쪽 한 장 | g10 | Always on your side · 평생 서로의 편이 되어 |
 | 08 | 큰 사진 + 작은 사진 | g13, g12 | Through five seasons · 다섯 해의 계절을 지나 · with you |
 | 09 | 두 장 + 아래 문구 | g15, g16 | 저희의 새로운 시작을 함께 축복해 주세요 · A new beginning |
