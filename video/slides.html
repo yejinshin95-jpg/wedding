@@ -8,10 +8,12 @@
      문구를 바꾸려면 이 파일의 글자만 고치고 다시 렌더링하세요. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&family=Pinyon+Script&display=swap">
 <style>
-:root{--porcelain:#EFEDE8; --paper:#E7E3DC; --card:#F8F7F4; --blush:#DAC6C4; --brown:#4A3122; --ink:#2A2828; --ink2:#565151}
+:root{--bg:#F5F5F5; --porcelain:var(--bg); --paper:var(--bg); --card:var(--bg); --blush:var(--bg); --frame:#E6E7E2; --brown:#4A3122; --ink:#2A2828; --ink2:#565151}
 *{box-sizing:border-box} html,body{margin:0; background:#333}
 .s{position:relative; width:1920px; height:1080px; overflow:hidden; background:var(--porcelain); margin-bottom:20px}
 img.p{position:absolute; object-fit:cover; display:block}
+/* 사진 프레임 — 인화지처럼 네 변 같은 두께의 밝은 테두리 (두께는 아래 스크립트가 사진 폭의 2.8%로 맞춤) */
+img.frame{background:var(--frame); box-shadow:0 0 0 1px rgba(0,0,0,.05), 0 6px 18px rgba(0,0,0,.07)}
 .script{font-family:"Pinyon Script",cursive; font-weight:400; color:var(--brown); line-height:1.1; margin:0}
 .caps{font-family:"Montserrat",sans-serif; font-weight:400; letter-spacing:.3em; text-transform:uppercase; color:var(--brown); margin:0}
 .ko{font-family:"Noto Sans KR",sans-serif; font-weight:300; color:var(--ink2); margin:0; line-height:2; word-break:keep-all}
@@ -37,7 +39,7 @@ img.p{position:absolute; object-fit:cover; display:block}
 <!-- 00 첫 화면 — 모바일 청첩장 첫 화면 그대로 (레이스 액자 사진). 레이스 위에 반짝임 효과(render-video.py) -->
 <section class="s op" data-sec="6">
   <img class="title" src="../photos/wedinvt.png" alt="" data-step="0" data-fx="write">
-  <div class="row"><span data-step="2">2026.11.14</span><img class="lace" src="../photos/main.jpg" alt="" data-step="1"><span data-step="2">12:00 PM</span></div>
+  <div class="row"><span data-step="2">2026.11.14</span><img class="lace" src="derived/main-lace.png" alt="" data-step="1"><span data-step="2">12:00 PM</span></div>
 </section>
 
 <!-- 01 신랑 소개 -->
@@ -64,7 +66,7 @@ img.p{position:absolute; object-fit:cover; display:block}
 
 <!-- 03 Our Story — 가운데 사진, 양옆에 필기체 (청첩장 문구 없음) -->
 <section class="s" data-sec="6">
-  <img class="p" src="../photos/g03-v2.jpg" style="left:640px;top:60px;width:640px;height:960px" data-step="0">
+  <img class="p frame" src="../photos/g03-v2.jpg" style="left:640px;top:60px;width:640px;height:960px" data-step="0">
   <p class="script" style="position:absolute;right:1330px;top:450px;font-size:150px;text-align:right" data-step="1" data-fx="write">Our</p>
   <p class="script" style="position:absolute;left:1330px;top:450px;font-size:150px" data-step="2" data-fx="write">Story</p>
 </section>
@@ -76,15 +78,15 @@ img.p{position:absolute; object-fit:cover; display:block}
 
 <!-- 05 두 장 세트 (글 없음) — 사진은 공개 저장소에 올리지 않고 video/local-photos/ 에만 둠 -->
 <section class="s" data-sec="6">
-  <img class="p" src="local-photos/set05-a.jpg" style="left:273px;top:40px;width:667px;height:1000px" data-step="0">
-  <img class="p" src="local-photos/set05-b.jpg" style="left:980px;top:40px;width:667px;height:1000px" data-step="1">
+  <img class="p frame" src="local-photos/set05-a.jpg" style="left:273px;top:40px;width:667px;height:1000px" data-step="0">
+  <img class="p frame" src="local-photos/set05-b.jpg" style="left:980px;top:40px;width:667px;height:1000px" data-step="1">
 </section>
 
 <!-- 06 위에 제목, 아래 사진 두 장 -->
 <section class="s" data-sec="6" style="background:var(--paper)">
   <p class="script" style="position:absolute;left:0;right:0;top:48px;text-align:center;font-size:104px" data-step="2" data-fx="write">Just as we are</p>
-  <img class="p" src="../photos/g01-v2.jpg" style="left:420px;top:230px;width:520px;height:780px;object-position:center 30%" data-step="0">
-  <img class="p" src="../photos/g07-v4.jpg" style="left:980px;top:230px;width:520px;height:780px;object-position:center 30%" data-step="1">
+  <img class="p frame" src="../photos/g01-v2.jpg" style="left:420px;top:230px;width:520px;height:780px;object-position:center 30%" data-step="0">
+  <img class="p frame" src="../photos/g07-v4.jpg" style="left:980px;top:230px;width:520px;height:780px;object-position:center 30%" data-step="1">
   <p class="ko" style="position:absolute;left:0;right:0;top:1022px;text-align:center;font-size:28px;line-height:1.4" data-step="3">있는 그대로를 사랑하며</p>
 </section>
 
@@ -101,7 +103,7 @@ img.p{position:absolute; object-fit:cover; display:block}
 <!-- 08 큰 사진 + 작은 사진과 문구 -->
 <section class="s" data-sec="6">
   <img class="p" src="../photos/g13-v2.jpg" style="left:0;top:0;width:720px;height:1080px;object-position:center 50%" data-step="0">
-  <img class="p" src="../photos/g12-v2.jpg" style="left:880px;top:110px;width:480px;height:720px" data-step="1">
+  <img class="p frame" src="../photos/g12-v2.jpg" style="left:880px;top:110px;width:480px;height:720px" data-step="1">
   <div style="position:absolute;left:1430px;top:110px;width:400px;height:720px;display:flex;flex-direction:column;justify-content:flex-end">
     <p class="caps" style="font-size:24px;line-height:2" data-step="2">Through<br>five seasons</p>
     <p class="ko" style="font-size:30px;margin-top:20px" data-step="3">다섯 해의 계절을 지나</p>
@@ -111,8 +113,8 @@ img.p{position:absolute; object-fit:cover; display:block}
 
 <!-- 09 두 장 + 아래 문구 (왼쪽 사진은 video/local-photos/ 에만 둠) -->
 <section class="s" data-sec="6" style="background:var(--card)">
-  <img class="p" src="local-photos/set09-a.jpg" style="left:390px;top:80px;width:540px;height:810px;object-position:center 40%" data-step="0">
-  <img class="p" src="../photos/g16-v2.jpg" style="left:990px;top:80px;width:540px;height:810px" data-step="1">
+  <img class="p frame" src="local-photos/set09-a.jpg" style="left:390px;top:80px;width:540px;height:810px;object-position:center 40%" data-step="0">
+  <img class="p frame" src="../photos/g16-v2.jpg" style="left:990px;top:80px;width:540px;height:810px" data-step="1">
   <div class="center" style="left:0;right:0;top:900px;height:180px">
     <p class="ko" style="font-size:30px" data-step="2">저희의 새로운 시작을 함께 축복해 주세요</p>
     <p class="caps" style="font-size:22px;margin-top:12px" data-step="3">A new beginning</p>
@@ -128,4 +130,7 @@ img.p{position:absolute; object-fit:cover; display:block}
   </div>
 </section>
 
+<script>
+document.querySelectorAll('img.frame').forEach(i => i.style.padding = Math.round(i.getBoundingClientRect().width * 0.028) + 'px');
+</script>
 </body></html>
