@@ -1,6 +1,6 @@
 """식장 스크린용 사진 슬라이드 영상 (1920×1080, 30fps, 무음).
 - 장면 안의 사진·글은 data-step 순서대로 하나씩 나타납니다: 페이드 인(글은 살짝 떠오름), 필기체는 왼쪽부터 써지듯.
-- 장면 사이는 크로스페이드. 끝에는 첫 화면이 다시 나왔다가 요소가 사라져 배경만 남음 → 처음(배경에서 시작)과 이어져 반복 재생이 자연스러움.
+- 장면 사이는 크로스페이드. 영상은 완성된 첫 화면으로 시작해 같은 첫 화면으로 끝남 → 반복 재생할 때 끊김 없이 이어짐(반짝임 포함).
 - 첫 화면의 레이스 액자 위에는 살짝 반짝이는 빛(별 모양 글린트).
 사용: node video/render-slides.js && python3 video/render-video.py   (결과: video/wedding-slideshow.mp4)
 """
@@ -55,10 +55,10 @@ def make_sprite(R):
 
 SPRITES = {R: make_sprite(R) for R in range(SPARKLE_SIZE[0], SPARKLE_SIZE[1] + 1, 2)}
 
-def sparkle_schedule(dur, box, seed):
+def sparkle_schedule(dur, box, seed, t_from=None):
     pts = lace_points(); rnd = random.Random(seed)
     avg_life = sum(SPARKLE_LIFE) / 2; rate = SPARKLE_ON_SCREEN / avg_life
-    out, t = [], -avg_life
+    out, t = [], (-avg_life if t_from is None else t_from)
     while t < dur:
         px, py = pts[rnd.randrange(len(pts))]
         out.append(dict(t0=t, life=rnd.uniform(*SPARKLE_LIFE), x=box['x'] + px * box['w'], y=box['y'] + py * box['h'],
@@ -152,6 +152,7 @@ class Scene:
             t += max(STEP_GAP, max(ws) * 0.85) if ws else STEP_GAP
         self.settled, self.outro = settled, outro
         self.sched = sparkle_schedule(self.sec, meta['lace'], seed=idx) if meta.get('lace') else None
+        self.sched_offset = 0.0
         self.lace_layer = next((l for l in self.layers if l.lace), None)
         self.done_at = max(self.start[l.step] + l.dur for l in self.layers) if self.layers else 0
         self._full = None
@@ -173,7 +174,7 @@ class Scene:
         if self.sched:
             lace_k = min(1.0, max(0.0, self.progress(self.lace_layer, lt))) if self.lace_layer else 1.0
             lace_k *= k_out
-            if lace_k > 0: img = add_sparkles(img, self.sched, lt, lace_k)
+            if lace_k > 0: img = add_sparkles(img, self.sched, lt + self.sched_offset, lace_k)
         return img
 
 lst = json.load(open(os.path.join(SL, 'list.json')))
@@ -182,7 +183,15 @@ lst = json.load(open(os.path.join(SL, 'list.json')))
 if len(sys.argv) > 1 and sys.argv[1] == '--still':
     i = int(sys.argv[2]); Scene(lst[i], i).frame(float(sys.argv[3])).save(sys.argv[4]); sys.exit()
 
-scenes = [Scene(m, i) for i, m in enumerate(lst)] + [Scene(lst[0], 99, settled=True, outro=True, sec=END_SEC)]
+# 처음과 끝을 똑같은 완성된 첫 화면으로: 반복 재생할 때 마지막 프레임 → 첫 프레임이 그대로 이어짐
+first = Scene(lst[0], 0, settled=True)
+last = Scene(lst[0], 99, settled=True, sec=END_SEC)
+if first.sched is not None:
+    # 반짝임도 끝 → 처음이 이어지도록 같은 일정을 공유 (끝 장면의 마지막 순간 = 첫 장면의 0초)
+    shared = sparkle_schedule(first.sec, lst[0]['lace'], seed=0, t_from=-(END_SEC + SPARKLE_LIFE[1] + 1))
+    first.sched = last.sched = shared
+    last.sched_offset = -END_SEC
+scenes = [first] + [Scene(m, i) for i, m in enumerate(lst) if i > 0] + [last]
 starts, t = [], 0.0
 for i, sc in enumerate(scenes):
     starts.append(t); t += sc.sec - (FADE_SEC if i < len(scenes) - 1 else 0)
