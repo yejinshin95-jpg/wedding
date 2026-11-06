@@ -23,6 +23,7 @@ FADE_IN = 0.9       # 페이드 인 길이
 RISE = 18           # 글이 떠오르는 거리(px)
 WRITE_BASE, WRITE_PX_PER_SEC = 0.6, 900   # 필기체 써지는 시간 = 기본 + 폭/속도
 WRITE_SOFT = 70     # 써지는 경계의 부드러운 폭(px)
+PAN_PX = 50         # 꽉 찬 사진이 장면 동안 위로 올라가는 거리(px)
 
 # ── 반짝임 설정 ─────────────────────────────────────────
 SPARKLE_ON_SCREEN = 14          # 동시에 보이는 반짝임 수(평균)
@@ -98,7 +99,7 @@ class Layer:
         self.dur = WRITE_BASE + self.w / WRITE_PX_PER_SEC if self.fx == 'write' else FADE_IN
         self.cols = np.arange(self.w, dtype=np.float32)
 
-    def draw(self, a, u):
+    def draw(self, a, u, lt=0, sec=1):
         """u: 0~1 등장 진행도. a: 프레임(float, H×W×3)에 그림."""
         if u <= 0: return
         if self.fx == 'write':
@@ -113,11 +114,33 @@ class Layer:
         reg = a[y0:y1, self.x0:self.x1]; al = al[cy0:cy1, :, None]
         reg[:] = reg * (1 - al) + self.rgb[cy0:cy1] * al
 
+class PanLayer:
+    """화면을 꽉 채운 사진: 페이드 인 + 장면 내내 PAN_PX 만큼 아주 천천히 위로 (소수점 위치까지 부드럽게)."""
+    def __init__(self, meta):
+        im = Image.open(os.path.join(HERE, meta['src'])).convert('RGB')
+        sc = max(W / im.width, (H + PAN_PX + 2) / im.height)
+        im = im.resize((round(im.width * sc), round(im.height * sc)), Image.LANCZOS)
+        x0 = (im.width - W) // 2
+        self.img = np.asarray(im).astype(np.float32)[:, x0:x0 + W] / 255
+        room = self.img.shape[0] - H - 1
+        c = room * meta.get('pos', 0.5)
+        self.y_from = min(max(c - PAN_PX / 2, 0), room - PAN_PX)    # 처음 보이는 위치
+        self.fx, self.step, self.lace, self.dur = 'pan', meta['step'], False, FADE_IN
+
+    def draw(self, a, u, lt=0, sec=1):
+        if u <= 0: return
+        y = self.y_from + PAN_PX * min(1, max(0, lt / sec))         # 보는 창이 내려감 = 사진이 위로 올라감
+        yi, f = int(y), y - int(y)
+        crop = self.img[yi:yi + H] * (1 - f) + self.img[yi + 1:yi + 1 + H] * f
+        k = ease(min(1, u))
+        a[:] = a * (1 - k) + crop * k
+
 class Scene:
     def __init__(self, meta, idx, settled=False, outro=False, sec=None):
         self.sec = sec or meta['sec']
         self.bg = np.asarray(Image.open(os.path.join(SL, meta['bg'])).convert('RGB')).astype(np.float32) / 255
-        self.layers = [Layer(os.path.join(SL, l['file']), l) for l in meta['layers']]
+        self.layers = [PanLayer(l) if l['fx'] == 'pan' else Layer(os.path.join(SL, l['file']), l) for l in meta['layers']]
+        self.moving = any(isinstance(l, PanLayer) for l in self.layers)   # 계속 움직이는 장면은 완성 화면을 저장해 두지 않음
         # 등장 시각: step 순서대로
         t = START_DELAY; self.start = {}
         for st in sorted({l.step for l in self.layers}):
@@ -136,11 +159,11 @@ class Scene:
     def frame(self, lt):
         k_out = 1.0
         if self.outro and lt > self.sec - OUTRO_SEC: k_out = 1 - ease(min(1, (lt - (self.sec - OUTRO_SEC)) / OUTRO_SEC))
-        if (self.settled or lt >= self.done_at) and k_out == 1.0 and self._full is not None:
+        if (self.settled or lt >= self.done_at) and k_out == 1.0 and self._full is not None and not self.moving:
             a = self._full.copy()
         else:
             a = self.bg.copy()
-            for l in self.layers: l.draw(a, min(1.0, self.progress(l, lt)))
+            for l in self.layers: l.draw(a, min(1.0, self.progress(l, lt)), lt, self.sec)
             if (self.settled or lt >= self.done_at) and k_out == 1.0: self._full = a.copy()
             if k_out < 1.0: a = self.bg + (a - self.bg) * k_out
         img = Image.fromarray((np.clip(a, 0, 1) * 255 + .5).astype(np.uint8))

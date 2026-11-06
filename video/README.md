@@ -17,7 +17,7 @@
 | 01 | 신랑 소개 (사진 · 이름 · 사진) | g11, g14 | Groom · 이석종 · LEE SEOKJONG |
 | 02 | 신부 소개 | g04, g09 | Bride · 신예진 · SHIN YEJIN |
 | 03 | 엇갈린 높이의 두 장 | set03-a (local-photos), g03 | (없음) |
-| 04 | 흑백 가로 사진 꽉 채우기 | g05 | (없음 — 흑백 사진 위에는 글을 넣지 않음) |
+| 04 | 흑백 가로 사진 꽉 채우기 (아주 천천히 위로 올라감) | g05 | (없음 — 흑백 사진 위에는 글을 넣지 않음) |
 | 05 | 두 장 세트 | set05-a, set05-b (local-photos) | (없음) |
 | 06 | 위 제목 + 아래 사진 두 장 | g01, g07 | Just as we are · 있는 그대로를 사랑하며 |
 | 07 | 오른쪽 한 장 | g10 | Always on your side · 평생 서로의 편이 되어 |
@@ -35,6 +35,7 @@ python3 video/render-video.py
 렌더링은 약 5분 걸립니다.
 
 - 문구·배치·사진: `slides.html` 에서 고칩니다. 장면 길이는 각 `<section data-sec="초">`, 나타나는 순서는 `data-step`, 써지는 효과는 `data-fx="write"`.
+- 꽉 찬 사진이 올라가는 거리: `render-video.py` 의 `PAN_PX` (지금 50px), 적용할 사진은 `slides.html` 에서 `data-fx="pan"`
 - 나타나는 속도: `render-video.py` 의 `START_DELAY`, `STEP_GAP`, `FADE_IN`, `RISE`, `WRITE_BASE`, `WRITE_PX_PER_SEC`.
 - 전환 속도·마지막 첫 화면 길이: `render-video.py` 의 `FADE_SEC`, `END_SEC`.
 - 반짝임 양·크기·속도·색: `render-video.py` 의 `SPARKLE_ON_SCREEN`, `SPARKLE_SIZE`, `SPARKLE_LIFE`, `SPARKLE_COLOR`, `GLOW_COLOR`.

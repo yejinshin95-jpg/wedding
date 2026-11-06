@@ -24,7 +24,7 @@ const { chromium } = require('playwright'); const path = require('path'); const 
         s.querySelectorAll('*').forEach(e => e.style.visibility = 'hidden');
         const t = s.querySelectorAll('[data-step]')[k];
         t.style.visibility = 'visible'; t.querySelectorAll('*').forEach(e => e.style.visibility = 'visible');
-        return { step: +t.dataset.step, fx: t.dataset.fx || 'fade', kind: t.tagName === 'IMG' ? 'img' : 'text', lace: t.classList.contains('lace') };
+        return { step: +t.dataset.step, fx: t.dataset.fx || 'fade', kind: t.tagName === 'IMG' ? 'img' : 'text', lace: t.classList.contains('lace'), src: t.getAttribute('src'), pos: Number(t.dataset.pos || 0.5) };
       }, k);
       const file = `${nn}_${String(k).padStart(2, '0')}.png`;
       await el.screenshot({ path: path.join(out, file), omitBackground: true });

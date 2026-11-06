@@ -4,6 +4,7 @@
      글꼴은 모바일 청첩장과 같음: Pinyon Script(필기체) · Montserrat(영문 대문자) · Noto Sans KR(본문)
      data-step="n"  : 장면 안에서 n번째로 나타나는 요소 (같은 번호는 함께 나타남)
      data-fx="write": 필기체처럼 왼쪽부터 써지듯 나타남 (없으면 페이드 인)
+     data-fx="pan"  : 화면을 꽉 채운 사진이 장면 내내 아주 천천히 위로 올라감 (data-pos: 세로 위치 0~1)
      data-sec       : 장면 길이(초)
      문구를 바꾸려면 이 파일의 글자만 고치고 다시 렌더링하세요. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&family=Pinyon+Script&display=swap">
@@ -72,7 +73,7 @@ img.frame{background:var(--frame); box-shadow:0 0 0 1px rgba(0,0,0,.05), 0 6px 1
 
 <!-- 04 흑백 가로 사진 꽉 채우기 (흑백 사진 위에는 글 없음) -->
 <section class="s" data-sec="6">
-  <img class="p" src="../photos/g05-v2.jpg" style="left:0;top:0;width:1920px;height:1080px;object-position:center 40%" data-step="0">
+  <img class="p" src="../photos/g05-v2.jpg" style="left:0;top:0;width:1920px;height:1080px;object-position:center 40%" data-step="0" data-fx="pan" data-pos="0.4">
 </section>
 
 <!-- 05 두 장 세트 (글 없음) — 사진은 공개 저장소에 올리지 않고 video/local-photos/ 에만 둠 -->
