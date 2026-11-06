@@ -115,14 +115,16 @@ class Layer:
         reg[:] = reg * (1 - al) + self.rgb[cy0:cy1] * al
 
 class PanLayer:
-    """화면을 꽉 채운 사진: 페이드 인 + 장면 내내 PAN_PX 만큼 아주 천천히 위로 (소수점 위치까지 부드럽게)."""
+    """꽉 채운 사진(화면 전체 또는 반쪽 등 data-fx="pan" 요소의 칸): 페이드 인 + 장면 내내 PAN_PX 만큼 아주 천천히 위로 (소수점 위치까지 부드럽게)."""
     def __init__(self, meta):
+        r = meta.get('rect') or {'x': 0, 'y': 0, 'w': W, 'h': H}
+        self.x, self.y, self.w, self.h = r['x'], r['y'], r['w'], r['h']
         im = Image.open(os.path.join(HERE, meta['src'])).convert('RGB')
-        sc = max(W / im.width, (H + PAN_PX + 2) / im.height)
+        sc = max(self.w / im.width, (self.h + PAN_PX + 2) / im.height)
         im = im.resize((round(im.width * sc), round(im.height * sc)), Image.LANCZOS)
-        x0 = (im.width - W) // 2
-        self.img = np.asarray(im).astype(np.float32)[:, x0:x0 + W] / 255
-        room = self.img.shape[0] - H - 1
+        x0 = (im.width - self.w) // 2
+        self.img = np.asarray(im).astype(np.float32)[:, x0:x0 + self.w] / 255
+        room = self.img.shape[0] - self.h - 1
         c = room * meta.get('pos', 0.5)
         self.y_from = min(max(c - PAN_PX / 2, 0), room - PAN_PX)    # 처음 보이는 위치
         self.fx, self.step, self.lace, self.dur = 'pan', meta['step'], False, FADE_IN
@@ -131,9 +133,10 @@ class PanLayer:
         if u <= 0: return
         y = self.y_from + PAN_PX * min(1, max(0, lt / sec))         # 보는 창이 내려감 = 사진이 위로 올라감
         yi, f = int(y), y - int(y)
-        crop = self.img[yi:yi + H] * (1 - f) + self.img[yi + 1:yi + 1 + H] * f
+        crop = self.img[yi:yi + self.h] * (1 - f) + self.img[yi + 1:yi + 1 + self.h] * f
         k = ease(min(1, u))
-        a[:] = a * (1 - k) + crop * k
+        reg = a[self.y:self.y + self.h, self.x:self.x + self.w]
+        reg[:] = reg * (1 - k) + crop * k
 
 class Scene:
     def __init__(self, meta, idx, settled=False, outro=False, sec=None):
