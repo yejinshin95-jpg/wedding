@@ -21,10 +21,10 @@
 | 6 | 흑백 가로 사진 꽉 채우기 (천천히 위로) | g05 | (없음) |
 | 7 | 두 장 세트 | set05-a*, set05-b* | (없음) |
 | 8 | 위 제목 + 아래 사진 두 장 | set06-b*, g07 | Just as we are |
-| 9 | 디테일 4컷 (흑백·컬러 번갈아) | D-1* ~ D-4* | Little moments |
+| 9 | 디테일 4컷 (흑백·컬러 번갈아) | D-1*, D-2b*, D-3*, D-4* | Little moments |
 | 10 | 오른쪽 한 장 | g10 | Always on your side |
 | 11 | 왼쪽 사진 + 오른쪽 글 | E-1b* | With love · Since April 2021 |
-| 12 | 흩어진 인화 사진 두 장 | C-1*, B-4* | Our days |
+| 12 | 흩어진 인화 사진 두 장 | B-5*, B-4* | Our days |
 | 13 | 큰 사진 + 작은 사진 | w13-a*, g12 | Through five seasons · with you |
 | 14 | 제목 + 사진 두 장 | F-1*, F-2* | Forever |
 | 15 | 두 장 + 아래 문구 | set09-a*, g16 | 저희의 새로운 시작을 함께 축복해 주세요 · A new beginning |
