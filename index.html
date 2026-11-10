@@ -613,6 +613,7 @@ const CONFIG = {
   /* ── 회사용 버전 ── 아래 주소로 열었을 때만 적용. 그 밖의 주소는 지인용(위 설정 그대로) */
   company:{
     hosts:["yejin-seokjong.vercel.app"],
+    title:"예진 석종 청첩장",   /* 브라우저 탭 제목 (홈 화면 이름·링크 미리보기는 vercel-build.sh) */
     greeting:{
       head:"늘 따뜻하게 살펴주시는 동료분들께\n저희 두 사람의 결혼 소식을 전합니다.",
       body:"보내주시는 축하의 마음, 감사히 간직하겠습니다."
@@ -741,6 +742,7 @@ const mmTxt=D.getMinutes()?` ${D.getMinutes()}분`:"";
 const IS_CO=CONFIG.company.hosts.includes(location.hostname);
 const SITE=location.origin+location.pathname.replace(/index\.html$/,"");   /* 쿼리·해시 뺀 지금 주소 */
 document.documentElement.dataset.ver=IS_CO?"company":"friends";
+document.title=IS_CO?CONFIG.company.title:`${CONFIG.groom.name.slice(1)} ${CONFIG.bride.name.slice(1)} 청첩장`;
 {
   const G=IS_CO?CONFIG.company.greeting:CONFIG.greeting;
   $("#greet").innerHTML=`<b>${nl(G.head)}</b>${nl(G.body)}`;
@@ -757,7 +759,6 @@ $("#vName").textContent=CONFIG.venue.name;
 $("#vHall").textContent=CONFIG.venue.hall;
 $("#vAddr").textContent=CONFIG.venue.address;
 $("#footEn").textContent=`${CONFIG.groom.en}  ·  ${CONFIG.bride.en}`;
-document.title=`${CONFIG.groom.name.slice(1)} ${CONFIG.bride.name.slice(1)} 청첩장`;
 
 /* ⓪ 첫 화면 — 날짜 채우기 */
 (function(){
